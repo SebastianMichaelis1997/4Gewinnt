@@ -1,20 +1,19 @@
 package project;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class ReadMeWindow extends JFrame {
-	JTextArea textArea;
-	JScrollPane scrollPane;
-	JPanel panel = new JPanel();
 
 	public ReadMeWindow() {
-		String text = "das";
+		String text = "";
 		try {
-			FileReader fr = new FileReader(
-					"D:\\Users\\BKU\\SebastianMichaelis\\Desktop\\Notes Stammesrat 18.05.23.txt");
+			FileReader fr = new FileReader("C:\\Users\\Sebi\\Desktop\\keys.txt");
 			BufferedReader br = new BufferedReader(fr);
 			String sCurrentLine;
 			while ((sCurrentLine = br.readLine()) != null) {
@@ -25,10 +24,28 @@ public class ReadMeWindow extends JFrame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(text);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		panel.add(new JScrollPane(new JTextArea(text)));
-		this.getContentPane().add(panel);
+		//System.out.println(text);
+		JPanel middlePanel = new JPanel();
+		//middlePanel.setBorder(new TitledBorder(new EtchedBorder(), "Display Area"));
+
+		// create the middle panel components
+
+		JTextArea display = new JTextArea(16, 58);
+		display.setText(text);
+		display.setEditable(false); // set textArea non-editable
+		JScrollPane scroll = new JScrollPane(display);
+		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		display.grabFocus();
+		display.setCaretPosition(20);
+
+		// Add Textarea in to middle panel
+		middlePanel.add(scroll);
+
+		// My code
+		JFrame frame = new JFrame();
+		frame.add(middlePanel);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
 	}
 }

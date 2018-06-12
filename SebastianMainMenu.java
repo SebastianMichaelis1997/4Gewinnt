@@ -145,7 +145,7 @@ public class MainMenu extends JFrame {
 		btnReadme.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JFrame ReadMeWindow = new ReadMeWindow();
-				ReadMeWindow.setVisible(true);
+//				ReadMeWindow.setVisible(true);
 			}
 		});
 		btnReadme.setBounds(10, 11, 89, 23);
