@@ -41,6 +41,18 @@ public class PlayerCreation {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	/** Returns an ImageIcon, or null if the path was invalid. */
+	protected ImageIcon createImageIcon(String path) {
+	    java.net.URL imgURL = getClass().getResource(path);
+	    if (imgURL != null) {
+	        return new ImageIcon(imgURL);
+	    } else {
+	        System.err.println("Couldn't find file: " + path);
+	        return null;
+	    }
+	};
+
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
@@ -88,10 +100,12 @@ public class PlayerCreation {
 		frame.getContentPane().add(button);
 		frame.setVisible(true);
 		
+				
 		
 		
-		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"\\src\\project\\Capture.PNG");
+		ImageIcon icon = createImageIcon("sonne.jpg");
 		JLabel label1 = new JLabel("Image and Text", icon, JLabel.CENTER);
+		label1.setBounds(20,96,117, 29);
 		
 		frame.getContentPane().add(btnCancel);
 		frame.getContentPane().add(label1);
