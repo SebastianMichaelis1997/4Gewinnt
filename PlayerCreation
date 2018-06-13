@@ -98,10 +98,6 @@ public class TestTobi {
 		progressBar.setBounds(48, 252, 156, 20);
 		frame.getContentPane().add(progressBar);
 		
-		JToolBar toolBar = new JToolBar();
-		toolBar.setBounds(0, 0, 110, 20);
-		frame.getContentPane().add(toolBar);
-		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(303, 218, 117, 29);
 		frame.getContentPane().add(btnCancel);
