@@ -20,10 +20,13 @@ public class Viergewinnt {
 	private static JPanel infoBottomPanel;
 	private static JSplitPane splitPane;
 	private static JTextArea console;
+	private static JScrollPane scrollPane;
 
 	private static int currentPlayer = 1;
 	private static int height = 7;
 	private static int length = 7;
+
+	public static boolean gameIsOver = false;
 
 	private static int[][] logicField = new int[height][length];
 	private static Field[][] cellField = new Field[height][length];
@@ -31,21 +34,26 @@ public class Viergewinnt {
 	private static Color red = Color.RED;
 	private static Color yellow = Color.YELLOW;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws AWTException {
 
 		initializeWindow();
 
 		mainWindow.setVisible(true);
-		mainWindow.paintComponents(mainWindow.getGraphics());
+
+		loadField();
+
+		log("PLAYER RED'S TURN");
 
 	}
 
 	private static void initializeWindow() {
 		mainWindow = new JFrame();
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainWindow.setSize(1200, 700);
+		mainWindow.setSize(1250, 700);
 		mainWindow.setLocation(100, 100);
 		mainWindow.setTitle("Vier Gewinnt!");
+		// mainWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		// mainWindow.setUndecorated(true);
 		mainWindow.setResizable(false);
 
 		optionsMenu = new JMenu("Optionen");
@@ -82,22 +90,35 @@ public class Viergewinnt {
 	private static void designInfoPanel() {
 
 		infoTopPanel = new JPanel();
+		infoTopPanel.setPreferredSize(new Dimension(475, 300));
 		infoBottomPanel = new JPanel();
 
 		GridLayout layout = new GridLayout(8, 1);
 		infoTopPanel.setLayout(layout);
 
-		JLabel playerOneLabel = new JLabel("Spieler 1");
+		JLabel playerOneLabel = new JLabel("Spieler 1:");
 		JTextField playerOneName = new JTextField();
+		playerOneName.setFont(new Font("Arial Bold", 14, 14));
+		playerOneName.setBackground(red);
+		playerOneName.setText("@ALEX Player 1");
+		playerOneName.setEditable(false);
 		JLabel playerOneVictoryLabel = new JLabel("Siege:");
 		JLabel playerOneVictoryCount = new JLabel("0");
 
-		JLabel playerTwoLabel = new JLabel("Spieler 2");
+		JLabel playerTwoLabel = new JLabel("Spieler 2:");
 		JTextField playerTwoName = new JTextField();
+		playerTwoName.setFont(new Font("Arial Bold", 14, 14));
+		playerTwoName.setBackground(yellow);
+		playerTwoName.setText("@ALEX Player 2");
+		playerTwoName.setEditable(false);
 		JLabel playerTwoVictoryLabel = new JLabel("Siege");
 		JLabel playerTwoVictoryCount = new JLabel("0");
 
 		console = new JTextArea();
+		scrollPane = new JScrollPane(console, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setPreferredSize(new Dimension(475, 300));
+		console.setEditable(false);
 
 		infoTopPanel.add(playerOneLabel);
 		infoTopPanel.add(playerOneName);
@@ -108,12 +129,12 @@ public class Viergewinnt {
 		infoTopPanel.add(playerTwoVictoryLabel);
 		infoTopPanel.add(playerTwoVictoryCount);
 
-		infoBottomPanel.add(console);
+		infoBottomPanel.add(scrollPane);
 
 		splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		splitPane.setTopComponent(infoTopPanel);
 		splitPane.setBottomComponent(infoBottomPanel);
-		splitPane.setDividerLocation(1200);
+		// splitPane.setDividerLocation(1200);
 		splitPane.setEnabled(false);
 
 		infoPanel.add(splitPane);
@@ -146,17 +167,20 @@ public class Viergewinnt {
 	}
 
 	private static void evaluateClick(Field field) {
-		int x_coordinate = field.getX();
-		int y_coordinate = field.getY();
-		if (field.isFilled() == false) {
-			if (isValid(x_coordinate, y_coordinate) && logicField[x_coordinate + 1][y_coordinate] != 0) {
-				fillField(field, x_coordinate, y_coordinate);
-				updateAfterTurn(x_coordinate, y_coordinate);
+		if (gameIsOver == false) {
+			int x_coordinate = field.getX_Coordinate();
+			int y_coordinate = field.getY_Coordinate();
+			if (field.isFilled() == false) {
+				if (isValid(x_coordinate, y_coordinate) && logicField[x_coordinate + 1][y_coordinate] != 0) {
+					fillField(field, x_coordinate, y_coordinate);
+					updateAfterTurn(x_coordinate, y_coordinate);
+				} else {
+					gravityFunction(field, x_coordinate, y_coordinate);
+				}
 			} else {
-				gravityFunction(field, x_coordinate, y_coordinate);
+				System.out.println("Feld belegt!");
+				log("Feld belegt!");
 			}
-		} else {
-			System.out.println("Feld belegt!");
 		}
 	}
 
@@ -179,11 +203,9 @@ public class Viergewinnt {
 		switch (currentPlayer) {
 		case 1:
 			field.setBackground(red);
-			currentPlayer = 2;
 			break;
 		case 2:
 			field.setBackground(yellow);
-			currentPlayer = 1;
 			break;
 		}
 	}
@@ -193,6 +215,23 @@ public class Viergewinnt {
 		checkVerticalWin(x, y);
 		checkDiagonalRightWin(x, y);
 		checkDiagonalLeftWin(x, y);
+		if (gameIsOver == false) {
+			switch (currentPlayer) {
+			case 1:
+				currentPlayer = 2;
+				log("PLAYER YELLOW'S TURN");
+				break;
+			case 2:
+				currentPlayer = 1;
+				log("PLAYER RED'S TURN");
+				break;
+			default:
+				break;
+			}
+			if (currentPlayer == 2) {
+				computerAI();
+			}
+		}
 	}
 
 	private static void checkHorizontalWin(int x, int y) {
@@ -294,13 +333,15 @@ public class Viergewinnt {
 	}
 
 	private static void win() {
+		gameIsOver = true;
+		log("----------");
 		if (currentPlayer == 1) {
-			System.out.println("YOU HAVE WON, PLAYER YELLOW");
+			log("YOU HAVE WON, PLAYER RED");
 		}
 		if (currentPlayer == 2) {
-			System.out.println("YOU HAVE WON, PLAYER RED");
+			log("YOU HAVE WON, PLAYER YELLOW");
 		}
-
+		log("----------");
 	}
 
 	private static boolean isValid(int x, int y) {
@@ -311,4 +352,42 @@ public class Viergewinnt {
 		}
 	}
 
+	private static void log(String s) {
+		console.append(" " + s + "\n");
+	}
+
+	private static void loadField() throws AWTException {
+		Robot mouse = new Robot();
+		for (int i = 0; i < cellField.length; i++) {
+			for (int j = 0; j < cellField[i].length; j++) {
+				mouse.mouseMove(120 + cellField[i][j].getX(), 160 + cellField[i][j].getY());
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException ex) {
+					Thread.currentThread().interrupt();
+				}
+			}
+		}
+	}
+
+	private static int randomNrFrom0Ton(int n) {
+		double rand = Math.random();
+		int rnd = (int) (rand * n);
+		return rnd;
+	}
+
+	private static void computerAI() {
+		int x = 0;
+		int y = randomNrFrom0Ton(6);
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException ex) {
+			Thread.currentThread().interrupt();
+		}
+		if (cellField[x][y].isFilled() == false) {
+			evaluateClick(cellField[x][y]);
+		} else {
+			computerAI();
+		}
+	}
 }

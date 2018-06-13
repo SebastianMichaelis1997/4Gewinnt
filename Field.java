@@ -19,6 +19,12 @@ public class Field extends JButton {
 		this.y_coordinate = y;
 	}
 
+	/*
+	 * public void paint(Graphics g) {
+	 * 
+	 * }
+	 */
+
 	public boolean isFilled() {
 		return this.isFilled;
 	}
@@ -35,11 +41,11 @@ public class Field extends JButton {
 		this.value = value;
 	}
 
-	public int getX() {
+	public int getX_Coordinate() {
 		return this.x_coordinate;
 	}
 
-	public int getY() {
+	public int getY_Coordinate() {
 		return this.y_coordinate;
 	}
 
