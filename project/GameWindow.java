@@ -31,12 +31,15 @@ public class GameWindow {
 	private static int[][] logicField = new int[height][length];
 	private static GameCell[][] cellField = new GameCell[height][length];
 
-	private static Color red = Color.RED;
-	private static Color yellow = Color.YELLOW;
+	private static Player firstPlayer;
+	private static Player secondPlayer;
 
 	public static void main(String[] args) throws AWTException { // not necessary, just for test case @Simon : Nach
 																	// Fertigstellung Löschen
 
+		firstPlayer = new Player("test1", null, Color.DARK_GRAY);
+		secondPlayer = new Player("test2", null, Color.BLUE);
+
 		initializeWindow();
 
 		mainWindow.setVisible(true);
@@ -47,7 +50,10 @@ public class GameWindow {
 
 	}
 
-	public static void start() throws AWTException {
+	public static void start(Player player1, Player player2) throws AWTException {
+
+		firstPlayer = player1;
+		secondPlayer = player2;
 
 		initializeWindow();
 
@@ -55,11 +61,19 @@ public class GameWindow {
 
 		loadField();
 
-		log("PLAYER RED'S TURN");
+		log("Player " + player1.getName() + "'s turn!");
 
 	}
 
 	private static void initializeWindow() {
+		// reset operations
+		gameIsOver = false;
+		for (int i = 0; i < cellField.length; i++) {
+			for (int j = 0; j < cellField[i].length; j++) {
+				cellField[i][j] = null;
+				logicField[i][j] = 0;
+			}
+		}
 		mainWindow = new JFrame();
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainWindow.setSize(1250, 700);
@@ -117,8 +131,8 @@ public class GameWindow {
 		JLabel playerOneLabel = new JLabel("Spieler 1:");
 		JTextField playerOneName = new JTextField();
 		playerOneName.setFont(new Font("Arial Bold", 14, 14));
-		playerOneName.setBackground(red);
-		playerOneName.setText("@ALEX Player 1");
+		playerOneName.setBackground(firstPlayer.getColor());
+		playerOneName.setText(firstPlayer.getName());
 		playerOneName.setEditable(false);
 		JLabel playerOneVictoryLabel = new JLabel("Siege:");
 		JLabel playerOneVictoryCount = new JLabel("0");
@@ -126,8 +140,8 @@ public class GameWindow {
 		JLabel playerTwoLabel = new JLabel("Spieler 2:");
 		JTextField playerTwoName = new JTextField();
 		playerTwoName.setFont(new Font("Arial Bold", 14, 14));
-		playerTwoName.setBackground(yellow);
-		playerTwoName.setText("@ALEX Player 2");
+		playerTwoName.setBackground(secondPlayer.getColor());
+		playerTwoName.setText(secondPlayer.getName());
 		playerTwoName.setEditable(false);
 		JLabel playerTwoVictoryLabel = new JLabel("Siege");
 		JLabel playerTwoVictoryCount = new JLabel("0");
@@ -220,10 +234,10 @@ public class GameWindow {
 		field.fill();
 		switch (currentPlayer) {
 		case 1:
-			field.setBackground(red);
+			field.setBackground(firstPlayer.getColor());
 			break;
 		case 2:
-			field.setBackground(yellow);
+			field.setBackground(secondPlayer.getColor());
 			break;
 		}
 	}
@@ -237,18 +251,18 @@ public class GameWindow {
 			switch (currentPlayer) {
 			case 1:
 				currentPlayer = 2;
-				log("PLAYER YELLOW'S TURN");
+				log("Player " + secondPlayer.getName() + "'s turn!");
 				break;
 			case 2:
 				currentPlayer = 1;
-				log("PLAYER RED'S TURN");
+				log("Player " + firstPlayer.getName() + "'s turn!");
 				break;
 			default:
 				break;
 			}
-			if (currentPlayer == 2) {
-				computerAI();
-			}
+			// if (currentPlayer == 2) {
+			// computerAI();
+			// }
 		}
 	}
 
@@ -354,10 +368,10 @@ public class GameWindow {
 		gameIsOver = true;
 		log("----------");
 		if (currentPlayer == 1) {
-			log("YOU HAVE WON, PLAYER RED");
+			log("Player " + firstPlayer.getName() + " has won!");
 		}
 		if (currentPlayer == 2) {
-			log("YOU HAVE WON, PLAYER YELLOW");
+			log("Player " + secondPlayer.getName() + " has won!");
 		}
 		log("----------");
 	}

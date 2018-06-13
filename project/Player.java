@@ -23,7 +23,11 @@ public class Player {
 		this.score = 0;
 		this.icon = image;
 		if (color != null) {
-			this.color = color;
+			if (color == Color.BLUE) {
+				this.color = Color.CYAN;
+			} else {
+				this.color = color;
+			}
 		} else {
 			this.color = Color.RED;
 		}
