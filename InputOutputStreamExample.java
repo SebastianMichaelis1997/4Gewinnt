@@ -30,6 +30,8 @@ public class InputOutputStreamExample {
                 + fileName + "'");
             // Or we could just do this:
             // ex.printStackTrace();
+
+
         }
 	}
 	
