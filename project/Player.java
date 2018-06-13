@@ -14,6 +14,17 @@ public class Player {
 	private ImageIcon icon;
 	private Color color;
 
+	/**
+	 * Constructor, which returns a new Player object, necessary for initializing
+	 * the main game.
+	 * 
+	 * @param name
+	 *            The name of the player.
+	 * @param image
+	 *            A chosen Image Icon.
+	 * @param color
+	 *            The "preferred" color (May change at conflicts).
+	 */
 	public Player(String name, ImageIcon image, Color color) {
 		this.name = name;
 		this.nrOfGames = 0;
@@ -37,7 +48,14 @@ public class Player {
 		return name;
 	}
 
-	public void setName(String name) {
+	/**
+	 * This method renames the player, but does not check if the name is already
+	 * taken!
+	 * 
+	 * @param name
+	 *            The new name.
+	 */
+	public void changeName(String name) {
 		this.name = name;
 	}
 
@@ -69,24 +87,36 @@ public class Player {
 		return color;
 	}
 
+	/*
+	 * This method adds a win to the player and recalculates the score.
+	 */
 	public void win() {
 		this.nrOfGames++;
 		this.wins++;
 		this.calculateScore();
 	}
 
+	/**
+	 * This method adds a loss to the player and recalculates the score.
+	 */
 	public void lose() {
 		this.nrOfGames++;
 		this.losses++;
 		this.calculateScore();
 	}
 
+	/**
+	 * This method adds a tie to the players stats.
+	 */
 	public void tie() {
 		this.nrOfGames++;
 		this.ties++;
-		this.calculateScore();
 	}
 
+	/**
+	 * This method calculates the score of a player, which is used for the highscore
+	 * board.
+	 */
 	private void calculateScore() {
 		this.score = this.wins * 3 + this.losses * -1;
 	}
