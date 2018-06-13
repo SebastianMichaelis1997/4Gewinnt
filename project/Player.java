@@ -3,6 +3,14 @@ package project;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * This class contains all the information about players, like their stats and
+ * settings.
+ * 
+ * @author Alexander Dreher, Enes Akgümüs, Tobias Rothley, Emma Falldorf, Simon
+ *         Becht, Sebastian Michaelis
+ *
+ */
 public class Player {
 
 	private String name;
@@ -15,8 +23,7 @@ public class Player {
 	private Color color;
 
 	/**
-	 * Constructor, which returns a new Player object, necessary for initializing
-	 * the main game.
+	 * Constructor, which returns a new Player object directly at creation.
 	 * 
 	 * @param name
 	 *            The name of the player.
@@ -33,15 +40,39 @@ public class Player {
 		this.ties = 0;
 		this.score = 0;
 		this.icon = image;
-		if (color != null) {
-			if (color == Color.BLUE) {
-				this.color = Color.CYAN;
-			} else {
-				this.color = color;
-			}
-		} else {
-			this.color = Color.RED;
-		}
+		this.changeColor(color);
+	}
+
+	/**
+	 * This constructor should be called, if we are loading all information from the
+	 * text files.
+	 * 
+	 * @param name
+	 *            The name of the player.
+	 * @param nrOfGames
+	 *            The number of played games.
+	 * @param wins
+	 *            The number of wins.
+	 * @param losses
+	 *            The number of losses.
+	 * @param ties
+	 *            The number of ties.
+	 * @param score
+	 *            The player score.
+	 * @param image
+	 *            The chosen image.
+	 * @param color
+	 *            The chosen color.
+	 */
+	public Player(String name, int nrOfGames, int wins, int losses, int ties, int score, ImageIcon image, Color color) {
+		this.name = name;
+		this.nrOfGames = nrOfGames;
+		this.wins = wins;
+		this.losses = losses;
+		this.ties = ties;
+		this.score = score;
+		this.icon = image;
+		this.color = color;
 	}
 
 	public String getName() {
@@ -83,8 +114,37 @@ public class Player {
 		return icon;
 	}
 
+	/**
+	 * This method replaces the current icon with a new one.
+	 * 
+	 * @param icon
+	 *            The new icon.
+	 */
+	public void changeIcon(ImageIcon icon) {
+		this.icon = icon;
+	}
+
 	public Color getColor() {
 		return color;
+	}
+
+	/**
+	 * This method changes the preferred color of the user, but BLUE is reserved for
+	 * the bottom line. Also standard color is RED.
+	 * 
+	 * @param color
+	 *            The new color.
+	 */
+	public void changeColor(Color color) {
+		if (color != null) {
+			if (color == Color.BLUE) {
+				this.color = Color.CYAN;
+			} else {
+				this.color = color;
+			}
+		} else {
+			this.color = Color.RED;
+		}
 	}
 
 	/*
