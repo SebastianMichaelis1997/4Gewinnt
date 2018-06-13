@@ -74,8 +74,9 @@ public class PlayerCreation {
 		
 		JFileChooser chooser = new JFileChooser();	//For Icon choosing
 
-		JButton btnDelete = new JButton("Add Icon");	//For Icon choosing
-		btnDelete.setBounds(174, 218, 117, 29);
+		JButton btnDelete = new JButton("Choose Icon");	//For Icon choosing
+		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnDelete.setBounds(45, 125, 117, 29);
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				chooser.showOpenDialog(null);
@@ -93,11 +94,11 @@ public class PlayerCreation {
 
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(303, 218, 117, 29);
-		
-		JButton button = new JButton("Choose Icon");
-		button.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		button.setBounds(10, 96, 117, 29);
-		frame.getContentPane().add(button);
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+			}
+		});
 		frame.setVisible(true);
 		
 				
@@ -105,10 +106,9 @@ public class PlayerCreation {
 		
 		ImageIcon icon = createImageIcon("sonne.jpg");
 		JLabel label1 = new JLabel("Image and Text", icon, JLabel.CENTER);
-		label1.setBounds(20,96,117, 29);
+		label1.setBounds(255,84,110, 110);
 		
 		frame.getContentPane().add(btnCancel);
 		frame.getContentPane().add(label1);
 	}
 }
-
