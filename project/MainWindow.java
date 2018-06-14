@@ -18,7 +18,8 @@ public class MainWindow extends JFrame {
 	private JTextField textField_3;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
-	public static ActionListener readMeActionListener;						//For Reusing Action Listener
+	public static ActionListener readMeActionListener; // For Reusing Action
+														// Listener
 
 	/**
 	 * Launch the application.
@@ -49,25 +50,26 @@ public class MainWindow extends JFrame {
 		setBounds(200, 100, 1100, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.WRAP_TAB_LAYOUT);	//Creates Tab Panel
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP,
+				JTabbedPane.WRAP_TAB_LAYOUT); // Creates Tab Panel
 		getContentPane().add(tabbedPane);
-		
-		JPanel gameTabPanel = new JPanel();			//Three tabs get created
+
+		JPanel gameTabPanel = new JPanel(); // Three tabs get created
 		gameTabPanel.setLayout(null);
 		JPanel playerTabPanel = new JPanel();
 		playerTabPanel.setLayout(null);
 		JPanel optionsTabPanel = new JPanel();
 		optionsTabPanel.setLayout(null);
-		
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------	
-//		
-//	Tab 1 (Game Tab)	
-//		
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------				
 
-		tabbedPane.addTab(
-				"Game                                                                                          ",
-				gameTabPanel);
+		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
+		//
+		// Tab 1 (Game Tab)
+		//
+		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+		tabbedPane
+				.addTab("Game                                                                                          ",
+						gameTabPanel);
 
 		JLabel label_1 = new JLabel("Select Players:");
 		label_1.setForeground(Color.DARK_GRAY);
@@ -110,12 +112,15 @@ public class MainWindow extends JFrame {
 		separator.setBounds(59, 163, 961, 2);
 		gameTabPanel.add(separator);
 
-		RoundCornerButton roundCornerButton = new RoundCornerButton("<html> <center>Start Game</center> </html>",
-				new Dimension(105, 65));
+		RoundCornerButton roundCornerButton = new RoundCornerButton(
+				"<html> <center>Start Game</center> </html>", new Dimension(
+						105, 65));
 		roundCornerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					GameWindow.start();
+					Player test1 = new Player("Alex", null, Color.GREEN);
+					Player test2 = new Player("Benne", null, null);
+					GameWindow.start(test1, test2);
 				} catch (AWTException e1) {
 					e1.printStackTrace();
 				}
@@ -156,17 +161,16 @@ public class MainWindow extends JFrame {
 		radioButton_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		radioButton_2.setBounds(738, 305, 98, 21);
 		gameTabPanel.add(radioButton_2);
-		
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------	
-//		
-//		Tab 2 (Player Tab)	
-//			
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------				
 
+		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
+		//
+		// Tab 2 (Player Tab)
+		//
+		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		tabbedPane.addTab(
-				"Player                                                                                              ",
-				playerTabPanel);
+		tabbedPane
+				.addTab("Player                                                                                              ",
+						playerTabPanel);
 
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
@@ -260,18 +264,16 @@ public class MainWindow extends JFrame {
 		lblSelectPlayer.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblSelectPlayer.setBounds(55, 29, 156, 30);
 		panelInPanel3.add(lblSelectPlayer);
-		
-		
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------	
-//		
-//		Tab 3 (Options Tab)	
-//			
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------				
 
+		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
+		//
+		// Tab 3 (Options Tab)
+		//
+		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		tabbedPane.addTab(
-				"Options                                                                                             ",
-				optionsTabPanel);
+		tabbedPane
+				.addTab("Options                                                                                             ",
+						optionsTabPanel);
 
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(526, 72, 1, 382);
@@ -314,8 +316,8 @@ public class MainWindow extends JFrame {
 		JSlider slider = new JSlider(); // Slider
 		slider.setBounds(257, 274, 714, 22);
 		slider.setPaintTicks(true); // Slider Ticks aktiviert
-		slider.setSnapToTicks(true); // slider sprünge zu Ticks aktiviert
-		slider.setMajorTickSpacing(10); // Slider Ticks Größe definiert
+		slider.setSnapToTicks(true); // slider sprÃ¼nge zu Ticks aktiviert
+		slider.setMajorTickSpacing(10); // Slider Ticks GrÃ¶ÃŸe definiert
 		optionsTabPanel.add(slider);
 
 	}
