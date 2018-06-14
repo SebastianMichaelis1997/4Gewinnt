@@ -4,12 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.MatteBorder;
 
 public class MainWindow extends JFrame {
 
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -17,6 +18,8 @@ public class MainWindow extends JFrame {
 	private JTextField textField_3;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
+	public static ActionListener readMeActionListener; // For Reusing Action
+														// Listener
 
 	/**
 	 * Launch the application.
@@ -47,27 +50,37 @@ public class MainWindow extends JFrame {
 		setBounds(200, 100, 1100, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.WRAP_TAB_LAYOUT);
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP,
+				JTabbedPane.WRAP_TAB_LAYOUT); // Creates Tab Panel
 		getContentPane().add(tabbedPane);
-		JPanel panel2 = new JPanel();
-		panel2.setLayout(null);
-		JPanel panel3 = new JPanel();
-		panel3.setLayout(null);
 
-		tabbedPane.addTab(
-				"Player                                                                                           ",
-				panel2);
+		JPanel gameTabPanel = new JPanel(); // Three tabs get created
+		gameTabPanel.setLayout(null);
+		JPanel playerTabPanel = new JPanel();
+		playerTabPanel.setLayout(null);
+		JPanel optionsTabPanel = new JPanel();
+		optionsTabPanel.setLayout(null);
+
+		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
+		//
+		// Tab 1 (Game Tab)
+		//
+		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+		tabbedPane
+				.addTab("Game                                                                                          ",
+						gameTabPanel);
 
 		JLabel label_1 = new JLabel("Select Players:");
 		label_1.setForeground(Color.DARK_GRAY);
 		label_1.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		label_1.setBounds(445, 39, 145, 31);
-		panel2.add(label_1);
+		gameTabPanel.add(label_1);
 
 		JLabel label_2 = new JLabel("Player Number One:");
 		label_2.setFont(new Font("Tahoma", Font.ITALIC, 16));
 		label_2.setBounds(90, 134, 156, 31);
-		panel2.add(label_2);
+		gameTabPanel.add(label_2);
 
 		// create an empty combo box with items of type String
 		JComboBox<String> comboPlayer1 = new JComboBox<String>();
@@ -77,37 +90,36 @@ public class MainWindow extends JFrame {
 		comboPlayer1.addItem("Dummy1");
 		comboPlayer1.addItem("Dummy2");
 		comboPlayer1.setBounds(213, 214, 156, 31);
-		panel2.add(comboPlayer1);
+		gameTabPanel.add(comboPlayer1);
 
 		JLabel label = new JLabel("Player Number Two:");
 		label.setFont(new Font("Tahoma", Font.ITALIC, 16));
 		label.setBounds(842, 135, 156, 29);
-		panel2.add(label);
+		gameTabPanel.add(label);
 
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setBounds(550, 80, 1, 73);
-		panel2.add(separator_2);
+		gameTabPanel.add(separator_2);
 
 		JComboBox<String> comboPlayer2 = new JComboBox<String>();
 		comboPlayer2.setBounds(842, 214, 156, 31);
 		comboPlayer2.addItem("Select Player Two");
 		comboPlayer2.addItem("Dummy1");
 		comboPlayer2.addItem("Dummy2");
-		panel2.add(comboPlayer2);
+		gameTabPanel.add(comboPlayer2);
 
 		JSeparator separator = new JSeparator();
 		separator.setBounds(59, 163, 961, 2);
-		panel2.add(separator);
+		gameTabPanel.add(separator);
 
-		RoundCornerButton roundCornerButton = new RoundCornerButton("<html> <center>Start Game</center> </html>",
-				new Dimension(105, 65));
+		RoundCornerButton roundCornerButton = new RoundCornerButton(
+				"<html> <center>Start Game</center> </html>", new Dimension(
+						105, 65));
 		roundCornerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// ----- for testing purposes @alex
-				Player test1 = new Player("Alex", null, Color.GREEN);
-				Player test2 = new Player("Benne", null, null);
-				// -----
 				try {
+					Player test1 = new Player("Alex", null, Color.GREEN);
+					Player test2 = new Player("Benne", null, null);
 					GameWindow.start(test1, test2);
 				} catch (AWTException e1) {
 					e1.printStackTrace();
@@ -116,52 +128,59 @@ public class MainWindow extends JFrame {
 		});
 		roundCornerButton.setForeground(Color.WHITE);
 		roundCornerButton.setBounds(419, 347, 215, 84);
-		panel2.add(roundCornerButton);
+		gameTabPanel.add(roundCornerButton);
 
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Human");
 		buttonGroup.add(rdbtnNewRadioButton);
 		rdbtnNewRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		rdbtnNewRadioButton.setBounds(63, 214, 98, 21);
-		panel2.add(rdbtnNewRadioButton);
+		gameTabPanel.add(rdbtnNewRadioButton);
 
 		JRadioButton radioButton = new JRadioButton("Computer");
 		buttonGroup.add(radioButton);
 		radioButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		radioButton.setBounds(63, 297, 98, 21);
-		panel2.add(radioButton);
+		gameTabPanel.add(radioButton);
 
 		JComboBox<String> comboBox_1 = new JComboBox<String>();
 		comboBox_1.setBounds(213, 295, 156, 31);
-		panel2.add(comboBox_1);
+		gameTabPanel.add(comboBox_1);
 
 		JComboBox<String> comboBox_2 = new JComboBox<String>();
 		comboBox_2.setBounds(842, 303, 156, 31);
-		panel2.add(comboBox_2);
+		gameTabPanel.add(comboBox_2);
 
 		JRadioButton radioButton_1 = new JRadioButton("Human");
 		buttonGroup_1.add(radioButton_1);
 		radioButton_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		radioButton_1.setBounds(738, 219, 98, 21);
-		panel2.add(radioButton_1);
+		gameTabPanel.add(radioButton_1);
 
 		JRadioButton radioButton_2 = new JRadioButton("Computer");
 		buttonGroup_1.add(radioButton_2);
 		radioButton_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		radioButton_2.setBounds(738, 305, 98, 21);
-		panel2.add(radioButton_2);
+		gameTabPanel.add(radioButton_2);
 
-		tabbedPane.addTab(
-				"Settings                                                                                              ",
-				panel3);
+		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
+		//
+		// Tab 2 (Player Tab)
+		//
+		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+		tabbedPane
+				.addTab("Player                                                                                              ",
+						playerTabPanel);
 
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				PlayerCreation playerCreation = new PlayerCreation();
 			}
 		});
 		btnCreate.setFont(new Font("Tahoma", Font.ITALIC, 25));
 		btnCreate.setBounds(70, 80, 125, 32);
-		panel3.add(btnCreate);
+		playerTabPanel.add(btnCreate);
 
 		JButton button = new JButton("Edit");
 		button.addActionListener(new ActionListener() {
@@ -170,19 +189,19 @@ public class MainWindow extends JFrame {
 		});
 		button.setFont(new Font("Tahoma", Font.ITALIC, 25));
 		button.setBounds(70, 220, 125, 32);
-		panel3.add(button);
+		playerTabPanel.add(button);
 
 		JButton button_1 = new JButton("Delete");
 		button_1.setFont(new Font("Tahoma", Font.ITALIC, 25));
 		button_1.setBounds(70, 375, 125, 32);
-		panel3.add(button_1);
+		playerTabPanel.add(button_1);
 
 		Panel panelInPanel3 = new Panel();
 		panelInPanel3.setBackground(Color.WHITE);
 		panelInPanel3.setForeground(Color.WHITE);
 		panelInPanel3.setBounds(287, 63, 733, 413);
 		panelInPanel3.setLayout(null);
-		panel3.add(panelInPanel3);
+		playerTabPanel.add(panelInPanel3);
 
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(371, 38, 326, 21);
@@ -246,40 +265,44 @@ public class MainWindow extends JFrame {
 		lblSelectPlayer.setBounds(55, 29, 156, 30);
 		panelInPanel3.add(lblSelectPlayer);
 
-		JPanel panel1 = new JPanel();
-		panel1.setLayout(null);
+		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
+		//
+		// Tab 3 (Options Tab)
+		//
+		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		tabbedPane.addTab(
-				"Game                                                                                              ",
-				panel1);
+		tabbedPane
+				.addTab("Options                                                                                             ",
+						optionsTabPanel);
 
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(526, 72, 1, 382);
-		panel1.add(separator_1);
+		optionsTabPanel.add(separator_1);
 
 		JButton btnReadMe = new JButton("Read me!");
 		btnReadMe.setFont(new Font("Tahoma", Font.ITALIC, 25));
 		btnReadMe.setBounds(29, 37, 189, 51);
-		btnReadMe.addActionListener(new ActionListener() {
+		readMeActionListener = new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JFrame readMeWindow = new ReadMeWindow();
+				new ReadMeWindow();
 			}
-		});
-		panel1.add(btnReadMe);
+		};
+		btnReadMe.addActionListener(readMeActionListener);
+		optionsTabPanel.add(btnReadMe);
 
 		JSeparator separator_5 = new JSeparator();
 		separator_5.setBounds(29, 98, 1005, 2);
-		panel1.add(separator_5);
+		optionsTabPanel.add(separator_5);
 
 		JLabel lblVersionsinfo = new JLabel("Version:");
 		lblVersionsinfo.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		lblVersionsinfo.setBounds(29, 135, 155, 34);
-		panel1.add(lblVersionsinfo);
+		optionsTabPanel.add(lblVersionsinfo);
 
 		JLabel label_5 = new JLabel("Volume:");
 		label_5.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		label_5.setBounds(29, 262, 155, 34);
-		panel1.add(label_5);
+		optionsTabPanel.add(label_5);
 
 		textField_3 = new JTextField();
 		textField_3.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -288,14 +311,14 @@ public class MainWindow extends JFrame {
 		textField_3.setBounds(257, 147, 714, 22);
 		textField_3.setColumns(10);
 		textField_3.setEditable(false);
-		panel1.add(textField_3);
+		optionsTabPanel.add(textField_3);
 
 		JSlider slider = new JSlider(); // Slider
 		slider.setBounds(257, 274, 714, 22);
 		slider.setPaintTicks(true); // Slider Ticks aktiviert
-		slider.setSnapToTicks(true); // slider sprünge zu Ticks aktiviert
-		slider.setMajorTickSpacing(10); // Slider Ticks Größe definiert
-		panel1.add(slider);
+		slider.setSnapToTicks(true); // slider sprÃ¼nge zu Ticks aktiviert
+		slider.setMajorTickSpacing(10); // Slider Ticks GrÃ¶ÃŸe definiert
+		optionsTabPanel.add(slider);
 
 	}
 }
