@@ -10,7 +10,7 @@ public class DataManager {
 
 	public static String[] getPlayer(String filename) {
 		try {
-			FileReader fr = new FileReader(System.getProperty("user.dir") + "\\src\\players\\" + filename + ".player");
+			FileReader fr = new FileReader(System.getProperty("user.dir") + "\\src\\players\\" + filename + ".player"); //@Simon noch zu bearbeiten
 			BufferedReader br = new BufferedReader(fr);
 			String[] playerData = new String[8];
 			for (int i = 0; i < playerData.length; i++) {	//reads all lines of player file
