@@ -52,6 +52,7 @@ public class GameWindow {
 
 	public static void start(Player player1, Player player2) throws AWTException {
 
+		currentPlayer = 1;
 		firstPlayer = player1;
 		secondPlayer = player2;
 
@@ -202,6 +203,7 @@ public class GameWindow {
 		if (gameIsOver == false) {
 			int x_coordinate = field.getX_Coordinate();
 			int y_coordinate = field.getY_Coordinate();
+			System.out.println("Clicked on " + x_coordinate + " " + y_coordinate);
 			if (field.isFilled() == false) {
 				if (isValid(x_coordinate, y_coordinate) && logicField[x_coordinate + 1][y_coordinate] != 0) {
 					fillField(field, x_coordinate, y_coordinate);
@@ -229,6 +231,7 @@ public class GameWindow {
 	}
 
 	private static void fillField(GameCell field, int x, int y) {
+		System.out.println("Fill field " + x + " " + y);
 		logicField[x][y] = currentPlayer;
 		field.setValue(currentPlayer);
 		field.fill();
@@ -273,18 +276,19 @@ public class GameWindow {
 
 		int y_new = y - 1;
 		// linke reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			y_new = y_new - 1;
 		}
 		y_new = y + 1;
 		// rechte reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			y_new = y_new + 1;
 		}
 		// wincheck
 		if (counter >= 4) {
+			System.out.println("Won horizontally!");
 			win();
 		}
 	}
@@ -296,18 +300,19 @@ public class GameWindow {
 
 		int x_new = x - 1;
 		// obere reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			x_new = x_new - 1;
 		}
 		x_new = x + 1;
 		// untere reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			x_new = x_new + 1;
 		}
 		// wincheck
 		if (counter >= 4) {
+			System.out.println("Won vertically!");
 			win();
 		}
 	}
@@ -319,7 +324,7 @@ public class GameWindow {
 		int y_new = y + 1;
 		int x_new = x - 1;
 		// oben rechte reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			y_new = y_new + 1;
 			x_new = x_new - 1;
@@ -327,13 +332,14 @@ public class GameWindow {
 		y_new = y - 1;
 		x_new = x + 1;
 		// unten linke reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			y_new = y_new - 1;
 			x_new = x_new + 1;
 		}
 		// wincheck
 		if (counter >= 4) {
+			System.out.println("Won diagonally!");
 			win();
 		}
 	}
@@ -345,7 +351,7 @@ public class GameWindow {
 		int y_new = y - 1;
 		int x_new = x - 1;
 		// oben linke reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			y_new = y_new - 1;
 			x_new = x_new - 1;
@@ -353,13 +359,14 @@ public class GameWindow {
 		y_new = y + 1;
 		x_new = x + 1;
 		// unten rechte reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			y_new = y_new + 1;
 			x_new = x_new + 1;
 		}
 		// wincheck
 		if (counter >= 4) {
+			System.out.println("Won diagonally!");
 			win();
 		}
 	}
@@ -408,7 +415,7 @@ public class GameWindow {
 		return rnd;
 	}
 
-	private static void computerAI() {
+	private static void EasyComputerAI() {
 		int x = 0;
 		int y = randomNrFrom0Ton(6);
 		try {
@@ -419,7 +426,7 @@ public class GameWindow {
 		if (cellField[x][y].isFilled() == false) {
 			evaluateClick(cellField[x][y]);
 		} else {
-			computerAI();
+			EasyComputerAI();
 		}
 	}
 }
