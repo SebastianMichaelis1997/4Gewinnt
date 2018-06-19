@@ -14,14 +14,6 @@ import java.util.*;
 
 public class DataManager {
 	
-	public static void main(String[] args) {
-		final File folder = new File((System.getProperty("user.dir") + "\\src\\players\\"));
-		ArrayList result = getAllPlayerNames();
-//		Iterator <String> i = result.iterator();
-//		while(i.hasNext())
-//			System.out.println(i.next());
-	}
-		
 	public static ArrayList getAllPlayerNames() {
 		final File folder = new File((System.getProperty("user.dir") + "\\src\\players\\"));
 		ArrayList players = new ArrayList();
@@ -35,7 +27,7 @@ public class DataManager {
 	    return players;
 	}
 	
-	public static ArrayList getAllPlayerNames(final File folder) { 	//for recursive method call
+	public static ArrayList getAllPlayerNames(final File folder) { 	//for recursive method call -> Polymorphie
 		ArrayList players = new ArrayList();
 	    for (final File fileEntry : folder.listFiles()) {
 	        if (fileEntry.isDirectory()) {
