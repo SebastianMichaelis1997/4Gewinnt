@@ -9,8 +9,44 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.File;
+import java.util.Iterator;
+import java.util.*;
 
 public class DataManager {
+	
+	public static void main(String[] args) {
+		final File folder = new File((System.getProperty("user.dir") + "\\src\\players\\"));
+		ArrayList result = getAllPlayerNames();
+//		Iterator <String> i = result.iterator();
+//		while(i.hasNext())
+//			System.out.println(i.next());
+	}
+		
+	public static ArrayList getAllPlayerNames() {
+		final File folder = new File((System.getProperty("user.dir") + "\\src\\players\\"));
+		ArrayList players = new ArrayList();
+	    for (final File fileEntry : folder.listFiles()) {
+	        if (fileEntry.isDirectory()) {
+	        	getAllPlayerNames(fileEntry);
+	        } else {
+	            players.add(fileEntry.getName().substring(0,fileEntry.getName().indexOf('.')));
+	        }
+	    }
+	    return players;
+	}
+	
+	public static ArrayList getAllPlayerNames(final File folder) { 	//for recursive method call
+		ArrayList players = new ArrayList();
+	    for (final File fileEntry : folder.listFiles()) {
+	        if (fileEntry.isDirectory()) {
+	        	getAllPlayerNames(fileEntry);
+	        } else {
+	            players.add(fileEntry.getName().substring(0,fileEntry.getName().indexOf('.')));
+	        }
+	    }
+	    return players;
+	}
+
 
 	public static String[] getPlayer(String filename) {
 		try {
@@ -96,5 +132,44 @@ public class DataManager {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+	}// end change property
+	
+	public static String getProperty(String player, String attribute) { // changes the given attribute
+		String value = "test";
+		try {
+			FileReader fr = new FileReader(System.getProperty("user.dir") + "\\src\\players\\" + player + ".player");
+			BufferedReader br = new BufferedReader(fr);
+			String[] playerData = new String[9];
+			for (int i = 0; i < playerData.length; i++) { // reads all lines of player file
+				playerData[i] = br.readLine();
+				System.out.println(playerData[i]);
+			}
+			br.close();
+			if (attribute == "name") {
+				return playerData[0];
+			} else if (attribute == "nrOfGames") {
+				return playerData[1];
+			} else if (attribute == "wins") {
+				return playerData[2];
+			} else if (attribute == "losses") {
+				return playerData[3];
+			} else if (attribute == "ties"){
+				return playerData[4];
+			} else if (attribute == "score"){
+				return playerData[5];
+			} else if (attribute == "icon") {
+				return playerData[6];
+			} else if (attribute == "color") {
+				return playerData[7];
+			} else if (attribute == "color") {
+				return playerData[8];
+			} else {
+				System.out.println("Error DataManager");
+			}
+			return value;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}// end change property
 }
