@@ -78,7 +78,7 @@ public class MainWindow extends JFrame {
 		gameTabPanel.add(label_1);
 
 		JLabel label_2 = new JLabel("Player Number One:");
-		label_2.setFont(new Font("Tahoma", Font.ITALIC, 16));
+		label_2.setFont(new Font("Comic Sans MS", Font.ITALIC, 16));
 		label_2.setBounds(90, 134, 156, 31);
 		gameTabPanel.add(label_2);
 
@@ -181,10 +181,23 @@ public class MainWindow extends JFrame {
 		btnCreate.setFont(new Font("Tahoma", Font.ITALIC, 25));
 		btnCreate.setBounds(70, 80, 125, 32);
 		playerTabPanel.add(btnCreate);
+		
+		Panel panelInPanel3 = new Panel();
+		panelInPanel3.setBackground(Color.WHITE);
+		panelInPanel3.setForeground(Color.WHITE);
+		panelInPanel3.setBounds(287, 63, 733, 413);
+		panelInPanel3.setLayout(null);
+		playerTabPanel.add(panelInPanel3);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(371, 38, 326, 21);
+		comboBox.addItem("Test");
+		panelInPanel3.add(comboBox);
 
 		JButton button = new JButton("Edit");
 		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent editPlayer) {
+				EditPlayer.start(comboBox.getSelectedItem());
 			}
 		});
 		button.setFont(new Font("Tahoma", Font.ITALIC, 25));
@@ -195,17 +208,6 @@ public class MainWindow extends JFrame {
 		button_1.setFont(new Font("Tahoma", Font.ITALIC, 25));
 		button_1.setBounds(70, 375, 125, 32);
 		playerTabPanel.add(button_1);
-
-		Panel panelInPanel3 = new Panel();
-		panelInPanel3.setBackground(Color.WHITE);
-		panelInPanel3.setForeground(Color.WHITE);
-		panelInPanel3.setBounds(287, 63, 733, 413);
-		panelInPanel3.setLayout(null);
-		playerTabPanel.add(panelInPanel3);
-
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(371, 38, 326, 21);
-		panelInPanel3.add(comboBox);
 
 		JLabel lblPoints = new JLabel("Points:");
 		lblPoints.setHorizontalAlignment(SwingConstants.LEFT);
@@ -316,8 +318,8 @@ public class MainWindow extends JFrame {
 		JSlider slider = new JSlider(); // Slider
 		slider.setBounds(257, 274, 714, 22);
 		slider.setPaintTicks(true); // Slider Ticks aktiviert
-		slider.setSnapToTicks(true); // slider sprÃ¼nge zu Ticks aktiviert
-		slider.setMajorTickSpacing(10); // Slider Ticks GrÃ¶ÃŸe definiert
+		slider.setSnapToTicks(true); // slider sprünge zu Ticks aktiviert
+		slider.setMajorTickSpacing(10); // Slider Ticks Größe definiert
 		optionsTabPanel.add(slider);
 
 	}
