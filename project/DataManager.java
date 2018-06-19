@@ -21,7 +21,7 @@ public class DataManager {
 	        if (fileEntry.isDirectory()) {
 	        	getAllPlayerNames(fileEntry);
 	        } else {
-	            players.add(fileEntry.getName().substring(0,fileEntry.getName().indexOf('.')));
+	            players.add(fileEntry.getName().substring(0,fileEntry.getName().indexOf('.'))); //adds just the file name ->cuts the ending off
 	        }
 	    }
 	    return players;
@@ -33,7 +33,7 @@ public class DataManager {
 	        if (fileEntry.isDirectory()) {
 	        	getAllPlayerNames(fileEntry);
 	        } else {
-	            players.add(fileEntry.getName().substring(0,fileEntry.getName().indexOf('.')));
+	            players.add(fileEntry.getName().substring(0,fileEntry.getName().indexOf('.'))); //adds just the file name ->cuts the ending off
 	        }
 	    }
 	    return players;
@@ -45,7 +45,7 @@ public class DataManager {
 			FileReader fr = new FileReader(System.getProperty("user.dir") + "\\src\\players\\" + filename + ".player");
 			BufferedReader br = new BufferedReader(fr);
 			String[] playerData = new String[9];
-			for (int i = 0; i < playerData.length; i++) { // reads all lines of player file
+			for (int i = 0; i < playerData.length; i++) { //reads all lines of player file
 				playerData[i] = br.readLine();
 				System.out.println(playerData[i]);
 			}
@@ -76,7 +76,7 @@ public class DataManager {
 		}
 	}
 
-	public static void changeProperty(String player, String attribute, String value) { // changes the given attribute
+	public static void changeProperty(String player, String attribute, String value) { // changes the addressed attribute
 		try {
 			String[] playerData = getPlayer(player);
 			FileWriter fw = new FileWriter(System.getProperty("user.dir") + "\\src\\players\\" + player + ".player"); 																									// file
@@ -126,7 +126,7 @@ public class DataManager {
 		}
 	}// end change property
 	
-	public static String getProperty(String player, String attribute) { // changes the given attribute
+	public static String getProperty(String player, String attribute) {
 		String value = "test";
 		try {
 			FileReader fr = new FileReader(System.getProperty("user.dir") + "\\src\\players\\" + player + ".player");
@@ -163,5 +163,5 @@ public class DataManager {
 			e.printStackTrace();
 		}
 		return null;
-	}// end change property
+	}// end get property
 }
