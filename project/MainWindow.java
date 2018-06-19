@@ -83,12 +83,7 @@ public class MainWindow extends JFrame {
 		gameTabPanel.add(label_2);
 
 		// create an empty combo box with items of type String
-		JComboBox<String> comboPlayer1 = new JComboBox<String>();
-
-		// add items to the combo box
-		comboPlayer1.addItem("Select Player One");
-		comboPlayer1.addItem("Dummy1");
-		comboPlayer1.addItem("Dummy2");
+		JComboBox comboPlayer1 = new JComboBox(DataManager.getAllPlayerNames().toArray());
 		comboPlayer1.setBounds(213, 214, 156, 31);
 		gameTabPanel.add(comboPlayer1);
 
@@ -101,11 +96,8 @@ public class MainWindow extends JFrame {
 		separator_2.setBounds(550, 80, 1, 73);
 		gameTabPanel.add(separator_2);
 
-		JComboBox<String> comboPlayer2 = new JComboBox<String>();
+		JComboBox comboPlayer2 = new JComboBox(DataManager.getAllPlayerNames().toArray());
 		comboPlayer2.setBounds(842, 214, 156, 31);
-		comboPlayer2.addItem("Select Player Two");
-		comboPlayer2.addItem("Dummy1");
-		comboPlayer2.addItem("Dummy2");
 		gameTabPanel.add(comboPlayer2);
 
 		JSeparator separator = new JSeparator();
@@ -189,9 +181,8 @@ public class MainWindow extends JFrame {
 		panelInPanel3.setLayout(null);
 		playerTabPanel.add(panelInPanel3);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox comboBox = new JComboBox(DataManager.getAllPlayerNames().toArray());
 		comboBox.setBounds(371, 38, 326, 21);
-		comboBox.addItem("Test");
 		panelInPanel3.add(comboBox);
 
 		JButton button = new JButton("Edit");
