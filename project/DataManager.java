@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.io.File;
 
 public class DataManager {
 
@@ -15,7 +16,7 @@ public class DataManager {
 		try {
 			FileReader fr = new FileReader(System.getProperty("user.dir") + "\\src\\players\\" + filename + ".player");
 			BufferedReader br = new BufferedReader(fr);
-			String[] playerData = new String[8];
+			String[] playerData = new String[9];
 			for (int i = 0; i < playerData.length; i++) { // reads all lines of player file
 				playerData[i] = br.readLine();
 				System.out.println(playerData[i]);
@@ -32,7 +33,6 @@ public class DataManager {
 		try {
 			FileWriter fw = new FileWriter(System.getProperty("user.dir") + "\\src\\players\\" + name + ".player");
 			BufferedWriter bw = new BufferedWriter(fw);
-
 			bw.write(name);
 			bw.newLine();
 			for (int i = 0; i < 5; i++) { // Standard values
@@ -48,10 +48,10 @@ public class DataManager {
 		}
 	}
 
-	public static void changeProperty(String player, String attribute, String value) {
+	public static void changeProperty(String player, String attribute, String value) { // changes the given attribute
 		try {
 			String[] playerData = getPlayer(player);
-			FileWriter fw = new FileWriter(System.getProperty("user.dir") + "\\src\\players\\" + value + ".player");
+			FileWriter fw = new FileWriter(System.getProperty("user.dir") + "\\src\\players\\" + player + ".player"); 																									// file
 			BufferedWriter bw = new BufferedWriter(fw);
 			for (int i = 0; i < playerData.length; i++) {
 				if ((attribute == "name") && (i == 0)) {
@@ -78,6 +78,9 @@ public class DataManager {
 				} else if ((attribute == "color") && (i == 7)) {
 					bw.write(value);
 					bw.newLine();
+				} else if ((attribute == "color") && (i == 8)) {
+					bw.write(value);
+					bw.newLine();
 				} else {
 					bw.write(playerData[i]);
 					bw.newLine();
@@ -85,8 +88,9 @@ public class DataManager {
 			} // end for
 			bw.close();
 			if (attribute == "name") {
-				Path path = (Paths.get(System.getProperty("user.dir") + "\\src\\players\\" + player + ".player"));
-				Files.delete(path);
+				File oldfile = new File((System.getProperty("user.dir") + "\\src\\players\\" + player + ".player")); //renames the file
+				File newfile = new File((System.getProperty("user.dir") + "\\src\\players\\" + value + ".player"));
+				oldfile.renameTo(newfile);
 			}
 		} // end try
 		catch (IOException e) {
