@@ -17,25 +17,6 @@ public class PlayerCreation {
 	private JFrame frame;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {	//for testing @Simon
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PlayerCreation window = new PlayerCreation();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-	
-	
-
-	/**
 	 * Create the application.
 	 */
 	public PlayerCreation() {
@@ -94,6 +75,7 @@ public class PlayerCreation {
 				if(nameField.getText()!= ("Enter Name")) {			//File for a new player gets added to folder "players"
 					DataManager.addPlayer(nameField.getText());		//Adds Standard Values for players
 					DataManager.getPlayer(nameField.getText());		//Just for directly testing @Simon
+					frame.dispose();		//closes the window
 				}
 			}
 		});
@@ -104,7 +86,7 @@ public class PlayerCreation {
 		btnCancel.setBounds(303, 218, 117, 29);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frame.dispose();
+				frame.dispose();		//closes the window
 			}
 		});
 		frame.setVisible(true);
