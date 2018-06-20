@@ -17,7 +17,6 @@ public class DataManager {
 
 	public static ArrayList getAllPlayerNames() {
 		final File folder = new File(DIRECTORYNAME);
-		final File folder2 = new File("players");
 		ArrayList players = new ArrayList();
 		for (final File fileEntry : folder.listFiles()) {
 			if (fileEntry.isDirectory()) {
