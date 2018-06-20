@@ -49,7 +49,7 @@ public class DataManager {
 		try {
 			FileReader fr = new FileReader(DIRECTORYNAME + File.separator + filename + ".player");
 			BufferedReader br = new BufferedReader(fr);
-			String[] playerData = new String[9];
+			String[] playerData = new String[8];
 			for (int i = 0; i < playerData.length; i++) { // reads all lines of player file
 				playerData[i] = br.readLine();
 				System.out.println(playerData[i]);
@@ -62,39 +62,7 @@ public class DataManager {
 		return null;
 	}
 
-	public static void writeFile(String fileName, String[] message, String directoryName) {
-		// The name of the file to open.
-		String resourcePath2 = DIRECTORYNAME + File.separator + fileName + ".player";
-
-		// Check for existing directory
-		File directory = new File(directoryName);
-		if (!directory.exists()) {
-			directory.mkdir();
-		}
-
-		File file = new File(resourcePath2);
-		try {
-			// Assume default encoding.
-			FileWriter fileWriter = new FileWriter(file.getAbsoluteFile());
-
-			// Always wrap FileWriter in BufferedWriter.
-			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-			// Note that write() does not automatically
-			// append a newline character.
-			for (int i = 0; i < message.length; i++) {
-				bufferedWriter.write(message[i]);
-				bufferedWriter.newLine();
-			}
-			// Always close files.
-			bufferedWriter.close();
-		} catch (IOException ex) {
-			System.out.println("Error writing to file '" + fileName + "'");
-			// Or we could just do this:
-			// ex.printStackTrace();
-		}
-	}
-
+	
 	public static void addPlayer(String name) {
 		String resourcePath = DIRECTORYNAME + File.separator + name + ".player";
 		// Check if directory exists
@@ -113,7 +81,7 @@ public class DataManager {
 			bw.write(name);
 			bw.newLine();
 			for (int i = 0; i < 5; i++) { // Standard values
-				bw.write(0);
+				bw.write("0");
 				bw.newLine();
 			}
 			bw.write("null"); // Standard value
@@ -126,37 +94,35 @@ public class DataManager {
 	}
 
 	public static void changeProperty(String player, String attribute, String value) { // changes the addressed
-																						// attribute
+			String resourcePath = DIRECTORYNAME + File.separator + player + ".player";																	// attribute
 		try {
 			String[] playerData = getPlayer(player);
-			FileWriter fw = new FileWriter((DIRECTORYNAME + File.separator + player + ".player")); // file
+			File file = new File(resourcePath);
+			FileWriter fw = new FileWriter(file.getAbsoluteFile());
 			BufferedWriter bw = new BufferedWriter(fw);
 			for (int i = 0; i < playerData.length; i++) {
-				if ((attribute == "name") && (i == 0)) {
+				if (attribute.equals("name") && (i == 0)) {
 					bw.write(value);
 					bw.newLine();
-				} else if ((attribute == "nrOfGames") && (i == 1)) {
+				} else if (attribute.equals("nrOfGames") && (i == 1)) {
 					bw.write(value);
 					bw.newLine();
-				} else if ((attribute == "wins") && (i == 2)) {
+				} else if (attribute.equals("wins") && (i == 2)) {
 					bw.write(value);
 					bw.newLine();
-				} else if ((attribute == "losses") && (i == 3)) {
+				} else if (attribute.equals("losses") && (i == 3)) {
 					bw.write(value);
 					bw.newLine();
-				} else if ((attribute == "ties") && (i == 4)) {
+				} else if (attribute.equals("ties") && (i == 4)) {
 					bw.write(value);
 					bw.newLine();
-				} else if ((attribute == "score") && (i == 5)) {
+				} else if (attribute.equals("score") && (i == 5)) {
 					bw.write(value);
 					bw.newLine();
-				} else if ((attribute == "icon") && (i == 6)) {
+				} else if (attribute.equals("icon") && (i == 6)) {
 					bw.write(value);
 					bw.newLine();
-				} else if ((attribute == "color") && (i == 7)) {
-					bw.write(value);
-					bw.newLine();
-				} else if ((attribute == "color") && (i == 8)) {
+				} else if (attribute.equals("color") && (i == 7)) {
 					bw.write(value);
 					bw.newLine();
 				} else {
@@ -165,10 +131,8 @@ public class DataManager {
 				}
 			} // end for
 			bw.close();
-			if (attribute == "name") {
-				File oldfile = new File((DIRECTORYNAME + File.separator + player + ".player")); // renames
-																														// the
-																														// file
+			if (attribute.equals("name")) {
+				File oldfile = new File((DIRECTORYNAME + File.separator + player + ".player")); // renames file																										// file
 				File newfile = new File((DIRECTORYNAME + File.separator + value + ".player"));
 				oldfile.renameTo(newfile);
 			}
