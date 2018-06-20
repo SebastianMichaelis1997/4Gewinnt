@@ -14,11 +14,20 @@ import java.util.*;
 
 public class DataManager {
 	private static final String DIRECTORYNAME = "players";
+	
+	public static void checkDirectory() {
+		// Check if directory exists
+		File directory = new File(DIRECTORYNAME);
+		if (!directory.exists()) {
+			directory.mkdir(); //if not, create the directory
+		}
+	}
 
 	public static ArrayList getAllPlayerNames() {
+		checkDirectory();
 		final File folder = new File(DIRECTORYNAME);
 		ArrayList players = new ArrayList();
-		for (final File fileEntry : folder.listFiles()) {
+		for (File fileEntry : folder.listFiles()) {
 			if (fileEntry.isDirectory()) {
 				getAllPlayerNames(fileEntry);
 			} else {
@@ -30,9 +39,10 @@ public class DataManager {
 		return players;
 	}
 
-	public static ArrayList getAllPlayerNames(final File folder) { // for recursive method call -> Polymorphie
+	public static ArrayList getAllPlayerNames(final File folder) { // for recursive method call -> Überladung
+		checkDirectory();
 		ArrayList players = new ArrayList();
-		for (final File fileEntry : folder.listFiles()) {
+		for (File fileEntry : folder.listFiles()) {
 			if (fileEntry.isDirectory()) {
 				getAllPlayerNames(fileEntry);
 			} else {
@@ -65,11 +75,7 @@ public class DataManager {
 	public static void addPlayer(String name) {
 		String resourcePath = DIRECTORYNAME + File.separator + name + ".player";
 		// Check if directory exists
-		File directory = new File(DIRECTORYNAME);
-		if (!directory.exists()) {
-			directory.mkdir(); //if not, create the directory
-		}
-
+		checkDirectory();
 		File file = new File(resourcePath);
 		try {
 			// Assume default encoding.
