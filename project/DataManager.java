@@ -1,6 +1,7 @@
 package project;
 
 import java.io.BufferedReader;
+import java.nio.file.Paths;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -187,4 +188,14 @@ public class DataManager {
 		}
 		return null;
 	}// end get property
+	
+	public static void deletePlayer(String playerName) {
+		Path path = Paths.get(DIRECTORYNAME + File.separator + playerName + ".player");
+		try {
+			Files.delete(path);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
