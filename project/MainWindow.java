@@ -11,7 +11,6 @@ import javax.swing.border.MatteBorder;
 
 public class MainWindow extends JFrame {
 
-	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -181,24 +180,29 @@ public class MainWindow extends JFrame {
 		panelInPanel3.setLayout(null);
 		playerTabPanel.add(panelInPanel3);
 		
-		JComboBox comboBox = new JComboBox(DataManager.getAllPlayerNames().toArray());
-		comboBox.setBounds(371, 38, 326, 21);
-		panelInPanel3.add(comboBox);
+		JComboBox selectEditPlayer = new JComboBox(DataManager.getAllPlayerNames().toArray());
+		selectEditPlayer.setBounds(371, 38, 326, 21);
+		panelInPanel3.add(selectEditPlayer);
 
-		JButton button = new JButton("Edit");
-		button.addActionListener(new ActionListener() {
+		JButton buttonEdit = new JButton("Edit");
+		buttonEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent editPlayer) {
-				EditPlayer.start(comboBox.getSelectedItem());
+				EditPlayer.start(selectEditPlayer.getSelectedItem());
 			}
 		});
-		button.setFont(new Font("Tahoma", Font.ITALIC, 25));
-		button.setBounds(70, 220, 125, 32);
-		playerTabPanel.add(button);
+		buttonEdit.setFont(new Font("Tahoma", Font.ITALIC, 25));
+		buttonEdit.setBounds(70, 220, 125, 32);
+		playerTabPanel.add(buttonEdit);
 
-		JButton button_1 = new JButton("Delete");
-		button_1.setFont(new Font("Tahoma", Font.ITALIC, 25));
-		button_1.setBounds(70, 375, 125, 32);
-		playerTabPanel.add(button_1);
+		JButton buttonDelete = new JButton("Delete");
+		buttonDelete.setFont(new Font("Tahoma", Font.ITALIC, 25));
+		buttonDelete.setBounds(70, 375, 125, 32);
+		buttonDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent deletePlayer) {
+				DeletePlayer.start(selectEditPlayer.getSelectedItem().toString());
+			}
+		});
+		playerTabPanel.add(buttonDelete);
 
 		JLabel lblPoints = new JLabel("Points:");
 		lblPoints.setHorizontalAlignment(SwingConstants.LEFT);
