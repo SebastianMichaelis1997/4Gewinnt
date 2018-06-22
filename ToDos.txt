@@ -1,0 +1,40 @@
+Testabdeckung des Quellcodes
+	Prio: 1
+	Time: 5
+ReadMe
+	Prio: 5
+	Time: 1
+KI
+	Zufall DONE
+	nahe gelegene Blöcke
+		Prio: 2
+		Time: 2
+	Starke KI
+		Prio: 4
+		Time 3-4
+		
+In Settings
+Update on_Value_Change	
+	Prio: 3
+	Time: 1-2
+Seite refreshen/aktualisierung DropDowns
+	Prio 1
+	Time 1-2
+Musik & Sounds + Controls
+	Prio 3-4
+	Time 2-3
+
+Fehlermeldungen/Checks bei
+selben Spieler wieder anlegen-> Überschreiben
+	Prio: 1
+	Time: 1-2
+Spieler spielt gegen sich selbst
+	Prio: 1-2
+	Time_ 1-2
+
+Kommentare:
+	Prio: 1
+	Time: ?
+Freispielbare Icons/importierte Skins
+	Prio: 4-5
+	Time_ 4-5
