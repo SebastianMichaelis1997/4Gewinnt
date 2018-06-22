@@ -1,7 +1,7 @@
-Testabdeckung des Quellcodes
+Testabdeckung des Quellcodes | Steht aus
 	Prio: 1
 	Time: 5
-ReadMe
+ReadMe | Ense
 	Prio: 5
 	Time: 1
 KI
@@ -14,27 +14,27 @@ KI
 		Time 3-4
 		
 In Settings
-Update on_Value_Change	
+Update on_Value_Change | Emma
 	Prio: 3
 	Time: 1-2
-Seite refreshen/aktualisierung DropDowns
+Seite refreshen/aktualisierung DropDowns | Sebastian
 	Prio 1
 	Time 1-2
-Musik & Sounds + Controls
+Musik & Sounds + Controls | Alex
 	Prio 3-4
 	Time 2-3
 
 Fehlermeldungen/Checks bei
-selben Spieler wieder anlegen-> Überschreiben
+selben Spieler wieder anlegen-> Überschreiben | Tobias
 	Prio: 1
 	Time: 1-2
-Spieler spielt gegen sich selbst
+Spieler spielt gegen sich selbst | Enes
 	Prio: 1-2
 	Time_ 1-2
 
-Kommentare:
+Kommentare | Jeder
 	Prio: 1
 	Time: ?
-Freispielbare Icons/importierte Skins
+Freispielbare Icons/importierte Skins | für nächsten Sprint
 	Prio: 4-5
 	Time_ 4-5
