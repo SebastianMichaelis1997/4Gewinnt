@@ -28,16 +28,15 @@ public class PlayerCreation {
 	 */
 	/** Returns an ImageIcon, or null if the path was invalid. */
 	protected ImageIcon createImageIcon(String path) {
-	    java.net.URL imgURL = getClass().getResource(path);
-	    if (imgURL != null) {
-	        return new ImageIcon(imgURL);
-	    } else {
-	        System.err.println("Couldn't find file: " + path);
-	        return null;
-	    }
+		java.net.URL imgURL = getClass().getResource(path);
+		if (imgURL != null) {
+			return new ImageIcon(imgURL);
+		} else {
+			System.err.println("Couldn't find file: " + path);
+			return null;
+		}
 	};
 
-	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
@@ -52,16 +51,16 @@ public class PlayerCreation {
 		lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblUsername.setBounds(10, 25, 180, 35);
 		frame.getContentPane().add(lblUsername);
-		
-		JFileChooser chooser = new JFileChooser();	//For Icon choosing
 
-		JButton btnDelete = new JButton("Choose Icon");	//For Icon choosing
+		JFileChooser chooser = new JFileChooser(); // For Icon choosing
+
+		JButton btnDelete = new JButton("Choose Icon"); // For Icon choosing
 		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnDelete.setBounds(45, 125, 117, 29);
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				chooser.showOpenDialog(null);
-			}	
+			}
 		});
 		frame.getContentPane().add(btnDelete);
 
@@ -72,32 +71,29 @@ public class PlayerCreation {
 		nameField.setBounds(200, 22, 220, 41);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(nameField.getText()!= ("Enter Name")) {			//File for a new player gets added to folder "players"
-					DataManager.addPlayer(nameField.getText());		//Adds Standard Values for players
-					DataManager.getPlayer(nameField.getText());		//Just for directly testing @Simon
-					frame.dispose();		//closes the window
+				if (nameField.getText() != ("Enter Name")) { // File for a new player gets added to folder "players"
+					DataManager.addPlayer(nameField.getText()); // Adds Standard Values for players
+					DataManager.getPlayer(nameField.getText()); // Just for directly testing @Simon
+					MainWindow.refreshPlayerComboBox();
+					frame.dispose(); // closes the window
 				}
 			}
 		});
 		frame.getContentPane().add(nameField);
-		
 
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(303, 218, 117, 29);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frame.dispose();		//closes the window
+				frame.dispose(); // closes the window
 			}
 		});
 		frame.setVisible(true);
-		
-				
-		
-		
-		ImageIcon icon = createImageIcon("sonne.jpg");							//Parameter ändern @Simon
+
+		ImageIcon icon = createImageIcon("sonne.jpg"); // Parameter ändern @Simon
 		JLabel label1 = new JLabel("Image and Text", icon, JLabel.CENTER);
-		label1.setBounds(255,84,110, 110);
-		
+		label1.setBounds(255, 84, 110, 110);
+
 		frame.getContentPane().add(btnCancel);
 		frame.getContentPane().add(label1);
 	}

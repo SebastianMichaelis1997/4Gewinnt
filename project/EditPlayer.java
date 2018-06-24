@@ -48,6 +48,8 @@ public class EditPlayer extends JFrame {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent save) {
 				DataManager.changeProperty(player.toString(), "name", txtChangeName.getText());
+				MainWindow.refreshPlayerComboBox();
+				dispose();
 			}
 		});
 		contentPane.add(btnSave);

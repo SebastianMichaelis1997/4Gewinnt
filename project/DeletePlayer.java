@@ -44,24 +44,26 @@ public class DeletePlayer extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
-		
-		JLabel lblQuestion = new JLabel("Do you really want to delete player "+DataManager.getProperty(player, "name")+"?");
+
+		JLabel lblQuestion = new JLabel(
+				"Do you really want to delete player " + DataManager.getProperty(player, "name") + "?");
 		lblQuestion.setHorizontalAlignment(SwingConstants.CENTER);
 		lblQuestion.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblQuestion.setBounds(0, 33, 444, 59);
 		contentPane.add(lblQuestion);
-		
+
 		JButton btnYes = new JButton("Yes");
 		btnYes.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnYes.setBounds(10, 175, 130, 40);
 		btnYes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent deletePlayerYes) {
 				DataManager.deletePlayer(player);
+				MainWindow.refreshPlayerComboBox();
 				dispose();
 			}
 		});
 		contentPane.add(btnYes);
-		
+
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancel.setBounds(296, 175, 130, 40);

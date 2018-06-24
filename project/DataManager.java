@@ -15,12 +15,12 @@ import java.util.*;
 
 public class DataManager {
 	private static final String DIRECTORYNAME = "players";
-	
+
 	public static void checkDirectory() {
 		// Check if directory exists
 		File directory = new File(DIRECTORYNAME);
 		if (!directory.exists()) {
-			directory.mkdir(); //if not, create the directory
+			directory.mkdir(); // if not, create the directory
 		}
 	}
 
@@ -40,9 +40,9 @@ public class DataManager {
 		return players;
 	}
 
-	public static ArrayList getAllPlayerNames(final File folder) { // for recursive method call -> Überladung
+	public static ArrayList<String> getAllPlayerNames(final File folder) { // for recursive method call -> Überladung
 		checkDirectory();
-		ArrayList players = new ArrayList();
+		ArrayList<String> players = new ArrayList<String>();
 		for (File fileEntry : folder.listFiles()) {
 			if (fileEntry.isDirectory()) {
 				getAllPlayerNames(fileEntry);
@@ -72,7 +72,6 @@ public class DataManager {
 		return null;
 	}
 
-	
 	public static void addPlayer(String name) {
 		String resourcePath = DIRECTORYNAME + File.separator + name + ".player";
 		// Check if directory exists
@@ -100,7 +99,7 @@ public class DataManager {
 	}
 
 	public static void changeProperty(String player, String attribute, String value) { // changes the addressed
-			String resourcePath = DIRECTORYNAME + File.separator + player + ".player";																	// attribute
+		String resourcePath = DIRECTORYNAME + File.separator + player + ".player"; // attribute
 		try {
 			String[] playerData = getPlayer(player);
 			File file = new File(resourcePath);
@@ -138,7 +137,7 @@ public class DataManager {
 			} // end for
 			bw.close();
 			if (attribute.equals("name")) {
-				File oldfile = new File((DIRECTORYNAME + File.separator + player + ".player")); // renames file																										// file
+				File oldfile = new File((DIRECTORYNAME + File.separator + player + ".player")); // renames file // file
 				File newfile = new File((DIRECTORYNAME + File.separator + value + ".player"));
 				oldfile.renameTo(newfile);
 			}
@@ -188,7 +187,7 @@ public class DataManager {
 		}
 		return null;
 	}// end get property
-	
+
 	public static void deletePlayer(String playerName) {
 		Path path = Paths.get(DIRECTORYNAME + File.separator + playerName + ".player");
 		try {

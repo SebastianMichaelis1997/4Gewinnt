@@ -11,12 +11,10 @@ import javax.swing.border.MatteBorder;
 
 public class MainWindow extends JFrame {
 
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
+	private static JTextField textField, textField_1, textField_2, textField_3;
+	private static JComboBox comboPlayer1, comboPlayer2, selectEditPlayer;
+	private static final ButtonGroup buttonGroup = new ButtonGroup();
+	private static final ButtonGroup buttonGroup_1 = new ButtonGroup();
 	public static ActionListener readMeActionListener; // For Reusing Action
 														// Listener
 
@@ -49,8 +47,7 @@ public class MainWindow extends JFrame {
 		setBounds(200, 100, 1100, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP,
-				JTabbedPane.WRAP_TAB_LAYOUT); // Creates Tab Panel
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.WRAP_TAB_LAYOUT); // Creates Tab Panel
 		getContentPane().add(tabbedPane);
 
 		JPanel gameTabPanel = new JPanel(); // Three tabs get created
@@ -66,9 +63,9 @@ public class MainWindow extends JFrame {
 		//
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		tabbedPane
-				.addTab("Game                                                                                          ",
-						gameTabPanel);
+		tabbedPane.addTab(
+				"Game                                                                                          ",
+				gameTabPanel);
 
 		JLabel label_1 = new JLabel("Select Players:");
 		label_1.setForeground(Color.DARK_GRAY);
@@ -82,7 +79,8 @@ public class MainWindow extends JFrame {
 		gameTabPanel.add(label_2);
 
 		// create an empty combo box with items of type String
-		JComboBox comboPlayer1 = new JComboBox(DataManager.getAllPlayerNames().toArray());
+		// creates combo box with all player names for choosing player 1
+		comboPlayer1 = new JComboBox(DataManager.getAllPlayerNames().toArray());
 		comboPlayer1.setBounds(213, 214, 156, 31);
 		gameTabPanel.add(comboPlayer1);
 
@@ -95,7 +93,8 @@ public class MainWindow extends JFrame {
 		separator_2.setBounds(550, 80, 1, 73);
 		gameTabPanel.add(separator_2);
 
-		JComboBox comboPlayer2 = new JComboBox(DataManager.getAllPlayerNames().toArray());
+		// creates combo box with all player names for choosing player 2
+		comboPlayer2 = new JComboBox(DataManager.getAllPlayerNames().toArray());
 		comboPlayer2.setBounds(842, 214, 156, 31);
 		gameTabPanel.add(comboPlayer2);
 
@@ -103,9 +102,8 @@ public class MainWindow extends JFrame {
 		separator.setBounds(59, 163, 961, 2);
 		gameTabPanel.add(separator);
 
-		RoundCornerButton roundCornerButton = new RoundCornerButton(
-				"<html> <center>Start Game</center> </html>", new Dimension(
-						105, 65));
+		RoundCornerButton roundCornerButton = new RoundCornerButton("<html> <center>Start Game</center> </html>",
+				new Dimension(105, 65));
 		roundCornerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -133,13 +131,13 @@ public class MainWindow extends JFrame {
 		radioButton.setBounds(63, 297, 98, 21);
 		gameTabPanel.add(radioButton);
 
-		JComboBox<String> comboBox_1 = new JComboBox<String>();
-		comboBox_1.setBounds(213, 295, 156, 31);
-		gameTabPanel.add(comboBox_1);
+		JComboBox comboComputer1 = new JComboBox();
+		comboComputer1.setBounds(213, 295, 156, 31);
+		gameTabPanel.add(comboComputer1);
 
-		JComboBox<String> comboBox_2 = new JComboBox<String>();
-		comboBox_2.setBounds(842, 303, 156, 31);
-		gameTabPanel.add(comboBox_2);
+		JComboBox comboComputer2 = new JComboBox();
+		comboComputer2.setBounds(842, 303, 156, 31);
+		gameTabPanel.add(comboComputer2);
 
 		JRadioButton radioButton_1 = new JRadioButton("Human");
 		buttonGroup_1.add(radioButton_1);
@@ -159,9 +157,9 @@ public class MainWindow extends JFrame {
 		//
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		tabbedPane
-				.addTab("Player                                                                                              ",
-						playerTabPanel);
+		tabbedPane.addTab(
+				"Player                                                                                              ",
+				playerTabPanel);
 
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
@@ -172,15 +170,16 @@ public class MainWindow extends JFrame {
 		btnCreate.setFont(new Font("Tahoma", Font.ITALIC, 25));
 		btnCreate.setBounds(70, 80, 125, 32);
 		playerTabPanel.add(btnCreate);
-		
+
 		Panel panelInPanel3 = new Panel();
 		panelInPanel3.setBackground(Color.WHITE);
 		panelInPanel3.setForeground(Color.WHITE);
 		panelInPanel3.setBounds(287, 63, 733, 413);
 		panelInPanel3.setLayout(null);
 		playerTabPanel.add(panelInPanel3);
-		
-		JComboBox selectEditPlayer = new JComboBox(DataManager.getAllPlayerNames().toArray());
+
+		// Combo box for choosing player which shall get editet
+		selectEditPlayer = new JComboBox(DataManager.getAllPlayerNames().toArray());
 		selectEditPlayer.setBounds(371, 38, 326, 21);
 		panelInPanel3.add(selectEditPlayer);
 
@@ -268,9 +267,9 @@ public class MainWindow extends JFrame {
 		//
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		tabbedPane
-				.addTab("Options                                                                                             ",
-						optionsTabPanel);
+		tabbedPane.addTab(
+				"Options                                                                                             ",
+				optionsTabPanel);
 
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(526, 72, 1, 382);
@@ -318,4 +317,18 @@ public class MainWindow extends JFrame {
 		optionsTabPanel.add(slider);
 
 	}
+
+	public static void refreshPlayerComboBox() {
+		comboPlayer1.removeAllItems();
+		comboPlayer2.removeAllItems();
+		selectEditPlayer.removeAllItems();
+		Object[] players = DataManager.getAllPlayerNames().toArray();
+		for (int i = 0; i < players.length; i++) {
+			comboPlayer1.addItem(players[i].toString());
+			comboPlayer2.addItem(players[i].toString());
+			selectEditPlayer.addItem(players[i].toString());
+		}
+
+	}
+
 }
