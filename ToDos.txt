@@ -17,7 +17,7 @@ In Settings
 Update on_Value_Change | Emma
 	Prio: 3
 	Time: 1-2
-Seite refreshen/aktualisierung DropDowns | Sebastian
+Seite refreshen/aktualisierung DropDowns | Sebastian DONE
 	Prio 1
 	Time 1-2
 Musik & Sounds + Controls | Alex
