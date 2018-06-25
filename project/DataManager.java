@@ -86,7 +86,15 @@ public class DataManager {
 		try {
 			if (!checkPlayerExists(name)) {
 				// Assume default encoding.
-				FileWriter fw = new FileWriter(file.getAbsoluteFile());
+				FileWriter fw = new FileWriter(file.getAbsolutePath());
+				System.out.println(file.getAbsolutePath());
+				//System.out.println(file.getAbsoluteFile());
+				System.out.println(file.getCanonicalPath());
+				//System.out.println(file.getCanonicalFile());
+				//System.out.println(fw.getEncoding());
+				System.out.println(fw.equals(file.getCanonicalPath()));
+				System.out.println(fw.hashCode());
+				System.out.println(file.hashCode());
 
 				// Always wrap FileWriter in BufferedWriter.
 				BufferedWriter bw = new BufferedWriter(fw);
@@ -111,6 +119,8 @@ public class DataManager {
 	public static boolean checkPlayerExists(String name) {
 		ArrayList<String> players = getAllPlayerNames();
 		for (String player : players) {
+			//System.out.println("Player: "+player);
+			//System.out.println("Name: "+name);
 			if (name.equals(player)) {
 				return true;
 			}
