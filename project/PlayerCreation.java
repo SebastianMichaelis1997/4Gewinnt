@@ -69,11 +69,21 @@ public class PlayerCreation {
 		nameField.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		nameField.setVisible(true);
 		nameField.setBounds(200, 22, 220, 41);
+		nameField.selectAll();
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (nameField.getText() != ("Enter Name")) { // File for a new player gets added to folder "players"
-					DataManager.addPlayer(nameField.getText()); // Adds Standard Values for players
-					DataManager.getPlayer(nameField.getText()); // Just for directly testing @Simon
+				if (nameField.getText() != ("Enter Name")) { // File for a new
+																// player gets
+																// added to
+																// folder
+																// "players"
+					DataManager.addPlayer(nameField.getText()); // Adds Standard
+																// Values for
+																// players
+					DataManager.getPlayer(nameField.getText()); // Just for
+																// directly
+																// testing
+																// @Simon
 					MainWindow.refreshPlayerComboBox();
 					frame.dispose(); // closes the window
 				}
@@ -90,7 +100,8 @@ public class PlayerCreation {
 		});
 		frame.setVisible(true);
 
-		ImageIcon icon = createImageIcon("sonne.jpg"); // Parameter ändern @Simon
+		ImageIcon icon = createImageIcon("sonne.jpg"); // Parameter ändern
+														// @Simon
 		JLabel label1 = new JLabel("Image and Text", icon, JLabel.CENTER);
 		label1.setBounds(255, 84, 110, 110);
 

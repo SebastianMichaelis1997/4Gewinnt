@@ -47,7 +47,8 @@ public class EditPlayer extends JFrame {
 		btnSave.setBounds(40, 193, 150, 50);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent save) {
-				DataManager.changeProperty(player.toString(), "name", txtChangeName.getText());
+				DataManager.changeProperty(player.toString(), "name",
+						txtChangeName.getText());
 				MainWindow.refreshPlayerComboBox();
 				dispose();
 			}
@@ -57,10 +58,11 @@ public class EditPlayer extends JFrame {
 		txtChangeName = new JTextField();
 		txtChangeName.setHorizontalAlignment(SwingConstants.CENTER);
 		txtChangeName.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		txtChangeName.setText("Change Name");
+		txtChangeName.setText(player.toString());
 		txtChangeName.setBounds(153, 27, 168, 43);
 		contentPane.add(txtChangeName);
 		txtChangeName.setColumns(10);
+		txtChangeName.selectAll();
 
 		JButton btnClose = new JButton("Close");
 		btnClose.setBounds(286, 193, 140, 50);
