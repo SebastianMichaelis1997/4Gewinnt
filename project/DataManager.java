@@ -30,11 +30,10 @@ public class DataManager {
 			if (fileEntry.isDirectory()) {
 				getAllPlayerNames(fileEntry);
 			} else {
-				players.add(fileEntry.getName().substring(0,
-						fileEntry.getName().indexOf('.'))); // adds just the
-															// file
-															// name ->cuts the
-															// ending off
+				players.add(fileEntry.getName().substring(0, fileEntry.getName().indexOf('.'))); // adds just the
+																									// file
+																									// name ->cuts the
+																									// ending off
 			}
 		}
 		return players;
@@ -52,11 +51,10 @@ public class DataManager {
 			if (fileEntry.isDirectory()) {
 				getAllPlayerNames(fileEntry);
 			} else {
-				players.add(fileEntry.getName().substring(0,
-						fileEntry.getName().indexOf('.'))); // adds just the
-															// file
-															// name ->cuts the
-															// ending off
+				players.add(fileEntry.getName().substring(0, fileEntry.getName().indexOf('.'))); // adds just the
+																									// file
+																									// name ->cuts the
+																									// ending off
 			}
 		}
 		return players;
@@ -64,8 +62,7 @@ public class DataManager {
 
 	public static String[] getPlayer(String filename) {
 		try {
-			FileReader fr = new FileReader(DIRECTORYNAME + File.separator
-					+ filename + ".player");
+			FileReader fr = new FileReader(DIRECTORYNAME + File.separator + filename + ".player");
 			BufferedReader br = new BufferedReader(fr);
 			String[] playerData = new String[8];
 			for (int i = 0; i < playerData.length; i++) { // reads all lines of
@@ -87,72 +84,87 @@ public class DataManager {
 		checkDirectory();
 		File file = new File(resourcePath);
 		try {
-			// Assume default encoding.
-			FileWriter fw = new FileWriter(file.getAbsoluteFile());
+			if (!checkPlayerExists(name)) {
+				// Assume default encoding.
+				FileWriter fw = new FileWriter(file.getAbsoluteFile());
 
-			// Always wrap FileWriter in BufferedWriter.
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(name);
-			bw.newLine();
-			for (int i = 0; i < 5; i++) { // Standard values
-				bw.write("0");
+				// Always wrap FileWriter in BufferedWriter.
+				BufferedWriter bw = new BufferedWriter(fw);
+				bw.write(name);
 				bw.newLine();
+				for (int i = 0; i < 5; i++) { // Standard values
+					bw.write("0");
+					bw.newLine();
+				}
+				bw.write("null"); // Standard value
+				bw.newLine();
+				bw.write("red"); // Standard value
+				bw.close();
+			} else {
+				System.out.println("Player already exists!");
 			}
-			bw.write("null"); // Standard value
-			bw.newLine();
-			bw.write("red"); // Standard value
-			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static void changeProperty(String player, String attribute,
-			String value) { // changes the addressed
-		String resourcePath = DIRECTORYNAME + File.separator + player
-				+ ".player"; // attribute
+	public static boolean checkPlayerExists(String name) {
+		ArrayList<String> players = getAllPlayerNames();
+		for (String player : players) {
+			if (name.equals(player)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static void changeProperty(String player, String attribute, String value) { // changes the addressed
+		String resourcePath = DIRECTORYNAME + File.separator + player + ".player"; // attribute
 		try {
-			String[] playerData = getPlayer(player);
-			File file = new File(resourcePath);
-			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-			for (int i = 0; i < playerData.length; i++) {
-				if (attribute.equals("name") && (i == 0)) {
-					bw.write(value);
-					bw.newLine();
-				} else if (attribute.equals("nrOfGames") && (i == 1)) {
-					bw.write(value);
-					bw.newLine();
-				} else if (attribute.equals("wins") && (i == 2)) {
-					bw.write(value);
-					bw.newLine();
-				} else if (attribute.equals("losses") && (i == 3)) {
-					bw.write(value);
-					bw.newLine();
-				} else if (attribute.equals("ties") && (i == 4)) {
-					bw.write(value);
-					bw.newLine();
-				} else if (attribute.equals("score") && (i == 5)) {
-					bw.write(value);
-					bw.newLine();
-				} else if (attribute.equals("icon") && (i == 6)) {
-					bw.write(value);
-					bw.newLine();
-				} else if (attribute.equals("color") && (i == 7)) {
-					bw.write(value);
-					bw.newLine();
-				} else {
-					bw.write(playerData[i]);
-					bw.newLine();
+			if (checkPlayerExists(value) & attribute.equals("name") & !player.equals(value)) {
+				System.out.println("Player already exists! Couldn't save changes!");
+			} else {
+				String[] playerData = getPlayer(player);
+				File file = new File(resourcePath);
+				FileWriter fw = new FileWriter(file.getAbsoluteFile());
+				BufferedWriter bw = new BufferedWriter(fw);
+				for (int i = 0; i < playerData.length; i++) {
+					if (attribute.equals("name") && (i == 0)) {
+						bw.write(value);
+						bw.newLine();
+					} else if (attribute.equals("nrOfGames") && (i == 1)) {
+						bw.write(value);
+						bw.newLine();
+					} else if (attribute.equals("wins") && (i == 2)) {
+						bw.write(value);
+						bw.newLine();
+					} else if (attribute.equals("losses") && (i == 3)) {
+						bw.write(value);
+						bw.newLine();
+					} else if (attribute.equals("ties") && (i == 4)) {
+						bw.write(value);
+						bw.newLine();
+					} else if (attribute.equals("score") && (i == 5)) {
+						bw.write(value);
+						bw.newLine();
+					} else if (attribute.equals("icon") && (i == 6)) {
+						bw.write(value);
+						bw.newLine();
+					} else if (attribute.equals("color") && (i == 7)) {
+						bw.write(value);
+						bw.newLine();
+					} else {
+						bw.write(playerData[i]);
+						bw.newLine();
+					}
+				} // end for
+				bw.close();
+				if (attribute.equals("name")) {
+					File oldfile = new File((DIRECTORYNAME + File.separator + player + ".player")); // renames file //
+																									// file
+					File newfile = new File((DIRECTORYNAME + File.separator + value + ".player"));
+					oldfile.renameTo(newfile);
 				}
-			} // end for
-			bw.close();
-			if (attribute.equals("name")) {
-				File oldfile = new File((DIRECTORYNAME + File.separator
-						+ player + ".player")); // renames file // file
-				File newfile = new File(
-						(DIRECTORYNAME + File.separator + value + ".player"));
-				oldfile.renameTo(newfile);
 			}
 		} // end try
 		catch (IOException e) {
@@ -165,8 +177,7 @@ public class DataManager {
 	public static String getProperty(String player, String attribute) {
 		String value = "test";
 		try {
-			FileReader fr = new FileReader(DIRECTORYNAME + File.separator
-					+ player + ".player");
+			FileReader fr = new FileReader(DIRECTORYNAME + File.separator + player + ".player");
 			BufferedReader br = new BufferedReader(fr);
 			String[] playerData = new String[9];
 			for (int i = 0; i < playerData.length; i++) { // reads all lines of
@@ -204,8 +215,7 @@ public class DataManager {
 	}// end get property
 
 	public static void deletePlayer(String playerName) {
-		Path path = Paths.get(DIRECTORYNAME + File.separator + playerName
-				+ ".player");
+		Path path = Paths.get(DIRECTORYNAME + File.separator + playerName + ".player");
 		try {
 			Files.delete(path);
 		} catch (IOException e) {
