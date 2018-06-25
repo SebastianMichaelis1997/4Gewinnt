@@ -1,18 +1,25 @@
 package project;
 
+import javax.swing.*;
+
+import java.awt.*;
+import java.awt.event.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.ScrollPaneConstants;
+public class ReadMeWindow {
+	private JFrame f; // Main frame
+	private JTextArea ta; // Text area
+	private JScrollPane sbrText; // Scroll pane for text area
+	private JButton btnClose; // Close Frame
 
-public class ReadMeWindow extends JFrame {
+	public ReadMeWindow() { // Constructor
+		// Create Frame
+		f = new JFrame("ReadMe");
+		f.getContentPane().setLayout(new FlowLayout());
 
-	public ReadMeWindow() {
+		// Get Content from ReadMeFile
 		String text = "";
 		try {
 			FileReader fr = new FileReader(System.getProperty("user.dir")
@@ -27,30 +34,40 @@ public class ReadMeWindow extends JFrame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		// System.out.println(text);
-		JPanel middlePanel = new JPanel();
-		// middlePanel.setBorder(new TitledBorder(new EtchedBorder(),
-		// "Display Area"));
 
-		// create the middle panel components
+		// Create Scrolling Text Area
+		ta = new JTextArea(text, 16, 26);
+		ta.setLineWrap(true);
 
-		JTextArea display = new JTextArea(16, 58);
-		display.setText(text);
-		display.setEditable(false); // set textArea non-editable
-		JScrollPane scroll = new JScrollPane(display);
-		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		display.grabFocus();
-		display.setCaretPosition(20);
+		ta.setEditable(false);
+		sbrText = new JScrollPane(ta);
+		sbrText.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-		// Add Textarea in to middle panel
-		middlePanel.add(scroll);
-
-		// My code
-		JFrame frame = new JFrame();
-		frame.add(middlePanel);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
+		// Create Close Button
+		btnClose = new JButton("Zurück");
+		btnClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				f.dispose();
+			}
+		});
+		this.launchFrame();
 	}
 
+	public void launchFrame() { // Create Layout
+		// Add text area and button to frame
+		f.getContentPane().add(sbrText);
+		f.getContentPane().add(btnClose);
+
+		// Close when the close button is clicked
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		// Display Frame
+		f.pack(); // Adjusts frame to size of components
+		f.setVisible(true);
+	}
+
+	// public static void main(String args[]) {
+	// ReadMe2 gui = new ReadMe2();
+	// gui.launchFrame();
+	// }
 }
