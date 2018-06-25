@@ -1,16 +1,16 @@
 package project;
 
-import java.awt.EventQueue;
-
-import javax.swing.*;
-//import com.jgoodies.forms.layout.FormLayout;
-//import com.jgoodies.forms.layout.ColumnSpec;
-//import com.jgoodies.forms.layout.RowSpec;
 import java.awt.event.ActionListener;
-import java.io.FileReader;
-import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class PlayerCreation {
 

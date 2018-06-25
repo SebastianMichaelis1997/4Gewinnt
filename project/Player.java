@@ -1,7 +1,8 @@
 package project;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import javax.swing.ImageIcon;
+
 
 /**
  * This class contains all the information about players, like their stats and

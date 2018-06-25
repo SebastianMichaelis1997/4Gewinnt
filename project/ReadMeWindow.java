@@ -1,19 +1,22 @@
 package project;
 
-import javax.swing.*;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 public class ReadMeWindow extends JFrame {
 
 	public ReadMeWindow() {
 		String text = "";
 		try {
-			FileReader fr = new FileReader(System.getProperty("user.dir")+"\\src\\project\\ReadMe");
+			FileReader fr = new FileReader(System.getProperty("user.dir")
+					+ "\\src\\project\\ReadMe");
 			BufferedReader br = new BufferedReader(fr);
 			String sCurrentLine;
 			while ((sCurrentLine = br.readLine()) != null) {
@@ -26,7 +29,8 @@ public class ReadMeWindow extends JFrame {
 		}
 		// System.out.println(text);
 		JPanel middlePanel = new JPanel();
-		// middlePanel.setBorder(new TitledBorder(new EtchedBorder(), "Display Area"));
+		// middlePanel.setBorder(new TitledBorder(new EtchedBorder(),
+		// "Display Area"));
 
 		// create the middle panel components
 

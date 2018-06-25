@@ -8,9 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.io.File;
-import java.util.Iterator;
 import java.util.*;
 
 public class DataManager {
@@ -32,24 +30,33 @@ public class DataManager {
 			if (fileEntry.isDirectory()) {
 				getAllPlayerNames(fileEntry);
 			} else {
-				players.add(fileEntry.getName().substring(0, fileEntry.getName().indexOf('.'))); // adds just the file
-																									// name ->cuts the
-																									// ending off
+				players.add(fileEntry.getName().substring(0,
+						fileEntry.getName().indexOf('.'))); // adds just the
+															// file
+															// name ->cuts the
+															// ending off
 			}
 		}
 		return players;
 	}
 
-	public static ArrayList<String> getAllPlayerNames(final File folder) { // for recursive method call -> Überladung
+	public static ArrayList<String> getAllPlayerNames(final File folder) { // for
+																			// recursive
+																			// method
+																			// call
+																			// ->
+																			// Überladung
 		checkDirectory();
 		ArrayList<String> players = new ArrayList<String>();
 		for (File fileEntry : folder.listFiles()) {
 			if (fileEntry.isDirectory()) {
 				getAllPlayerNames(fileEntry);
 			} else {
-				players.add(fileEntry.getName().substring(0, fileEntry.getName().indexOf('.'))); // adds just the file
-																									// name ->cuts the
-																									// ending off
+				players.add(fileEntry.getName().substring(0,
+						fileEntry.getName().indexOf('.'))); // adds just the
+															// file
+															// name ->cuts the
+															// ending off
 			}
 		}
 		return players;
@@ -57,10 +64,12 @@ public class DataManager {
 
 	public static String[] getPlayer(String filename) {
 		try {
-			FileReader fr = new FileReader(DIRECTORYNAME + File.separator + filename + ".player");
+			FileReader fr = new FileReader(DIRECTORYNAME + File.separator
+					+ filename + ".player");
 			BufferedReader br = new BufferedReader(fr);
 			String[] playerData = new String[8];
-			for (int i = 0; i < playerData.length; i++) { // reads all lines of player file
+			for (int i = 0; i < playerData.length; i++) { // reads all lines of
+															// player file
 				playerData[i] = br.readLine();
 				System.out.println(playerData[i]);
 			}
@@ -98,8 +107,10 @@ public class DataManager {
 		}
 	}
 
-	public static void changeProperty(String player, String attribute, String value) { // changes the addressed
-		String resourcePath = DIRECTORYNAME + File.separator + player + ".player"; // attribute
+	public static void changeProperty(String player, String attribute,
+			String value) { // changes the addressed
+		String resourcePath = DIRECTORYNAME + File.separator + player
+				+ ".player"; // attribute
 		try {
 			String[] playerData = getPlayer(player);
 			File file = new File(resourcePath);
@@ -137,8 +148,10 @@ public class DataManager {
 			} // end for
 			bw.close();
 			if (attribute.equals("name")) {
-				File oldfile = new File((DIRECTORYNAME + File.separator + player + ".player")); // renames file // file
-				File newfile = new File((DIRECTORYNAME + File.separator + value + ".player"));
+				File oldfile = new File((DIRECTORYNAME + File.separator
+						+ player + ".player")); // renames file // file
+				File newfile = new File(
+						(DIRECTORYNAME + File.separator + value + ".player"));
 				oldfile.renameTo(newfile);
 			}
 		} // end try
@@ -152,10 +165,12 @@ public class DataManager {
 	public static String getProperty(String player, String attribute) {
 		String value = "test";
 		try {
-			FileReader fr = new FileReader(DIRECTORYNAME + File.separator + player + ".player");
+			FileReader fr = new FileReader(DIRECTORYNAME + File.separator
+					+ player + ".player");
 			BufferedReader br = new BufferedReader(fr);
 			String[] playerData = new String[9];
-			for (int i = 0; i < playerData.length; i++) { // reads all lines of player file
+			for (int i = 0; i < playerData.length; i++) { // reads all lines of
+															// player file
 				playerData[i] = br.readLine();
 				System.out.println(playerData[i]); // @Simon Ändern
 			}
@@ -189,7 +204,8 @@ public class DataManager {
 	}// end get property
 
 	public static void deletePlayer(String playerName) {
-		Path path = Paths.get(DIRECTORYNAME + File.separator + playerName + ".player");
+		Path path = Paths.get(DIRECTORYNAME + File.separator + playerName
+				+ ".player");
 		try {
 			Files.delete(path);
 		} catch (IOException e) {
