@@ -4,17 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.border.MatteBorder;
 
 public class MainWindow extends JFrame {
 
-	private JTextField txtPoints;
-	private JTextField txtWins;
-	private JTextField txtLoses;
-	private static JTextField txtVersion;
+	private static JTextField textField, textField_1, textField_2, textField_3;
 	private static JComboBox comboPlayer1, comboPlayer2, selectEditPlayer;
 	private static final ButtonGroup buttonGroup = new ButtonGroup();
 	private static final ButtonGroup buttonGroup_1 = new ButtonGroup();
@@ -24,10 +19,7 @@ public class MainWindow extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-
 	public static void main(String[] args) {
-		// ExceptionWindow test = new ExceptionWindow("Test Emma");
-
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -53,7 +45,8 @@ public class MainWindow extends JFrame {
 		setBounds(200, 100, 1100, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP,
+				JTabbedPane.WRAP_TAB_LAYOUT); // Creates Tab Panel
 		getContentPane().add(tabbedPane);
 
 		JPanel gameTabPanel = new JPanel(); // Three tabs get created
@@ -69,9 +62,9 @@ public class MainWindow extends JFrame {
 		//
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		tabbedPane.addTab(
-				"Game                                                                                          ",
-				gameTabPanel);
+		tabbedPane
+				.addTab("Game                                                                                          ",
+						gameTabPanel);
 
 		JLabel label_1 = new JLabel("Select Players:");
 		label_1.setForeground(Color.DARK_GRAY);
@@ -80,11 +73,12 @@ public class MainWindow extends JFrame {
 		gameTabPanel.add(label_1);
 
 		JLabel label_2 = new JLabel("Player Number One:");
-		label_2.setFont(new Font("Tahoma", Font.ITALIC, 16));
+		label_2.setFont(new Font("Comic Sans MS", Font.ITALIC, 16));
 		label_2.setBounds(90, 134, 156, 31);
 		gameTabPanel.add(label_2);
 
 		// create an empty combo box with items of type String
+		// creates combo box with all player names for choosing player 1
 		comboPlayer1 = new JComboBox(DataManager.getAllPlayerNames().toArray());
 		comboPlayer1.setBounds(213, 214, 156, 31);
 		gameTabPanel.add(comboPlayer1);
@@ -98,6 +92,7 @@ public class MainWindow extends JFrame {
 		separator_2.setBounds(550, 80, 1, 73);
 		gameTabPanel.add(separator_2);
 
+		// creates combo box with all player names for choosing player 2
 		comboPlayer2 = new JComboBox(DataManager.getAllPlayerNames().toArray());
 		comboPlayer2.setBounds(842, 214, 156, 31);
 		gameTabPanel.add(comboPlayer2);
@@ -106,8 +101,9 @@ public class MainWindow extends JFrame {
 		separator.setBounds(59, 163, 961, 2);
 		gameTabPanel.add(separator);
 
-		RoundCornerButton roundCornerButton = new RoundCornerButton("<html> <center>Start Game</center> </html>",
-				new Dimension(105, 65));
+		RoundCornerButton roundCornerButton = new RoundCornerButton(
+				"<html> <center>Start Game</center> </html>", new Dimension(
+						105, 65));
 		roundCornerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -123,37 +119,39 @@ public class MainWindow extends JFrame {
 		roundCornerButton.setBounds(419, 347, 215, 84);
 		gameTabPanel.add(roundCornerButton);
 
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Human");
-		buttonGroup.add(rdbtnNewRadioButton);
-		rdbtnNewRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		rdbtnNewRadioButton.setBounds(63, 214, 98, 21);
-		gameTabPanel.add(rdbtnNewRadioButton);
+		JRadioButton rdbtnHuman1 = new JRadioButton("Human");
+		buttonGroup.add(rdbtnHuman1);
+		rdbtnHuman1.setSelected(true);
+		rdbtnHuman1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		rdbtnHuman1.setBounds(63, 214, 98, 21);
+		gameTabPanel.add(rdbtnHuman1);
 
-		JRadioButton radioButton = new JRadioButton("Computer");
-		buttonGroup.add(radioButton);
-		radioButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		radioButton.setBounds(63, 297, 98, 21);
-		gameTabPanel.add(radioButton);
+		JRadioButton rdbtnComputer1 = new JRadioButton("Computer");
+		buttonGroup.add(rdbtnComputer1);
+		rdbtnComputer1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		rdbtnComputer1.setBounds(63, 297, 98, 21);
+		gameTabPanel.add(rdbtnComputer1);
 
-		JComboBox<String> comboBox_1 = new JComboBox<String>();
-		comboBox_1.setBounds(213, 295, 156, 31);
-		gameTabPanel.add(comboBox_1);
+		JComboBox comboComputer1 = new JComboBox();
+		comboComputer1.setBounds(213, 295, 156, 31);
+		gameTabPanel.add(comboComputer1);
 
-		JComboBox<String> comboBox_2 = new JComboBox<String>();
-		comboBox_2.setBounds(842, 303, 156, 31);
-		gameTabPanel.add(comboBox_2);
+		JComboBox comboComputer2 = new JComboBox();
+		comboComputer2.setBounds(842, 303, 156, 31);
+		gameTabPanel.add(comboComputer2);
 
-		JRadioButton radioButton_1 = new JRadioButton("Human");
-		buttonGroup_1.add(radioButton_1);
-		radioButton_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		radioButton_1.setBounds(738, 219, 98, 21);
-		gameTabPanel.add(radioButton_1);
+		JRadioButton rdbtnHuman2 = new JRadioButton("Human");
+		buttonGroup_1.add(rdbtnHuman2);
+		rdbtnHuman2.setSelected(true);
+		rdbtnHuman2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		rdbtnHuman2.setBounds(738, 219, 98, 21);
+		gameTabPanel.add(rdbtnHuman2);
 
-		JRadioButton radioButton_2 = new JRadioButton("Computer");
-		buttonGroup_1.add(radioButton_2);
-		radioButton_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		radioButton_2.setBounds(738, 305, 98, 21);
-		gameTabPanel.add(radioButton_2);
+		JRadioButton rdbtnComputer2 = new JRadioButton("Computer");
+		buttonGroup_1.add(rdbtnComputer2);
+		rdbtnComputer2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		rdbtnComputer2.setBounds(738, 305, 98, 21);
+		gameTabPanel.add(rdbtnComputer2);
 
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 		//
@@ -161,14 +159,14 @@ public class MainWindow extends JFrame {
 		//
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		tabbedPane.addTab(
-				"Player                                                                                              ",
-				playerTabPanel);
+		tabbedPane
+				.addTab("Player                                                                                              ",
+						playerTabPanel);
 
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new PlayerCreation();
+				PlayerCreation playerCreation = new PlayerCreation();
 			}
 		});
 		btnCreate.setFont(new Font("Tahoma", Font.ITALIC, 25));
@@ -182,23 +180,11 @@ public class MainWindow extends JFrame {
 		panelInPanel3.setLayout(null);
 		playerTabPanel.add(panelInPanel3);
 
-		selectEditPlayer = new JComboBox(DataManager.getAllPlayerNames().toArray());
+		// Combo box for choosing player which shall get editet
+		selectEditPlayer = new JComboBox(DataManager.getAllPlayerNames()
+				.toArray());
 		selectEditPlayer.setBounds(371, 38, 326, 21);
 		panelInPanel3.add(selectEditPlayer);
-		selectEditPlayer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent showPlayer) {
-				String selectedPlayer = selectEditPlayer.getSelectedItem().toString();
-				String selectedScore = DataManager.getProperty(selectedPlayer, "score");
-				System.out.println(selectedScore);
-				txtPoints.setText(selectedScore);
-				String selectedWins = DataManager.getProperty(selectedPlayer, "wins");
-				System.out.println(selectedWins);
-				txtWins.setText(selectedWins);
-				String selectedLosses = DataManager.getProperty(selectedPlayer, "losses");
-				System.out.println(selectedLosses);
-				txtLoses.setText(selectedLosses);
-			}
-		});
 
 		JButton buttonEdit = new JButton("Edit");
 		buttonEdit.addActionListener(new ActionListener() {
@@ -215,7 +201,8 @@ public class MainWindow extends JFrame {
 		buttonDelete.setBounds(70, 375, 125, 32);
 		buttonDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent deletePlayer) {
-				DeletePlayer.start(selectEditPlayer.getSelectedItem().toString());
+				DeletePlayer.start(selectEditPlayer.getSelectedItem()
+						.toString());
 			}
 		});
 		playerTabPanel.add(buttonDelete);
@@ -232,7 +219,7 @@ public class MainWindow extends JFrame {
 		label_3.setBounds(55, 220, 101, 30);
 		panelInPanel3.add(label_3);
 
-		JLabel label_4 = new JLabel("Losses:");
+		JLabel label_4 = new JLabel("Loses:");
 		label_4.setHorizontalAlignment(SwingConstants.LEFT);
 		label_4.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		label_4.setBounds(55, 299, 101, 30);
@@ -246,32 +233,32 @@ public class MainWindow extends JFrame {
 		separator_4.setBounds(55, 260, 634, 2);
 		panelInPanel3.add(separator_4);
 
-		txtPoints = new JTextField();
-		txtPoints.setHorizontalAlignment(SwingConstants.CENTER);
-		txtPoints.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		txtPoints.setText("");
-		txtPoints.setBounds(371, 156, 96, 19);
-		txtPoints.setColumns(10);
-		txtPoints.setEditable(false);
-		panelInPanel3.add(txtPoints);
+		textField = new JTextField();
+		textField.setHorizontalAlignment(SwingConstants.CENTER);
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		textField.setText("310");
+		textField.setBounds(371, 156, 96, 19);
+		textField.setColumns(10);
+		textField.setEditable(false);
+		panelInPanel3.add(textField);
 
-		txtWins = new JTextField();
-		txtWins.setHorizontalAlignment(SwingConstants.CENTER);
-		txtWins.setText("");
-		txtWins.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		txtWins.setColumns(10);
-		txtWins.setBounds(371, 230, 96, 19);
-		txtWins.setEditable(false);
-		panelInPanel3.add(txtWins);
+		textField_1 = new JTextField();
+		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_1.setText("13");
+		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		textField_1.setColumns(10);
+		textField_1.setBounds(371, 230, 96, 19);
+		textField_1.setEditable(false);
+		panelInPanel3.add(textField_1);
 
-		txtLoses = new JTextField();
-		txtLoses.setHorizontalAlignment(SwingConstants.CENTER);
-		txtLoses.setText("");
-		txtLoses.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		txtLoses.setColumns(10);
-		txtLoses.setBounds(371, 309, 96, 19);
-		txtLoses.setEditable(false);
-		panelInPanel3.add(txtLoses);
+		textField_2 = new JTextField();
+		textField_2.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_2.setText("3");
+		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		textField_2.setColumns(10);
+		textField_2.setBounds(371, 309, 96, 19);
+		textField_2.setEditable(false);
+		panelInPanel3.add(textField_2);
 
 		JLabel lblSelectPlayer = new JLabel("Select Player:");
 		lblSelectPlayer.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -284,9 +271,9 @@ public class MainWindow extends JFrame {
 		//
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		tabbedPane.addTab(
-				"Options                                                                                             ",
-				optionsTabPanel);
+		tabbedPane
+				.addTab("Options                                                                                             ",
+						optionsTabPanel);
 
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(526, 72, 1, 382);
@@ -317,14 +304,14 @@ public class MainWindow extends JFrame {
 		label_5.setBounds(29, 262, 155, 34);
 		optionsTabPanel.add(label_5);
 
-		txtVersion = new JTextField();
-		txtVersion.setHorizontalAlignment(SwingConstants.RIGHT);
-		txtVersion.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		txtVersion.setText("10.4.1");
-		txtVersion.setBounds(257, 147, 714, 22);
-		txtVersion.setColumns(10);
-		txtVersion.setEditable(false);
-		optionsTabPanel.add(txtVersion);
+		textField_3 = new JTextField();
+		textField_3.setHorizontalAlignment(SwingConstants.RIGHT);
+		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		textField_3.setText("10.4.1");
+		textField_3.setBounds(257, 147, 714, 22);
+		textField_3.setColumns(10);
+		textField_3.setEditable(false);
+		optionsTabPanel.add(textField_3);
 
 		JSlider slider = new JSlider(); // Slider
 		slider.setBounds(257, 274, 714, 22);
@@ -347,4 +334,5 @@ public class MainWindow extends JFrame {
 		}
 
 	}
+
 }
