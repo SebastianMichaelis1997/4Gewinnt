@@ -69,9 +69,9 @@ public class MainWindow extends JFrame {
 		//
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		tabbedPane
-				.addTab("Game                                                                                          ",
-						gameTabPanel);
+		tabbedPane.addTab(
+				"Game                                                                                          ",
+				gameTabPanel);
 
 		JLabel label_1 = new JLabel("Select Players:");
 		label_1.setForeground(Color.DARK_GRAY);
@@ -106,9 +106,8 @@ public class MainWindow extends JFrame {
 		separator.setBounds(59, 163, 961, 2);
 		gameTabPanel.add(separator);
 
-		RoundCornerButton roundCornerButton = new RoundCornerButton(
-				"<html> <center>Start Game</center> </html>", new Dimension(
-						105, 65));
+		RoundCornerButton roundCornerButton = new RoundCornerButton("<html> <center>Start Game</center> </html>",
+				new Dimension(105, 65));
 		roundCornerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -124,39 +123,37 @@ public class MainWindow extends JFrame {
 		roundCornerButton.setBounds(419, 347, 215, 84);
 		gameTabPanel.add(roundCornerButton);
 
-		JRadioButton rdbtnHuman1 = new JRadioButton("Human");
-		buttonGroup.add(rdbtnHuman1);
-		rdbtnHuman1.setSelected(true);
-		rdbtnHuman1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		rdbtnHuman1.setBounds(63, 214, 98, 21);
-		gameTabPanel.add(rdbtnHuman1);
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Human");
+		buttonGroup.add(rdbtnNewRadioButton);
+		rdbtnNewRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		rdbtnNewRadioButton.setBounds(63, 214, 98, 21);
+		gameTabPanel.add(rdbtnNewRadioButton);
 
-		JRadioButton rdbtnComputer1 = new JRadioButton("Computer");
-		buttonGroup.add(rdbtnComputer1);
-		rdbtnComputer1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		rdbtnComputer1.setBounds(63, 297, 98, 21);
-		gameTabPanel.add(rdbtnComputer1);
+		JRadioButton radioButton = new JRadioButton("Computer");
+		buttonGroup.add(radioButton);
+		radioButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		radioButton.setBounds(63, 297, 98, 21);
+		gameTabPanel.add(radioButton);
 
-		JComboBox comboComputer1 = new JComboBox();
-		comboComputer1.setBounds(213, 295, 156, 31);
-		gameTabPanel.add(comboComputer1);
+		JComboBox<String> comboBox_1 = new JComboBox<String>();
+		comboBox_1.setBounds(213, 295, 156, 31);
+		gameTabPanel.add(comboBox_1);
 
-		JComboBox comboComputer2 = new JComboBox();
-		comboComputer2.setBounds(842, 303, 156, 31);
-		gameTabPanel.add(comboComputer2);
+		JComboBox<String> comboBox_2 = new JComboBox<String>();
+		comboBox_2.setBounds(842, 303, 156, 31);
+		gameTabPanel.add(comboBox_2);
 
-		JRadioButton rdbtnHuman2 = new JRadioButton("Human");
-		buttonGroup_1.add(rdbtnHuman2);
-		rdbtnHuman2.setSelected(true);
-		rdbtnHuman2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		rdbtnHuman2.setBounds(738, 219, 98, 21);
-		gameTabPanel.add(rdbtnHuman2);
+		JRadioButton radioButton_1 = new JRadioButton("Human");
+		buttonGroup_1.add(radioButton_1);
+		radioButton_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		radioButton_1.setBounds(738, 219, 98, 21);
+		gameTabPanel.add(radioButton_1);
 
-		JRadioButton rdbtnComputer2 = new JRadioButton("Computer");
-		buttonGroup_1.add(rdbtnComputer2);
-		rdbtnComputer2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		rdbtnComputer2.setBounds(738, 305, 98, 21);
-		gameTabPanel.add(rdbtnComputer2);
+		JRadioButton radioButton_2 = new JRadioButton("Computer");
+		buttonGroup_1.add(radioButton_2);
+		radioButton_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		radioButton_2.setBounds(738, 305, 98, 21);
+		gameTabPanel.add(radioButton_2);
 
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 		//
@@ -164,9 +161,9 @@ public class MainWindow extends JFrame {
 		//
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		tabbedPane
-				.addTab("Player                                                                                              ",
-						playerTabPanel);
+		tabbedPane.addTab(
+				"Player                                                                                              ",
+				playerTabPanel);
 
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
@@ -185,24 +182,19 @@ public class MainWindow extends JFrame {
 		panelInPanel3.setLayout(null);
 		playerTabPanel.add(panelInPanel3);
 
-		selectEditPlayer = new JComboBox(DataManager.getAllPlayerNames()
-				.toArray());
+		selectEditPlayer = new JComboBox(DataManager.getAllPlayerNames().toArray());
 		selectEditPlayer.setBounds(371, 38, 326, 21);
 		panelInPanel3.add(selectEditPlayer);
 		selectEditPlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent showPlayer) {
-				String selectedPlayer = selectEditPlayer.getSelectedItem()
-						.toString();
-				String selectedScore = DataManager.getProperty(selectedPlayer,
-						"score");
+				String selectedPlayer = selectEditPlayer.getSelectedItem().toString();
+				String selectedScore = DataManager.getProperty(selectedPlayer, "score");
 				System.out.println(selectedScore);
 				txtPoints.setText(selectedScore);
-				String selectedWins = DataManager.getProperty(selectedPlayer,
-						"wins");
+				String selectedWins = DataManager.getProperty(selectedPlayer, "wins");
 				System.out.println(selectedWins);
 				txtWins.setText(selectedWins);
-				String selectedLosses = DataManager.getProperty(selectedPlayer,
-						"losses");
+				String selectedLosses = DataManager.getProperty(selectedPlayer, "losses");
 				System.out.println(selectedLosses);
 				txtLoses.setText(selectedLosses);
 			}
@@ -223,8 +215,7 @@ public class MainWindow extends JFrame {
 		buttonDelete.setBounds(70, 375, 125, 32);
 		buttonDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent deletePlayer) {
-				DeletePlayer.start(selectEditPlayer.getSelectedItem()
-						.toString());
+				DeletePlayer.start(selectEditPlayer.getSelectedItem().toString());
 			}
 		});
 		playerTabPanel.add(buttonDelete);
@@ -293,9 +284,9 @@ public class MainWindow extends JFrame {
 		//
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		tabbedPane
-				.addTab("Options                                                                                             ",
-						optionsTabPanel);
+		tabbedPane.addTab(
+				"Options                                                                                             ",
+				optionsTabPanel);
 
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(526, 72, 1, 382);
