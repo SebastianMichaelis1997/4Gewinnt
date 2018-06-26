@@ -93,7 +93,7 @@ public class DataManager {
 			for (int i = 0; i < playerData.length; i++) { // reads all lines of
 															// player file
 				playerData[i] = br.readLine();
-				System.out.println(playerData[i]);
+				//System.out.println(playerData[i]);
 			}
 			br.close();
 			return playerData;
@@ -112,14 +112,14 @@ public class DataManager {
 			if (!checkPlayerExists(name, false)) {
 				// Assume default encoding.
 				FileWriter fw = new FileWriter(file.getAbsolutePath());
-				System.out.println(file.getAbsolutePath());
+				//System.out.println(file.getAbsolutePath());
 				// System.out.println(file.getAbsoluteFile());
-				System.out.println(file.getCanonicalPath());
+				//System.out.println(file.getCanonicalPath());
 				// System.out.println(file.getCanonicalFile());
 				// System.out.println(fw.getEncoding());
-				System.out.println(fw.equals(file.getCanonicalPath()));
-				System.out.println(fw.hashCode());
-				System.out.println(file.hashCode());
+				//System.out.println(fw.equals(file.getCanonicalPath()));
+				//System.out.println(fw.hashCode());
+				//System.out.println(file.hashCode());
 
 				// Always wrap FileWriter in BufferedWriter.
 				BufferedWriter bw = new BufferedWriter(fw);
