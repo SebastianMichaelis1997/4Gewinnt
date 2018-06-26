@@ -1,0 +1,28 @@
+package project;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+public class ExceptionPvP extends MainWindow {
+
+	public static void main(String[] args) {
+		actionPerforme test = new actionPerforme();
+
+		if (test1 = test2) {
+
+			JOptionPane.showMessageDialog(null, "ACHTUNG");
+
+			ImageIcon icon = new ImageIcon("bild.jpg");
+			JOptionPane.showMessageDialog(null,
+					"Du kannst nicht gegen dich selbst Spielen, das kannst du dir schon denken oder?", null,
+					JOptionPane.WARNING_MESSAGE, icon);
+
+		} else { 
+    //Bin noch dabei 
+
+		}
+
+	}
+	
+}
