@@ -386,8 +386,21 @@ public class GameWindow {
 		}
 	}
 
+	public static void gameOver() {
+		String winner = "";
+		if (currentPlayer == 1) {
+			winner = firstPlayer.getName();
+		}
+		if (currentPlayer == 2) {
+			winner = secondPlayer.getName();
+		}
+		GameOverWindow gow = new GameOverWindow(winner);
+		gow.setVisible(true);
+	}
+	
 	private static void win() {
 		gameIsOver = true;
+		gameOver();
 		log("----------");
 		if (currentPlayer == 1) {
 			log("Player " + firstPlayer.getName() + " has won!");
