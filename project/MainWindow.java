@@ -166,7 +166,7 @@ public class MainWindow extends JFrame {
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PlayerCreation playerCreation = new PlayerCreation();
+				CreatePlayer playerCreation = new CreatePlayer();
 			}
 		});
 		btnCreate.setFont(new Font("Tahoma", Font.ITALIC, 25));
