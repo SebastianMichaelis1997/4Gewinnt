@@ -26,7 +26,7 @@ public class MainWindow extends JFrame {
 	 */
 
 	public static void main(String[] args) {
-//		ExceptionWindow test = new ExceptionWindow("Test Emma");
+		// ExceptionWindow test = new ExceptionWindow("Test Emma");
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -69,9 +69,9 @@ public class MainWindow extends JFrame {
 		//
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		tabbedPane
-				.addTab("Game                                                                                          ",
-						gameTabPanel);
+		tabbedPane.addTab(
+				"Game                                                                                          ",
+				gameTabPanel);
 
 		JLabel label_1 = new JLabel("Select Players:");
 		label_1.setForeground(Color.DARK_GRAY);
@@ -106,9 +106,8 @@ public class MainWindow extends JFrame {
 		separator.setBounds(59, 163, 961, 2);
 		gameTabPanel.add(separator);
 
-		RoundCornerButton roundCornerButton = new RoundCornerButton(
-				"<html> <center>Start Game</center> </html>", new Dimension(
-						105, 65));
+		RoundCornerButton roundCornerButton = new RoundCornerButton("<html> <center>Start Game</center> </html>",
+				new Dimension(105, 65));
 		roundCornerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -162,9 +161,9 @@ public class MainWindow extends JFrame {
 		//
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		tabbedPane
-				.addTab("Player                                                                                              ",
-						playerTabPanel);
+		tabbedPane.addTab(
+				"Player                                                                                              ",
+				playerTabPanel);
 
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
@@ -183,24 +182,19 @@ public class MainWindow extends JFrame {
 		panelInPanel3.setLayout(null);
 		playerTabPanel.add(panelInPanel3);
 
-		selectEditPlayer = new JComboBox(DataManager
-				.getAllPlayerNames().toArray());
+		selectEditPlayer = new JComboBox(DataManager.getAllPlayerNames().toArray());
 		selectEditPlayer.setBounds(371, 38, 326, 21);
 		panelInPanel3.add(selectEditPlayer);
 		selectEditPlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent showPlayer) {
-				String selectedPlayer = selectEditPlayer.getSelectedItem()
-						.toString();
-				String selectedScore = DataManager.getProperty(selectedPlayer,
-						"score");
+				String selectedPlayer = selectEditPlayer.getSelectedItem().toString();
+				String selectedScore = DataManager.getProperty(selectedPlayer, "score");
 				System.out.println(selectedScore);
 				txtPoints.setText(selectedScore);
-				String selectedWins = DataManager.getProperty(selectedPlayer,
-						"wins");
+				String selectedWins = DataManager.getProperty(selectedPlayer, "wins");
 				System.out.println(selectedWins);
 				txtWins.setText(selectedWins);
-				String selectedLosses = DataManager.getProperty(selectedPlayer,
-						"losses");
+				String selectedLosses = DataManager.getProperty(selectedPlayer, "losses");
 				System.out.println(selectedLosses);
 				txtLoses.setText(selectedLosses);
 			}
@@ -221,8 +215,7 @@ public class MainWindow extends JFrame {
 		buttonDelete.setBounds(70, 375, 125, 32);
 		buttonDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent deletePlayer) {
-				DeletePlayer.start(selectEditPlayer.getSelectedItem()
-						.toString());
+				DeletePlayer.start(selectEditPlayer.getSelectedItem().toString());
 			}
 		});
 		playerTabPanel.add(buttonDelete);
@@ -291,9 +284,9 @@ public class MainWindow extends JFrame {
 		//
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		tabbedPane
-				.addTab("Options                                                                                             ",
-						optionsTabPanel);
+		tabbedPane.addTab(
+				"Options                                                                                             ",
+				optionsTabPanel);
 
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(526, 72, 1, 382);
@@ -343,15 +336,15 @@ public class MainWindow extends JFrame {
 	}
 
 	public static void refreshPlayerComboBox() {
-				comboPlayer1.removeAllItems();
-				comboPlayer2.removeAllItems();
-				selectEditPlayer.removeAllItems();
-				Object[] players = DataManager.getAllPlayerNames().toArray();
-				for (int i = 0; i < players.length; i++) {
-					comboPlayer1.addItem(players[i].toString());
-					comboPlayer2.addItem(players[i].toString());
-					selectEditPlayer.addItem(players[i].toString());
-				}
-		
-			}
+		comboPlayer1.removeAllItems();
+		comboPlayer2.removeAllItems();
+		selectEditPlayer.removeAllItems();
+		Object[] players = DataManager.getAllPlayerNames().toArray();
+		for (int i = 0; i < players.length; i++) {
+			comboPlayer1.addItem(players[i].toString());
+			comboPlayer2.addItem(players[i].toString());
+			selectEditPlayer.addItem(players[i].toString());
+		}
+
+	}
 }
