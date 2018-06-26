@@ -1,9 +1,24 @@
 package project;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.AWTException;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class GameWindow {
 
@@ -12,7 +27,6 @@ public class GameWindow {
 	private static JMenu optionsMenu;
 	private static JMenu helpMenu;
 	private static JMenuItem newGameMenuItem;
-	private static JMenuItem mainMenuItem;
 	private static JMenuItem closeMenuItem;
 	private static JMenuItem helpMenuItem;
 	private static JPanel gamePanel;
@@ -67,10 +81,6 @@ public class GameWindow {
 
 	}
 
-	private static void backtoMenu() {
-		mainWindow.dispose(); 
-	}
-	
 	private static void initializeWindow() {
 		// reset operations
 		gameIsOver = false;
@@ -91,20 +101,13 @@ public class GameWindow {
 
 		optionsMenu = new JMenu("Optionen");
 		newGameMenuItem = new JMenuItem("Neues Spiel");
-		mainMenuItem = new JMenuItem ("Hauptmenü");
-		mainMenuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent backToMenu) {
-				backtoMenu();
-			}		
-		});	
 		closeMenuItem = new JMenuItem("Beenden");
 		closeMenuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent closeGame) {
+			public void actionPerformed(ActionEvent arg0) {
 				mainWindow.dispose();
 			}
 		});
 		optionsMenu.add(newGameMenuItem);
-		optionsMenu.add(mainMenuItem);
 		optionsMenu.add(closeMenuItem);
 
 		helpMenu = new JMenu("Hilfe");
@@ -382,22 +385,9 @@ public class GameWindow {
 			win();
 		}
 	}
-	public static void gameOver() {
-		String winner = "";
-		if (currentPlayer == 1) {
-			winner = firstPlayer.getName();
-		}
-		if (currentPlayer == 2) {
-			winner = secondPlayer.getName();
-		}
-		GameOverWindow gow = new GameOverWindow(winner);
-		gow.setVisible(true);
-	}
-	
+
 	private static void win() {
 		gameIsOver = true;
-		gameOver();
-		
 		log("----------");
 		if (currentPlayer == 1) {
 			log("Player " + firstPlayer.getName() + " has won!");
