@@ -78,20 +78,20 @@ public class DataManager {
 		return null;
 	}
 
-	public static void addPlayer(String name) {
+	public static void addPlayer(String name) throws PlayerAlreadyExistsException {
 		String resourcePath = DIRECTORYNAME + File.separator + name + ".player";
 		// Check if directory exists
 		checkDirectory();
 		File file = new File(resourcePath);
 		try {
-			if (!checkPlayerExists(name)) {
+			if (!checkPlayerExists(name, false)) {
 				// Assume default encoding.
 				FileWriter fw = new FileWriter(file.getAbsolutePath());
 				System.out.println(file.getAbsolutePath());
-				//System.out.println(file.getAbsoluteFile());
+				// System.out.println(file.getAbsoluteFile());
 				System.out.println(file.getCanonicalPath());
-				//System.out.println(file.getCanonicalFile());
-				//System.out.println(fw.getEncoding());
+				// System.out.println(file.getCanonicalFile());
+				// System.out.println(fw.getEncoding());
 				System.out.println(fw.equals(file.getCanonicalPath()));
 				System.out.println(fw.hashCode());
 				System.out.println(file.hashCode());
@@ -109,30 +109,40 @@ public class DataManager {
 				bw.write("red"); // Standard value
 				bw.close();
 			} else {
-				System.out.println("Player already exists!");
+				throw new PlayerAlreadyExistsException(name, "");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static boolean checkPlayerExists(String name) {
+	public static boolean checkPlayerExists(String name, boolean checkCase) {
 		ArrayList<String> players = getAllPlayerNames();
-		for (String player : players) {
-			//System.out.println("Player: "+player);
-			//System.out.println("Name: "+name);
-			if (name.equals(player)) {
-				return true;
+		if (checkCase) {
+			for (String player : players) {
+				// System.out.println("Player: "+player);
+				// System.out.println("Name: "+name);
+				if (name.equals(player)) {
+					return true;
+				}
+			}
+		} else if (!checkCase) {
+			for (String player : players) {
+				// System.out.println("Player: "+player);
+				// System.out.println("Name: "+name);
+				if (name.equalsIgnoreCase(player)) {
+					return true;
+				}
 			}
 		}
 		return false;
 	}
 
-	public static void changeProperty(String player, String attribute, String value) { // changes the addressed
+	public static void changeProperty(String player, String attribute, String value) throws PlayerAlreadyExistsException{ // changes the addressed
 		String resourcePath = DIRECTORYNAME + File.separator + player + ".player"; // attribute
 		try {
-			if (checkPlayerExists(value) & attribute.equals("name") & !player.equals(value)) {
-				System.out.println("Player already exists! Couldn't save changes!");
+			if (checkPlayerExists(value, true) & attribute.equals("name") & !player.equals(value)) {
+				throw new PlayerAlreadyExistsException(value, "Couldn't save changes!");
 			} else {
 				String[] playerData = getPlayer(player);
 				File file = new File(resourcePath);

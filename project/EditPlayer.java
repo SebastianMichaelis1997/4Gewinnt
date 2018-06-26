@@ -46,10 +46,14 @@ public class EditPlayer extends JFrame {
 		btnSave.setBounds(40, 193, 150, 50);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent save) {
-				DataManager.changeProperty(player.toString(), "name",
-						txtChangeName.getText());
-				MainWindow.refreshPlayerComboBox();
-				dispose();
+				try {
+					DataManager.changeProperty(player.toString(), "name", txtChangeName.getText());
+				} catch (PlayerAlreadyExistsException e) {
+					System.out.println(e.getMessage());
+				} finally {
+					MainWindow.refreshPlayerComboBox();
+					dispose();
+				}
 			}
 		});
 		contentPane.add(btnSave);
