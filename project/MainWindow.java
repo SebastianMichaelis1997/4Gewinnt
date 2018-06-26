@@ -180,12 +180,28 @@ public class MainWindow extends JFrame {
 		panelInPanel3.setLayout(null);
 		playerTabPanel.add(panelInPanel3);
 
-		// Combo box for choosing player which shall get editet
+		// Combo box for choosing player which shall get edited
 		selectEditPlayer = new JComboBox(DataManager.getAllPlayerNames()
 				.toArray());
 		selectEditPlayer.setBounds(371, 38, 326, 21);
 		panelInPanel3.add(selectEditPlayer);
-
+		
+		//Show score from Selected Player
+		selectEditPlayer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent showPlayer) {
+				String selectedPlayer = selectEditPlayer.getSelectedItem().toString();
+				String selectedScore = DataManager.getProperty(selectedPlayer, "score");
+				System.out.println(selectedScore);
+				textField.setText(selectedScore);
+				String selectedWins = DataManager.getProperty(selectedPlayer, "wins");
+				System.out.println(selectedWins);
+				textField_1.setText(selectedWins);
+				String selectedLosses = DataManager.getProperty(selectedPlayer, "losses");
+				System.out.println(selectedLosses);
+				textField_2.setText(selectedLosses);				
+			}
+		});
+	
 		JButton buttonEdit = new JButton("Edit");
 		buttonEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent editPlayer) {
@@ -219,7 +235,7 @@ public class MainWindow extends JFrame {
 		label_3.setBounds(55, 220, 101, 30);
 		panelInPanel3.add(label_3);
 
-		JLabel label_4 = new JLabel("Loses:");
+		JLabel label_4 = new JLabel("Losses:");
 		label_4.setHorizontalAlignment(SwingConstants.LEFT);
 		label_4.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		label_4.setBounds(55, 299, 101, 30);
@@ -236,7 +252,7 @@ public class MainWindow extends JFrame {
 		textField = new JTextField();
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField.setText("310");
+		textField.setText("");
 		textField.setBounds(371, 156, 96, 19);
 		textField.setColumns(10);
 		textField.setEditable(false);
@@ -244,7 +260,7 @@ public class MainWindow extends JFrame {
 
 		textField_1 = new JTextField();
 		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_1.setText("13");
+		textField_1.setText("");
 		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_1.setColumns(10);
 		textField_1.setBounds(371, 230, 96, 19);
@@ -253,7 +269,7 @@ public class MainWindow extends JFrame {
 
 		textField_2 = new JTextField();
 		textField_2.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_2.setText("3");
+		textField_2.setText("");
 		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField_2.setColumns(10);
 		textField_2.setBounds(371, 309, 96, 19);

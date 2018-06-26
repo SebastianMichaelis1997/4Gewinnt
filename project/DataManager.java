@@ -228,7 +228,7 @@ public class DataManager {
 			for (int i = 0; i < playerData.length; i++) { // reads all lines of
 															// player file
 				playerData[i] = br.readLine();
-				System.out.println(playerData[i]); // @Simon Ändern
+				//System.out.println(playerData[i]); // @Simon Ändern
 			}
 			br.close();
 			if (attribute == "name") {
