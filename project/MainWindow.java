@@ -14,9 +14,10 @@ public class MainWindow extends JFrame {
 	private JTextField txtPoints;
 	private JTextField txtWins;
 	private JTextField txtLoses;
-	private JTextField textField_3;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
+	private static JTextField txtVersion;
+	private static JComboBox comboPlayer1, comboPlayer2, selectEditPlayer;
+	private static final ButtonGroup buttonGroup = new ButtonGroup();
+	private static final ButtonGroup buttonGroup_1 = new ButtonGroup();
 	public static ActionListener readMeActionListener; // For Reusing Action
 														// Listener
 
@@ -25,8 +26,8 @@ public class MainWindow extends JFrame {
 	 */
 
 	public static void main(String[] args) {
-		ExceptionWindow test = new ExceptionWindow("Test Emma");
-        
+//		ExceptionWindow test = new ExceptionWindow("Test Emma");
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -84,7 +85,7 @@ public class MainWindow extends JFrame {
 		gameTabPanel.add(label_2);
 
 		// create an empty combo box with items of type String
-		JComboBox comboPlayer1 = new JComboBox(DataManager.getAllPlayerNames().toArray());
+		comboPlayer1 = new JComboBox(DataManager.getAllPlayerNames().toArray());
 		comboPlayer1.setBounds(213, 214, 156, 31);
 		gameTabPanel.add(comboPlayer1);
 
@@ -97,7 +98,7 @@ public class MainWindow extends JFrame {
 		separator_2.setBounds(550, 80, 1, 73);
 		gameTabPanel.add(separator_2);
 
-		JComboBox comboPlayer2 = new JComboBox(DataManager.getAllPlayerNames().toArray());
+		comboPlayer2 = new JComboBox(DataManager.getAllPlayerNames().toArray());
 		comboPlayer2.setBounds(842, 214, 156, 31);
 		gameTabPanel.add(comboPlayer2);
 
@@ -168,38 +169,43 @@ public class MainWindow extends JFrame {
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PlayerCreation playerCreation = new PlayerCreation();
+				new PlayerCreation();
 			}
 		});
 		btnCreate.setFont(new Font("Tahoma", Font.ITALIC, 25));
 		btnCreate.setBounds(70, 80, 125, 32);
 		playerTabPanel.add(btnCreate);
-		
+
 		Panel panelInPanel3 = new Panel();
 		panelInPanel3.setBackground(Color.WHITE);
 		panelInPanel3.setForeground(Color.WHITE);
 		panelInPanel3.setBounds(287, 63, 733, 413);
 		panelInPanel3.setLayout(null);
 		playerTabPanel.add(panelInPanel3);
-		
-		JComboBox selectEditPlayer = new JComboBox(DataManager.getAllPlayerNames().toArray());
+
+		selectEditPlayer = new JComboBox(DataManager
+				.getAllPlayerNames().toArray());
 		selectEditPlayer.setBounds(371, 38, 326, 21);
 		panelInPanel3.add(selectEditPlayer);
 		selectEditPlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent showPlayer) {
-				String selectedPlayer = selectEditPlayer.getSelectedItem().toString();
-				String selectedScore = DataManager.getProperty(selectedPlayer, "score");
+				String selectedPlayer = selectEditPlayer.getSelectedItem()
+						.toString();
+				String selectedScore = DataManager.getProperty(selectedPlayer,
+						"score");
 				System.out.println(selectedScore);
 				txtPoints.setText(selectedScore);
-				String selectedWins = DataManager.getProperty(selectedPlayer, "wins");
+				String selectedWins = DataManager.getProperty(selectedPlayer,
+						"wins");
 				System.out.println(selectedWins);
 				txtWins.setText(selectedWins);
-				String selectedLosses = DataManager.getProperty(selectedPlayer, "losses");
+				String selectedLosses = DataManager.getProperty(selectedPlayer,
+						"losses");
 				System.out.println(selectedLosses);
-				txtLoses.setText(selectedLosses);				
+				txtLoses.setText(selectedLosses);
 			}
 		});
-		
+
 		JButton buttonEdit = new JButton("Edit");
 		buttonEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent editPlayer) {
@@ -215,7 +221,8 @@ public class MainWindow extends JFrame {
 		buttonDelete.setBounds(70, 375, 125, 32);
 		buttonDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent deletePlayer) {
-				DeletePlayer.start(selectEditPlayer.getSelectedItem().toString());
+				DeletePlayer.start(selectEditPlayer.getSelectedItem()
+						.toString());
 			}
 		});
 		playerTabPanel.add(buttonDelete);
@@ -317,14 +324,14 @@ public class MainWindow extends JFrame {
 		label_5.setBounds(29, 262, 155, 34);
 		optionsTabPanel.add(label_5);
 
-		textField_3 = new JTextField();
-		textField_3.setHorizontalAlignment(SwingConstants.RIGHT);
-		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_3.setText("10.4.1");
-		textField_3.setBounds(257, 147, 714, 22);
-		textField_3.setColumns(10);
-		textField_3.setEditable(false);
-		optionsTabPanel.add(textField_3);
+		txtVersion = new JTextField();
+		txtVersion.setHorizontalAlignment(SwingConstants.RIGHT);
+		txtVersion.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txtVersion.setText("10.4.1");
+		txtVersion.setBounds(257, 147, 714, 22);
+		txtVersion.setColumns(10);
+		txtVersion.setEditable(false);
+		optionsTabPanel.add(txtVersion);
 
 		JSlider slider = new JSlider(); // Slider
 		slider.setBounds(257, 274, 714, 22);
@@ -334,4 +341,17 @@ public class MainWindow extends JFrame {
 		optionsTabPanel.add(slider);
 
 	}
+
+	public static void refreshPlayerComboBox() {
+				comboPlayer1.removeAllItems();
+				comboPlayer2.removeAllItems();
+				selectEditPlayer.removeAllItems();
+				Object[] players = DataManager.getAllPlayerNames().toArray();
+				for (int i = 0; i < players.length; i++) {
+					comboPlayer1.addItem(players[i].toString());
+					comboPlayer2.addItem(players[i].toString());
+					selectEditPlayer.addItem(players[i].toString());
+				}
+		
+			}
 }
