@@ -73,7 +73,7 @@ public class MainWindow extends JFrame {
 		gameTabPanel.add(label_1);
 
 		JLabel label_2 = new JLabel("Player Number One:");
-		label_2.setFont(new Font("Comic Sans MS", Font.ITALIC, 16));
+		label_2.setFont(new Font("Tahoma", Font.ITALIC, 16));
 		label_2.setBounds(90, 134, 156, 31);
 		gameTabPanel.add(label_2);
 
