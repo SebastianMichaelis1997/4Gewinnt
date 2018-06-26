@@ -12,19 +12,44 @@ import java.io.File;
 import java.util.*;
 
 public class DataManager {
-	private static final String DIRECTORYNAME = "players";
+	private static final String PLAYER_DIRECTORY = "players";
+	private static final String RESOURCE_DIRECTORY = "resources";
 
-	public static void checkDirectory() {
-		// Check if directory exists
-		File directory = new File(DIRECTORYNAME);
-		if (!directory.exists()) {
-			directory.mkdir(); // if not, create the directory
+
+	public static void checkDirectory(String name) {
+		if(name.equals(PLAYER_DIRECTORY)) {
+			// Check if directory exists
+			File directory = new File(PLAYER_DIRECTORY);
+			if (!directory.exists()) {
+				directory.mkdir(); // if not, create the directory
+			}		
+		}else if(name.equals(RESOURCE_DIRECTORY)) {
+			try {
+			// Check if directory exists
+			File directory = new File(RESOURCE_DIRECTORY);
+			if (!directory.exists()) {
+				directory.mkdir(); // if not, create the directory
+				
+				String resourcePath = RESOURCE_DIRECTORY + File.separator + "ReadMe.txt";
+				File file = new File(resourcePath);
+				FileWriter fw = new FileWriter(file.getAbsoluteFile());
+				// Always wrap FileWriter in BufferedWriter.
+				BufferedWriter bw = new BufferedWriter(fw);				
+				bw.write(ReadMe.README);
+				bw.close();
+				fw.close();
+			}
+			}catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
+	
+	
 
 	public static ArrayList getAllPlayerNames() {
-		checkDirectory();
-		final File folder = new File(DIRECTORYNAME);
+		checkDirectory(PLAYER_DIRECTORY);
+		final File folder = new File(PLAYER_DIRECTORY);
 		ArrayList players = new ArrayList();
 		for (File fileEntry : folder.listFiles()) {
 			if (fileEntry.isDirectory()) {
@@ -45,7 +70,7 @@ public class DataManager {
 																			// call
 																			// ->
 																			// Überladung
-		checkDirectory();
+		checkDirectory(PLAYER_DIRECTORY);
 		ArrayList<String> players = new ArrayList<String>();
 		for (File fileEntry : folder.listFiles()) {
 			if (fileEntry.isDirectory()) {
@@ -62,7 +87,7 @@ public class DataManager {
 
 	public static String[] getPlayer(String filename) {
 		try {
-			FileReader fr = new FileReader(DIRECTORYNAME + File.separator + filename + ".player");
+			FileReader fr = new FileReader(PLAYER_DIRECTORY + File.separator + filename + ".player");
 			BufferedReader br = new BufferedReader(fr);
 			String[] playerData = new String[8];
 			for (int i = 0; i < playerData.length; i++) { // reads all lines of
@@ -79,9 +104,9 @@ public class DataManager {
 	}
 
 	public static void addPlayer(String name) throws PlayerAlreadyExistsException {
-		String resourcePath = DIRECTORYNAME + File.separator + name + ".player";
+		String resourcePath = PLAYER_DIRECTORY + File.separator + name + ".player";
 		// Check if directory exists
-		checkDirectory();
+		checkDirectory(PLAYER_DIRECTORY);
 		File file = new File(resourcePath);
 		try {
 			if (!checkPlayerExists(name, false)) {
@@ -139,7 +164,7 @@ public class DataManager {
 	}
 
 	public static void changeProperty(String player, String attribute, String value) throws PlayerAlreadyExistsException{ // changes the addressed
-		String resourcePath = DIRECTORYNAME + File.separator + player + ".player"; // attribute
+		String resourcePath = PLAYER_DIRECTORY + File.separator + player + ".player"; // attribute
 		try {
 			if (checkPlayerExists(value, true) & attribute.equals("name") & !player.equals(value)) {
 				throw new PlayerAlreadyExistsException(value, "Couldn't save changes!");
@@ -180,9 +205,9 @@ public class DataManager {
 				} // end for
 				bw.close();
 				if (attribute.equals("name")) {
-					File oldfile = new File((DIRECTORYNAME + File.separator + player + ".player")); // renames file //
+					File oldfile = new File((PLAYER_DIRECTORY + File.separator + player + ".player")); // renames file //
 																									// file
-					File newfile = new File((DIRECTORYNAME + File.separator + value + ".player"));
+					File newfile = new File((PLAYER_DIRECTORY + File.separator + value + ".player"));
 					oldfile.renameTo(newfile);
 				}
 			}
@@ -197,7 +222,7 @@ public class DataManager {
 	public static String getProperty(String player, String attribute) {
 		String value = "test";
 		try {
-			FileReader fr = new FileReader(DIRECTORYNAME + File.separator + player + ".player");
+			FileReader fr = new FileReader(PLAYER_DIRECTORY + File.separator + player + ".player");
 			BufferedReader br = new BufferedReader(fr);
 			String[] playerData = new String[9];
 			for (int i = 0; i < playerData.length; i++) { // reads all lines of
@@ -235,7 +260,7 @@ public class DataManager {
 	}// end get property
 
 	public static void deletePlayer(String playerName) {
-		Path path = Paths.get(DIRECTORYNAME + File.separator + playerName + ".player");
+		Path path = Paths.get(PLAYER_DIRECTORY + File.separator + playerName + ".player");
 		try {
 			Files.delete(path);
 		} catch (IOException e) {

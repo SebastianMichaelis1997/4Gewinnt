@@ -5,15 +5,18 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class ReadMeWindow extends JFrame {
+	public static final String README = "resources";
 
 	public ReadMeWindow() {
 		String text = "";
 		try {
-			FileReader fr = new FileReader(System.getProperty("user.dir")+"\\src\\project\\ReadMe");
+			DataManager.checkDirectory(README);
+			FileReader fr = new FileReader(README + File.separator + "ReadMe.txt");
 			BufferedReader br = new BufferedReader(fr);
 			String sCurrentLine;
 			while ((sCurrentLine = br.readLine()) != null) {
