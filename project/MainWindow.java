@@ -1,9 +1,10 @@
 package project;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import java.awt.*;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -16,10 +17,13 @@ public class MainWindow extends JFrame {
 	public static ActionListener readMeActionListener; // For Reusing Action
 														// Listener
 
+	private static SoundManager ambient;
+
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+		ambient = new SoundManager("ambient", true);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -186,7 +190,7 @@ public class MainWindow extends JFrame {
 		// Show score from Selected Player
 		selectEditPlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent showPlayer) {
-				System.out.println("SelectedItem in Main Window: "+selectEditPlayer.getSelectedItem());
+				System.out.println("SelectedItem in Main Window: " + selectEditPlayer.getSelectedItem());
 				String selectedPlayer = selectEditPlayer.getSelectedItem().toString();
 				String selectedScore = DataManager.getProperty(selectedPlayer, "score");
 				// System.out.println(selectedScore);
@@ -331,6 +335,17 @@ public class MainWindow extends JFrame {
 		slider.setPaintTicks(true); // Slider Ticks aktiviert
 		slider.setSnapToTicks(true); // slider sprünge zu Ticks aktiviert
 		slider.setMajorTickSpacing(10); // Slider Ticks Größe definiert
+		slider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				JSlider source = (JSlider) e.getSource();
+				if (!source.getValueIsAdjusting()) {
+					int fps = (int) source.getValue();
+					System.out.println(fps);
+					ambient.setVolume(fps);
+				}
+			}
+
+		});
 		optionsTabPanel.add(slider);
 
 	}
@@ -338,12 +353,12 @@ public class MainWindow extends JFrame {
 	public static void refreshPlayerComboBox() {
 		comboPlayer1.removeAllItems();
 		comboPlayer2.removeAllItems();
-		System.out.println("SelectedItem in refresh(): "+selectEditPlayer.getSelectedItem());
-		System.out.println("ItemCount: "+selectEditPlayer.getItemCount());
+		System.out.println("SelectedItem in refresh(): " + selectEditPlayer.getSelectedItem());
+		System.out.println("ItemCount: " + selectEditPlayer.getItemCount());
 		selectEditPlayer.removeAllItems();
 		Object[] players = DataManager.getAllPlayerNames().toArray();
 		for (int i = 0; i < players.length; i++) {
-			System.out.println("Player in for-Schleife: "+players[i]);
+			System.out.println("Player in for-Schleife: " + players[i]);
 			comboPlayer1.addItem(players[i].toString());
 			comboPlayer2.addItem(players[i].toString());
 			selectEditPlayer.addItem(players[i].toString());
