@@ -23,7 +23,12 @@ public class MainWindow extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) throws Exception {
-		ambient = new SoundManager("ambient", true);
+
+		try {
+			ambient = new SoundManager("ambient", true);
+		} catch (Exception e) {
+
+		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
