@@ -1,7 +1,7 @@
 Testabdeckung des Quellcodes | Steht aus
 	Prio: 1
 	Time: 5
-ReadMe | Enes
+ReadMe | Enes | Done
 	Prio: 5
 	Time: 1
 KI
@@ -20,7 +20,7 @@ Update on_Value_Change | Emma
 Seite refreshen/aktualisierung DropDowns | Sebastian DONE
 	Prio 1
 	Time 1-2
-Musik & Sounds + Controls | Alex
+Musik & Sounds + Controls | Alex 
 	Prio 3-4
 	Time 2-3
 
