@@ -1,6 +1,10 @@
 package project;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
 import java.nio.file.Paths;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -13,7 +17,26 @@ import java.util.*;
 
 public class DataManager {
 	private static final String PLAYER_DIRECTORY = "players";
+	private static final String PLAYER_PICTURES_DIRECTORY = "profilePictures";
 	private static final String RESOURCE_DIRECTORY = "resources";
+	
+	public static void saveImage(String path, String filename) throws IOException {
+		checkDirectory("profilePictures");		
+		      Path source = Paths.get(path);
+		      Path destination = Paths.get(PLAYER_PICTURES_DIRECTORY + File.separator + filename +".jpg");
+			   FileChannel srcChannel = new FileInputStream(source.toString()).getChannel();
+			   FileChannel destChannel = new FileOutputStream(destination.toString()).getChannel();
+			   try {
+			      srcChannel.transferTo(0, srcChannel.size(), destChannel);
+			   } catch (IOException e) {
+			      e.printStackTrace();
+			   } finally {
+			      if (srcChannel != null)
+			         srcChannel.close();
+			      if (destChannel != null)
+			         destChannel.close();
+			   }
+	}
 
 	public static void checkDirectory(String name) {
 		if(name.equals(PLAYER_DIRECTORY)) {
@@ -67,7 +90,7 @@ public class DataManager {
 																			// method
 																			// call
 																			// ->
-																			// Überladung
+																			// Ãœberladung
 		checkDirectory(PLAYER_DIRECTORY);
 		ArrayList<String> players = new ArrayList<String>();
 		for (File fileEntry : folder.listFiles()) {
@@ -119,7 +142,7 @@ public class DataManager {
 		return null;
 	}
 
-	public static void addPlayer(String name) throws PlayerAlreadyExistsException {
+	public static boolean addPlayer(String name) throws PlayerAlreadyExistsException {
 		String resourcePath = PLAYER_DIRECTORY + File.separator + name + ".player";
 		// Check if directory exists
 		checkDirectory(PLAYER_DIRECTORY);
@@ -149,12 +172,14 @@ public class DataManager {
 				bw.newLine();
 				bw.write("red"); // Standard value
 				bw.close();
+				return true;
 			} else {
 				throw new PlayerAlreadyExistsException(name, "");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 
 	public static boolean checkPlayerExists(String name, boolean checkCase) {
@@ -233,7 +258,7 @@ public class DataManager {
 		catch (IOException e) {
 			e.printStackTrace();
 		} catch (NullPointerException e) {
-			System.out.println("Datei ist leer - bitte überprüfen!");
+			System.out.println("Datei ist leer - bitte Ã¼berprÃ¼fen!");
 		}
 	}// end change property
 
@@ -246,7 +271,7 @@ public class DataManager {
 			for (int i = 0; i < playerData.length; i++) { // reads all lines of
 															// player file
 				playerData[i] = br.readLine();
-				// System.out.println(playerData[i]); // @Simon Ändern
+				// System.out.println(playerData[i]); // @Simon Ã„ndern
 			}
 			br.close();
 			if (attribute == "name") {
@@ -287,3 +312,4 @@ public class DataManager {
 		}
 	}
 }
+
