@@ -48,9 +48,6 @@ public class CreatePlayer {
 		lblUsername.setBounds(10, 25, 180, 35);
 		frame.getContentPane().add(lblUsername);
 
-		JLabel imageLabel = new JLabel("Image and Text", JLabel.CENTER);
-		imageLabel.setBounds(255, 84, 110, 110);
-
 		JFileChooser chooser = new JFileChooser(); // For Icon choosing
 
 		JButton btnDelete = new JButton("Choose Icon"); // For Icon choosing
@@ -85,7 +82,7 @@ public class CreatePlayer {
 							// Adds standard values for players
 							// Just if a player was added successfully and an icon was selected, the icon gets fetched
 							ImageIcon icon = createImageIcon(chooser.getSelectedFile().toString(), currentName);
-							JLabel imageLabel = new JLabel("Image and Text", icon, JLabel.CENTER);
+							DataManager.changeProperty(nameField.getText(), "icon", nameField.getText() + ".jpg");
 						}
 					}
 				} catch (PlayerAlreadyExistsException exception) {
@@ -107,12 +104,10 @@ public class CreatePlayer {
 		});
 		frame.setVisible(true);
 		frame.getContentPane().add(btnCancel);
-		frame.getContentPane().add(imageLabel);
 	}
 
 	/** Returns an ImageIcon, or null if the path was invalid. */
 	protected ImageIcon createImageIcon(String path, String playerName) {
-		System.out.println(path + playerName);
 		try {
 			DataManager.saveImage(path, playerName);
 		} catch (IOException e) {
@@ -121,4 +116,3 @@ public class CreatePlayer {
 		return new ImageIcon(path, playerName);
 	}
 }
-
