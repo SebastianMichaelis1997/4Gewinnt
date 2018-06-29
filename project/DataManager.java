@@ -15,7 +15,6 @@ public class DataManager {
 	private static final String PLAYER_DIRECTORY = "players";
 	private static final String RESOURCE_DIRECTORY = "resources";
 
-
 	public static void checkDirectory(String name) {
 		if(name.equals(PLAYER_DIRECTORY)) {
 			// Check if directory exists
@@ -23,29 +22,28 @@ public class DataManager {
 			if (!directory.exists()) {
 				directory.mkdir(); // if not, create the directory
 			}		
-		}else if(name.equals(RESOURCE_DIRECTORY)) {
-			try {
+			
+	}else if(name.equals(RESOURCE_DIRECTORY)){
+		try {
 			// Check if directory exists
 			File directory = new File(RESOURCE_DIRECTORY);
 			if (!directory.exists()) {
 				directory.mkdir(); // if not, create the directory
-				
+
 				String resourcePath = RESOURCE_DIRECTORY + File.separator + "ReadMe.txt";
 				File file = new File(resourcePath);
 				FileWriter fw = new FileWriter(file.getAbsoluteFile());
 				// Always wrap FileWriter in BufferedWriter.
-				BufferedWriter bw = new BufferedWriter(fw);				
+				BufferedWriter bw = new BufferedWriter(fw);
 				bw.write(ReadMe.README);
 				bw.close();
 				fw.close();
 			}
-			}catch (IOException e) {
-				e.printStackTrace();
-			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
-	
-	
+	}
 
 	public static ArrayList getAllPlayerNames() {
 		checkDirectory(PLAYER_DIRECTORY);
@@ -85,7 +83,7 @@ public class DataManager {
 		return players;
 	}
 
-	public static String[] getPlayer(String filename) {
+	public static Player getPlayerObj(String filename) {
 		try {
 			FileReader fr = new FileReader(PLAYER_DIRECTORY + File.separator + filename + ".player");
 			BufferedReader br = new BufferedReader(fr);
@@ -93,7 +91,25 @@ public class DataManager {
 			for (int i = 0; i < playerData.length; i++) { // reads all lines of
 															// player file
 				playerData[i] = br.readLine();
-				//System.out.println(playerData[i]);
+				// System.out.println(playerData[i]);
+			}
+			br.close();
+			return new Player(playerData);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static String[] getPlayer (String filename) {
+		try {
+			FileReader fr = new FileReader(PLAYER_DIRECTORY + File.separator + filename + ".player");
+			BufferedReader br = new BufferedReader(fr);
+			String[] playerData = new String[8];
+			for (int i = 0; i < playerData.length; i++) { // reads all lines of
+															// player file
+				playerData[i] = br.readLine();
+				// System.out.println(playerData[i]);
 			}
 			br.close();
 			return playerData;
@@ -112,14 +128,14 @@ public class DataManager {
 			if (!checkPlayerExists(name, false)) {
 				// Assume default encoding.
 				FileWriter fw = new FileWriter(file.getAbsolutePath());
-				//System.out.println(file.getAbsolutePath());
+				// System.out.println(file.getAbsolutePath());
 				// System.out.println(file.getAbsoluteFile());
-				//System.out.println(file.getCanonicalPath());
+				// System.out.println(file.getCanonicalPath());
 				// System.out.println(file.getCanonicalFile());
 				// System.out.println(fw.getEncoding());
-				//System.out.println(fw.equals(file.getCanonicalPath()));
-				//System.out.println(fw.hashCode());
-				//System.out.println(file.hashCode());
+				// System.out.println(fw.equals(file.getCanonicalPath()));
+				// System.out.println(fw.hashCode());
+				// System.out.println(file.hashCode());
 
 				// Always wrap FileWriter in BufferedWriter.
 				BufferedWriter bw = new BufferedWriter(fw);
@@ -163,7 +179,8 @@ public class DataManager {
 		return false;
 	}
 
-	public static void changeProperty(String player, String attribute, String value) throws PlayerAlreadyExistsException{ // changes the addressed
+	public static void changeProperty(String player, String attribute, String value)
+			throws PlayerAlreadyExistsException { // changes the addressed
 		String resourcePath = PLAYER_DIRECTORY + File.separator + player + ".player"; // attribute
 		try {
 			if (checkPlayerExists(value, true) & attribute.equals("name") & !player.equals(value)) {
@@ -205,8 +222,9 @@ public class DataManager {
 				} // end for
 				bw.close();
 				if (attribute.equals("name")) {
-					File oldfile = new File((PLAYER_DIRECTORY + File.separator + player + ".player")); // renames file //
-																									// file
+					File oldfile = new File((PLAYER_DIRECTORY + File.separator + player + ".player")); // renames file
+																										// //
+																										// file
 					File newfile = new File((PLAYER_DIRECTORY + File.separator + value + ".player"));
 					oldfile.renameTo(newfile);
 				}
@@ -228,7 +246,7 @@ public class DataManager {
 			for (int i = 0; i < playerData.length; i++) { // reads all lines of
 															// player file
 				playerData[i] = br.readLine();
-				//System.out.println(playerData[i]); // @Simon Ändern
+				// System.out.println(playerData[i]); // @Simon Ändern
 			}
 			br.close();
 			if (attribute == "name") {

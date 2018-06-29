@@ -75,6 +75,17 @@ public class Player {
 		this.icon = image;
 		this.color = color;
 	}
+	
+	public Player(String[] playerInfo) {
+		this.name = playerInfo[0];
+		this.nrOfGames = Integer.parseInt(playerInfo[1]);
+		this.wins= Integer.parseInt(playerInfo[2]);
+		this.losses = Integer.parseInt(playerInfo[3]);
+		this.ties = Integer.parseInt(playerInfo[4]);
+		this.score = Integer.parseInt(playerInfo[5]);
+		//this.icon = new ImageIcon(playerInfo[6]);
+		//this.color = new Color(Integer.parseInt(playerInfo[7]));
+	}
 
 	public String getName() {
 		return name;
