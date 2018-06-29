@@ -343,8 +343,8 @@ public class MainWindow extends JFrame {
 		JSlider slider = new JSlider(); // Slider
 		slider.setBounds(257, 274, 714, 22);
 		slider.setPaintTicks(true); // Slider Ticks aktiviert
-		slider.setSnapToTicks(true); // slider sprünge zu Ticks aktiviert
-		slider.setMajorTickSpacing(10); // Slider Ticks Größe definiert
+		slider.setSnapToTicks(true); // slider sprÃ¼nge zu Ticks aktiviert
+		slider.setMajorTickSpacing(10); // Slider Ticks GrÃ¶ÃŸe definiert
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				JSlider source = (JSlider) e.getSource();
@@ -365,7 +365,15 @@ public class MainWindow extends JFrame {
 		comboPlayer2.removeAllItems();
 		System.out.println("SelectedItem in refresh(): " + selectEditPlayer.getSelectedItem());
 		System.out.println("ItemCount: " + selectEditPlayer.getItemCount());
-		selectEditPlayer.removeAllItems();
+		//Fix of a bug where selectEditPlayer.removeAllItems(); ran into a NullPointerException 
+		//when it was its first call with arguments inside selectedPlayer
+		try {
+			selectEditPlayer.removeAllItems();
+		} catch (Exception e) {
+			selectEditPlayer.removeAllItems();
+		} finally {
+			selectEditPlayer.removeAllItems();
+		}
 		Object[] players = DataManager.getAllPlayerNames().toArray();
 		for (int i = 0; i < players.length; i++) {
 			System.out.println("Player in for-Schleife: " + players[i]);
