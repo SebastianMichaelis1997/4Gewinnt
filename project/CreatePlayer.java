@@ -1,10 +1,14 @@
 package project;
 
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-
-import javax.swing.ImageIcon;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.DocumentEvent;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -16,6 +20,8 @@ public class CreatePlayer {
 
 	private JFrame frame;
 
+	private String currentName;
+
 	/**
 	 * Create the application.
 	 */
@@ -26,16 +32,6 @@ public class CreatePlayer {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	/** Returns an ImageIcon, or null if the path was invalid. */
-	protected ImageIcon createImageIcon(String path) {
-		java.net.URL imgURL = getClass().getResource(path);
-		if (imgURL != null) {
-			return new ImageIcon(imgURL);
-		} else {
-			System.err.println("Couldn't find file: " + path);
-			return null;
-		}
-	};
 
 	private void initialize() {
 		frame = new JFrame();
@@ -47,10 +43,13 @@ public class CreatePlayer {
 		btnSave.setBounds(45, 218, 117, 29);
 		frame.getContentPane().add(btnSave);
 
-		JLabel lblUsername = new JLabel("Enter Player Name:");
+		JLabel lblUsername = new JLabel("Enter Player Name");
 		lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblUsername.setBounds(10, 25, 180, 35);
 		frame.getContentPane().add(lblUsername);
+
+		JLabel imageLabel = new JLabel("Image and Text", JLabel.CENTER);
+		imageLabel.setBounds(255, 84, 110, 110);
 
 		JFileChooser chooser = new JFileChooser(); // For Icon choosing
 
@@ -70,25 +69,24 @@ public class CreatePlayer {
 		nameField.setVisible(true);
 		nameField.setBounds(200, 22, 220, 41);
 		nameField.selectAll();
+
+		chooser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent iconChoosen) {
+				currentName = nameField.getText();
+			}
+		});
+
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					if (nameField.getText() != ("Enter Name")) { // File for a
-																	// new
-																	// player
-																	// gets
-																	// added to
-																	// folder
-																	// "players"
-						DataManager.addPlayer(nameField.getText()); // Adds
-																	// Standard
-																	// Values
-																	// for
-																	// players
-						DataManager.getPlayer(nameField.getText()); // Just for
-																	// directly
-																	// testing
-																	// @Simon
+				try { 
+					// File for a new player gets added to folder "players"
+					if (nameField.getText() != ("Enter Name")) { 
+						if (DataManager.addPlayer(nameField.getText()) && (chooser.getSelectedFile().toString() != null)) {
+							// Adds standard values for players
+							// Just if a player was added successfully and an icon was selected, the icon gets fetched
+							ImageIcon icon = createImageIcon(chooser.getSelectedFile().toString(), currentName);
+							JLabel imageLabel = new JLabel("Image and Text", icon, JLabel.CENTER);
+						}
 					}
 				} catch (PlayerAlreadyExistsException exception) {
 					System.out.println(exception.getMessage());
@@ -108,13 +106,19 @@ public class CreatePlayer {
 			}
 		});
 		frame.setVisible(true);
-
-		ImageIcon icon = createImageIcon("sonne.jpg"); // Parameter ändern
-														// @Simon
-		JLabel label1 = new JLabel("Image and Text", icon, JLabel.CENTER);
-		label1.setBounds(255, 84, 110, 110);
-
 		frame.getContentPane().add(btnCancel);
-		frame.getContentPane().add(label1);
+		frame.getContentPane().add(imageLabel);
+	}
+
+	/** Returns an ImageIcon, or null if the path was invalid. */
+	protected ImageIcon createImageIcon(String path, String playerName) {
+		System.out.println(path + playerName);
+		try {
+			DataManager.saveImage(path, playerName);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return new ImageIcon(path, playerName);
 	}
 }
+
