@@ -1,15 +1,15 @@
 package project;
 
 import java.awt.EventQueue;
-import javax.swing.JTextField;
-import javax.swing.JFrame;
-import javax.swing.SwingConstants;
+
 import javax.swing.*;
-import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class EditPlayer extends JFrame {
 	private JPanel contentPane;
@@ -33,8 +33,9 @@ public class EditPlayer extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws MalformedURLException 
 	 */
-	public EditPlayer(Object player) {
+	public EditPlayer(Object player) throws MalformedURLException {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -75,5 +76,13 @@ public class EditPlayer extends JFrame {
 			}
 		});
 		contentPane.add(btnClose);
+		
+		JLabel picture = new JLabel();
+		picture.setHorizontalAlignment(SwingConstants.CENTER);
+		picture.setBounds(188, 80, 100, 100);
+		picture.setIcon(new ImageIcon(System.getProperty("user.dir") + File.separator + "profilePictures" + File.separator + DataManager.getProperty(player.toString(), "icon")));
+		picture.setVisible(true);
+		contentPane.add(picture);
 	}
 }
+
