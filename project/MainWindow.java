@@ -114,12 +114,16 @@ public class MainWindow extends JFrame {
 		roundCornerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					
+					if(comboPlayer1.getSelectedItem().toString().equals(comboPlayer2.getSelectedItem().toString())) {
+						throw new ExceptionPvP();
+					}
 					Player player1 = DataManager.getPlayerObj(comboPlayer1.getSelectedItem().toString());
 					Player player2 = DataManager.getPlayerObj(comboPlayer2.getSelectedItem().toString());
 					GameWindow.start(player1, player2);
 				} catch (AWTException e1) {
 					e1.printStackTrace();
+				} catch(ExceptionPvP e2) {
+					ErrorWindow.start(e2.getMessage());
 				}
 			}
 		});
