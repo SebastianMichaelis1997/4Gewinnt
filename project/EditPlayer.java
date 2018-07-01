@@ -80,9 +80,11 @@ public class EditPlayer extends JFrame {
 		JLabel picture = new JLabel();
 		picture.setHorizontalAlignment(SwingConstants.CENTER);
 		picture.setBounds(188, 80, 100, 100);
+		picture.setText("No image used!");
 		picture.setIcon(new ImageIcon(System.getProperty("user.dir") + File.separator + "profilePictures" + File.separator + DataManager.getProperty(player.toString(), "icon")));
 		picture.setVisible(true);
 		contentPane.add(picture);
 	}
 }
+
 
