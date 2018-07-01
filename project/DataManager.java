@@ -18,54 +18,68 @@ import java.util.*;
 public class DataManager {
 	private static final String PLAYER_DIRECTORY = "players";
 	private static final String PLAYER_PICTURES_DIRECTORY = "profilePictures";
-	private static final String RESOURCE_DIRECTORY = "resources";
-	
-	public static void saveImage(String path, String filename) throws IOException {
-		checkDirectory("profilePictures");		
-		      Path source = Paths.get(path);
-		      Path destination = Paths.get(PLAYER_PICTURES_DIRECTORY + File.separator + filename +".jpg");
-			   FileChannel srcChannel = new FileInputStream(source.toString()).getChannel();
-			   FileChannel destChannel = new FileOutputStream(destination.toString()).getChannel();
-			   try {
-			      srcChannel.transferTo(0, srcChannel.size(), destChannel);
-			   } catch (IOException e) {
-			      e.printStackTrace();
-			   } finally {
-			      if (srcChannel != null)
-			         srcChannel.close();
-			      if (destChannel != null)
-			         destChannel.close();
-			   }
+	private static final String RESOURCE_DIRECTORY = "resources"; //@Simon @Tobi das wird doch nicht mehr verwendet?
+
+	public static boolean saveImage(String path, String filename) throws IOException {
+		checkDirectory("profilePictures");
+		Path source = Paths.get(path);
+		File directory = new File(PLAYER_PICTURES_DIRECTORY + File.separator + filename + ".jpg");
+		if (directory.exists())
+			// In case that user imports an image with a name, which is
+			// already used for an other image in file "profilePictures"
+			return false;
+		else {
+		Path destination = Paths.get(PLAYER_PICTURES_DIRECTORY + File.separator + filename + ".jpg");
+		FileChannel srcChannel = new FileInputStream(source.toString()).getChannel();
+		FileChannel destChannel = new FileOutputStream(destination.toString()).getChannel();
+		try {
+			srcChannel.transferTo(0, srcChannel.size(), destChannel);
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			if (srcChannel != null)
+				srcChannel.close();
+			if (destChannel != null)
+				destChannel.close();
+		}
+		}
 	}
 
 	public static void checkDirectory(String name) {
-		if(name.equals(PLAYER_DIRECTORY)) {
+		if (name.equals(PLAYER_DIRECTORY)) {
 			// Check if directory exists
 			File directory = new File(PLAYER_DIRECTORY);
 			if (!directory.exists()) {
 				directory.mkdir(); // if not, create the directory
-			}		
-			
-	}else if(name.equals(RESOURCE_DIRECTORY)){
-		try {
-			// Check if directory exists
-			File directory = new File(RESOURCE_DIRECTORY);
+			}
+
+		} else if (name.equals(RESOURCE_DIRECTORY)) {
+			try {
+				// Check if directory exists
+				File directory = new File(RESOURCE_DIRECTORY);
+				if (!directory.exists()) {
+					directory.mkdir(); // if not, create the directory
+
+					String resourcePath = RESOURCE_DIRECTORY + File.separator + "ReadMe.txt";
+					File file = new File(resourcePath);
+					FileWriter fw = new FileWriter(file.getAbsoluteFile());
+					// Always wrap FileWriter in BufferedWriter.
+					BufferedWriter bw = new BufferedWriter(fw);
+					bw.write(ReadMe.README);
+					bw.close();
+					fw.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else if (name.equals(PLAYER_PICTURES_DIRECTORY)) {
+			File directory = new File(PLAYER_PICTURES_DIRECTORY);
 			if (!directory.exists()) {
 				directory.mkdir(); // if not, create the directory
-
-				String resourcePath = RESOURCE_DIRECTORY + File.separator + "ReadMe.txt";
-				File file = new File(resourcePath);
-				FileWriter fw = new FileWriter(file.getAbsoluteFile());
-				// Always wrap FileWriter in BufferedWriter.
-				BufferedWriter bw = new BufferedWriter(fw);
-				bw.write(ReadMe.README);
-				bw.close();
-				fw.close();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
-	}
 	}
 
 	public static ArrayList getAllPlayerNames() {
@@ -123,8 +137,8 @@ public class DataManager {
 		}
 		return null;
 	}
-	
-	public static String[] getPlayer (String filename) {
+
+	public static String[] getPlayer(String filename) {
 		try {
 			FileReader fr = new FileReader(PLAYER_DIRECTORY + File.separator + filename + ".player");
 			BufferedReader br = new BufferedReader(fr);
@@ -312,4 +326,5 @@ public class DataManager {
 		}
 	}
 }
+
 
