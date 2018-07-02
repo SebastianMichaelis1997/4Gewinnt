@@ -23,13 +23,13 @@ public class DataManager {
 	public static boolean saveImage(String path, String filename) throws IOException {
 		checkDirectory("profilePictures");
 		Path source = Paths.get(path);
-		File directory = new File(PLAYER_PICTURES_DIRECTORY + File.separator + filename + ".jpg");
+		File directory = new File(PLAYER_PICTURES_DIRECTORY + File.separator + filename);
 		if (directory.exists())
 			// In case that user imports an image with a name, which is
 			// already used for an other image in file "profilePictures"
 			return false;
 		else {
-		Path destination = Paths.get(PLAYER_PICTURES_DIRECTORY + File.separator + filename + ".jpg");
+		Path destination = Paths.get(PLAYER_PICTURES_DIRECTORY + File.separator + filename);
 		FileChannel srcChannel = new FileInputStream(source.toString()).getChannel();
 		FileChannel destChannel = new FileOutputStream(destination.toString()).getChannel();
 		try {
@@ -326,5 +326,6 @@ public class DataManager {
 		}
 	}
 }
+
 
 
