@@ -39,7 +39,7 @@ public class GameOverWindow extends JFrame {
 			public void actionPerformed(ActionEvent backToMenu) {
 				GameWindow.dispose();
 				dispose();
-
+				MainWindow.toFront2();
 			}
 		});
 
@@ -62,8 +62,7 @@ public class GameOverWindow extends JFrame {
 		// Sieger Animation
 		JLabel lblAnimation = new JLabel("Animation");
 		lblAnimation.setBackground(Color.BLACK);
-		lblAnimation.setIcon(new ImageIcon(GameOverWindow.class
-				.getResource("/project/baerchen-sieger.gif")));
+		lblAnimation.setIcon(new ImageIcon(GameOverWindow.class.getResource("/project/baerchen-sieger.gif")));
 		lblAnimation.setBounds(55, 74, 253, 166);
 		getContentPane().add(lblAnimation);
 	}

@@ -14,6 +14,7 @@ public class MainWindow extends JFrame {
 	private static JComboBox comboPlayer1, comboPlayer2, selectEditPlayer;
 	private static final ButtonGroup buttonGroup = new ButtonGroup();
 	private static final ButtonGroup buttonGroup_1 = new ButtonGroup();
+	private static MainWindow mainWindow;
 	public static ActionListener readMeActionListener; // For Reusing Action
 														// Listener
 
@@ -34,7 +35,7 @@ public class MainWindow extends JFrame {
 				try {
 					// MainWindowOwn frame = new MainWindowOwn();
 					// frame.setVisible(true);
-					MainWindow mainWindow = new MainWindow();
+					mainWindow = new MainWindow();
 					mainWindow.setVisible(true);
 					mainWindow.setResizable(false);
 					mainWindow.setBackground(Color.blue);
@@ -54,8 +55,7 @@ public class MainWindow extends JFrame {
 		setBounds(200, 100, 1100, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP,
-				JTabbedPane.WRAP_TAB_LAYOUT); // Creates Tab Panel
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.WRAP_TAB_LAYOUT); // Creates Tab Panel
 		getContentPane().add(tabbedPane);
 
 		JPanel gameTabPanel = new JPanel(); // Three tabs get created
@@ -71,9 +71,9 @@ public class MainWindow extends JFrame {
 		//
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		tabbedPane
-				.addTab("Game                                                                                          ",
-						gameTabPanel);
+		tabbedPane.addTab(
+				"Game                                                                                          ",
+				gameTabPanel);
 
 		JLabel label_1 = new JLabel("Select Players:");
 		label_1.setForeground(Color.DARK_GRAY);
@@ -110,20 +110,16 @@ public class MainWindow extends JFrame {
 		separator.setBounds(59, 163, 961, 2);
 		gameTabPanel.add(separator);
 
-		RoundCornerButton roundCornerButton = new RoundCornerButton(
-				"<html> <center>Start Game</center> </html>", new Dimension(
-						105, 65));
+		RoundCornerButton roundCornerButton = new RoundCornerButton("<html> <center>Start Game</center> </html>",
+				new Dimension(105, 65));
 		roundCornerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (comboPlayer1.getSelectedItem().toString()
-							.equals(comboPlayer2.getSelectedItem().toString())) {
+					if (comboPlayer1.getSelectedItem().toString().equals(comboPlayer2.getSelectedItem().toString())) {
 						throw new ExceptionPvP();
 					}
-					Player player1 = DataManager.getPlayerObj(comboPlayer1
-							.getSelectedItem().toString());
-					Player player2 = DataManager.getPlayerObj(comboPlayer2
-							.getSelectedItem().toString());
+					Player player1 = DataManager.getPlayerObj(comboPlayer1.getSelectedItem().toString());
+					Player player2 = DataManager.getPlayerObj(comboPlayer2.getSelectedItem().toString());
 					GameWindow.start(player1, player2);
 				} catch (AWTException e1) {
 					e1.printStackTrace();
@@ -168,7 +164,7 @@ public class MainWindow extends JFrame {
 		buttonGroup_1.add(rdbtnComputer2);
 		rdbtnComputer2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		rdbtnComputer2.setBounds(738, 305, 98, 21);
-		gameTabPanel.add(rdbtnComputer2); 
+		gameTabPanel.add(rdbtnComputer2);
 
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 		//
@@ -176,9 +172,9 @@ public class MainWindow extends JFrame {
 		//
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		tabbedPane
-				.addTab("Player                                                                                              ",
-						playerTabPanel);
+		tabbedPane.addTab(
+				"Player                                                                                              ",
+				playerTabPanel);
 
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
@@ -198,30 +194,24 @@ public class MainWindow extends JFrame {
 		playerTabPanel.add(panelInPanel3);
 
 		// Combo box for choosing player which shall get edited
-		selectEditPlayer = new JComboBox(DataManager.getAllPlayerNames()
-				.toArray());
+		selectEditPlayer = new JComboBox(DataManager.getAllPlayerNames().toArray());
 		selectEditPlayer.setBounds(371, 38, 326, 21);
-//		selectEditPlayer.setEditable(true);
-//		selectEditPlayer.setSelectedItem("Select Player");
+		// selectEditPlayer.setEditable(true);
+		// selectEditPlayer.setSelectedItem("Select Player");
 		panelInPanel3.add(selectEditPlayer);
 
 		// Show score from Selected Player
 		selectEditPlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent showPlayer) {
-				System.out.println("SelectedItem in Main Window: "
-						+ selectEditPlayer.getSelectedItem());
-				String selectedPlayer = selectEditPlayer.getSelectedItem()
-						.toString();
-				String selectedScore = DataManager.getProperty(selectedPlayer,
-						"score");
+				System.out.println("SelectedItem in Main Window: " + selectEditPlayer.getSelectedItem());
+				String selectedPlayer = selectEditPlayer.getSelectedItem().toString();
+				String selectedScore = DataManager.getProperty(selectedPlayer, "score");
 				// System.out.println(selectedScore);
 				textField.setText(selectedScore);
-				String selectedWins = DataManager.getProperty(selectedPlayer,
-						"wins");
+				String selectedWins = DataManager.getProperty(selectedPlayer, "wins");
 				// System.out.println(selectedWins);
 				textField_1.setText(selectedWins);
-				String selectedLosses = DataManager.getProperty(selectedPlayer,
-						"losses");
+				String selectedLosses = DataManager.getProperty(selectedPlayer, "losses");
 				// System.out.println(selectedLosses);
 				textField_2.setText(selectedLosses);
 			}
@@ -242,8 +232,7 @@ public class MainWindow extends JFrame {
 		buttonDelete.setBounds(70, 375, 125, 32);
 		buttonDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent deletePlayer) {
-				DeletePlayer.start(selectEditPlayer.getSelectedItem()
-						.toString());
+				DeletePlayer.start(selectEditPlayer.getSelectedItem().toString());
 			}
 		});
 		playerTabPanel.add(buttonDelete);
@@ -312,9 +301,9 @@ public class MainWindow extends JFrame {
 		//
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		tabbedPane
-				.addTab("Options                                                                                             ",
-						optionsTabPanel);
+		tabbedPane.addTab(
+				"Options                                                                                             ",
+				optionsTabPanel);
 
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(526, 72, 1, 382);
@@ -377,8 +366,7 @@ public class MainWindow extends JFrame {
 	public static void refreshPlayerComboBox() {
 		comboPlayer1.removeAllItems();
 		comboPlayer2.removeAllItems();
-		System.out.println("SelectedItem in refresh(): "
-				+ selectEditPlayer.getSelectedItem());
+		System.out.println("SelectedItem in refresh(): " + selectEditPlayer.getSelectedItem());
 		System.out.println("ItemCount: " + selectEditPlayer.getItemCount());
 		// Fix of a bug where selectEditPlayer.removeAllItems(); ran into a
 		// NullPointerException
@@ -398,6 +386,10 @@ public class MainWindow extends JFrame {
 			selectEditPlayer.addItem(players[i].toString());
 		}
 
+	}
+
+	public static void toFront2() {
+		mainWindow.toFront();
 	}
 
 }
