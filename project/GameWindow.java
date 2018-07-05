@@ -49,8 +49,14 @@ public class GameWindow {
 	private static Player firstPlayer;
 	private static Player secondPlayer;
 
-	public static void main(String[] args) throws AWTException { // not necessary, just for test case @Simon : Nach
-																	// Fertigstellung LÃ¶schen
+	public static void main(String[] args) throws AWTException { // not
+																	// necessary,
+																	// just for
+																	// test case
+																	// @Simon :
+																	// Nach
+																	// Fertigstellung
+																	// Löschen
 
 		firstPlayer = new Player("test1", null, Color.DARK_GRAY);
 		secondPlayer = new Player("test2", null, Color.BLUE);
@@ -65,7 +71,8 @@ public class GameWindow {
 
 	}
 
-	public static void start(Player player1, Player player2) throws AWTException {
+	public static void start(Player player1, Player player2)
+			throws AWTException {
 
 		currentPlayer = 1;
 		firstPlayer = player1;
@@ -163,7 +170,8 @@ public class GameWindow {
 		JLabel playerTwoVictoryCount = new JLabel("0");
 
 		console = new JTextArea();
-		scrollPane = new JScrollPane(console, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+		scrollPane = new JScrollPane(console,
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setPreferredSize(new Dimension(475, 300));
 		console.setEditable(false);
@@ -218,9 +226,11 @@ public class GameWindow {
 		if (gameIsOver == false) {
 			int x_coordinate = field.getX_Coordinate();
 			int y_coordinate = field.getY_Coordinate();
-			System.out.println("Clicked on " + x_coordinate + " " + y_coordinate);
+			System.out.println("Clicked on " + x_coordinate + " "
+					+ y_coordinate);
 			if (field.isFilled() == false) {
-				if (isValid(x_coordinate, y_coordinate) && logicField[x_coordinate + 1][y_coordinate] != 0) {
+				if (isValid(x_coordinate, y_coordinate)
+						&& logicField[x_coordinate + 1][y_coordinate] != 0) {
 					fillField(field, x_coordinate, y_coordinate);
 					updateAfterTurn(x_coordinate, y_coordinate);
 				} else {
@@ -291,13 +301,15 @@ public class GameWindow {
 
 		int y_new = y - 1;
 		// linke reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0
+				&& logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			y_new = y_new - 1;
 		}
 		y_new = y + 1;
 		// rechte reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0
+				&& logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			y_new = y_new + 1;
 		}
@@ -315,13 +327,15 @@ public class GameWindow {
 
 		int x_new = x - 1;
 		// obere reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0
+				&& logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			x_new = x_new - 1;
 		}
 		x_new = x + 1;
 		// untere reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0
+				&& logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			x_new = x_new + 1;
 		}
@@ -339,7 +353,8 @@ public class GameWindow {
 		int y_new = y + 1;
 		int x_new = x - 1;
 		// oben rechte reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0
+				&& logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			y_new = y_new + 1;
 			x_new = x_new - 1;
@@ -347,7 +362,8 @@ public class GameWindow {
 		y_new = y - 1;
 		x_new = x + 1;
 		// unten linke reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0
+				&& logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			y_new = y_new - 1;
 			x_new = x_new + 1;
@@ -366,7 +382,8 @@ public class GameWindow {
 		int y_new = y - 1;
 		int x_new = x - 1;
 		// oben linke reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0
+				&& logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			y_new = y_new - 1;
 			x_new = x_new - 1;
@@ -374,7 +391,8 @@ public class GameWindow {
 		y_new = y + 1;
 		x_new = x + 1;
 		// unten rechte reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0
+				&& logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			y_new = y_new + 1;
 			x_new = x_new + 1;
@@ -394,10 +412,10 @@ public class GameWindow {
 		if (currentPlayer == 2) {
 			winner = secondPlayer.getName();
 		}
-		GameOverWindow gow = new GameOverWindow(winner);
+		GameOverWindow gow = new GameOverWindow(winner, firstPlayer, secondPlayer);
 		gow.setVisible(true);
 	}
-	
+
 	private static void win() {
 		gameIsOver = true;
 		gameOver();
@@ -412,7 +430,8 @@ public class GameWindow {
 	}
 
 	private static boolean isValid(int x, int y) {
-		if ((x >= 0 && x < logicField.length) && (y >= 0 && y < logicField[0].length)) {
+		if ((x >= 0 && x < logicField.length)
+				&& (y >= 0 && y < logicField[0].length)) {
 			return true;
 		} else {
 			return false;
@@ -427,7 +446,8 @@ public class GameWindow {
 		Robot mouse = new Robot();
 		for (int i = 0; i < cellField.length; i++) {
 			for (int j = 0; j < cellField[i].length; j++) {
-				mouse.mouseMove(120 + cellField[i][j].getX(), 160 + cellField[i][j].getY());
+				mouse.mouseMove(120 + cellField[i][j].getX(),
+						160 + cellField[i][j].getY());
 				try {
 					Thread.sleep(1);
 				} catch (InterruptedException ex) {
@@ -456,5 +476,9 @@ public class GameWindow {
 		} else {
 			EasyComputerAI();
 		}
+	}
+
+	public static void dispose() {
+		mainWindow.dispose();
 	}
 }
