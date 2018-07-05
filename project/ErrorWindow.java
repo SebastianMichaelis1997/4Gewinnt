@@ -44,7 +44,7 @@ public class ErrorWindow extends JFrame {
 
 		JLabel lblNewLabel = new JLabel(errorMessage);
 		lblNewLabel.setIcon(new ImageIcon(ErrorWindow.class.getResource("/project/error.jpg")));
-		lblNewLabel.setForeground(new Color(204, 0, 0));
+		lblNewLabel.setForeground(new Color(0, 0, 0));
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		contentPane.add(lblNewLabel);
 	}
