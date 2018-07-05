@@ -23,6 +23,7 @@ public class ErrorWindow extends JFrame {
 				try {
 					ErrorWindow frame = new ErrorWindow(errorMessage);
 					frame.pack();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,5 +49,4 @@ public class ErrorWindow extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		contentPane.add(lblNewLabel);
 	}
-
 }
