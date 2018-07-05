@@ -195,6 +195,8 @@ public class MainWindow extends JFrame {
 		// Combo box for choosing player which shall get edited
 		selectEditPlayer = new JComboBox(DataManager.getAllPlayerNames().toArray());
 		selectEditPlayer.setBounds(371, 38, 326, 21);
+		selectEditPlayer.setEditable(true);
+		selectEditPlayer.setSelectedItem("Select Player");
 		panelInPanel3.add(selectEditPlayer);
 
 		// Show score from Selected Player
