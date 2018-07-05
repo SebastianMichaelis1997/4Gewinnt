@@ -50,7 +50,7 @@ public class GameWindow {
 	private static Player secondPlayer;
 
 	public static void main(String[] args) throws AWTException { // not necessary, just for test case @Simon : Nach
-																	// Fertigstellung Löschen
+																	// Fertigstellung LÃ¶schen
 
 		firstPlayer = new Player("test1", null, Color.DARK_GRAY);
 		secondPlayer = new Player("test2", null, Color.BLUE);
@@ -91,7 +91,7 @@ public class GameWindow {
 			}
 		}
 		mainWindow = new JFrame();
-		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		mainWindow.setSize(1250, 700);
 		mainWindow.setLocation(100, 100);
 		mainWindow.setTitle("Vier Gewinnt!");
