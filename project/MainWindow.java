@@ -115,6 +115,9 @@ public class MainWindow extends JFrame {
 		roundCornerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					if (comboPlayer1.getSelectedItem() == null || comboPlayer2.getSelectedItem() == null) {
+						throw new ExceptionNoPlayerSelected();
+					}
 					if (comboPlayer1.getSelectedItem().toString().equals(comboPlayer2.getSelectedItem().toString())) {
 						throw new ExceptionPvP();
 					}
@@ -125,6 +128,8 @@ public class MainWindow extends JFrame {
 					e1.printStackTrace();
 				} catch (ExceptionPvP e2) {
 					ErrorWindow.start(e2.getMessage());
+				} catch (ExceptionNoPlayerSelected e3) {
+					ErrorWindow.start(e3.getMessage());
 				}
 			}
 		});
@@ -220,7 +225,14 @@ public class MainWindow extends JFrame {
 		JButton buttonEdit = new JButton("Edit");
 		buttonEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent editPlayer) {
-				EditPlayer.start(selectEditPlayer.getSelectedItem());
+				try {
+					if (selectEditPlayer.getSelectedItem() == null) {
+						throw new ExceptionNoPlayerSelected();
+					}
+					EditPlayer.start(selectEditPlayer.getSelectedItem());
+				} catch (ExceptionNoPlayerSelected e) {
+					ErrorWindow.start(e.getMessage());
+				}
 			}
 		});
 		buttonEdit.setFont(new Font("Tahoma", Font.ITALIC, 25));
@@ -232,7 +244,14 @@ public class MainWindow extends JFrame {
 		buttonDelete.setBounds(70, 375, 125, 32);
 		buttonDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent deletePlayer) {
-				DeletePlayer.start(selectEditPlayer.getSelectedItem().toString());
+				try {
+					if (selectEditPlayer.getSelectedItem() == null) {
+						throw new ExceptionNoPlayerSelected();
+					}
+					DeletePlayer.start(selectEditPlayer.getSelectedItem().toString());
+				} catch (ExceptionNoPlayerSelected e) {
+					ErrorWindow.start(e.getMessage());
+				}
 			}
 		});
 		playerTabPanel.add(buttonDelete);
