@@ -272,7 +272,7 @@ public class DataManager {
 		catch (IOException e) {
 			e.printStackTrace();
 		} catch (NullPointerException e) {
-			System.out.println("Datei ist leer - bitte Ã¼berprÃ¼fen!");
+			ErrorWindow.start("Datei ist leer - bitte überprüfen!");
 		}
 	}// end change property
 
@@ -285,7 +285,7 @@ public class DataManager {
 			for (int i = 0; i < playerData.length; i++) { // reads all lines of
 															// player file
 				playerData[i] = br.readLine();
-				// System.out.println(playerData[i]); // @Simon Ã„ndern
+	
 			}
 			br.close();
 			if (attribute == "name") {
@@ -307,11 +307,13 @@ public class DataManager {
 			} else if (attribute == "color") {
 				return playerData[8];
 			} else {
-				System.out.println("Error DataManager");
+				throw new DataManagerErrorException("");
 			}
-			return value;
+			//return value;
 		} catch (IOException e) {
 			e.printStackTrace();
+		}catch(DataManagerErrorException e1) {
+			ErrorWindow.start(e1.getMessage());
 		}
 		return null;
 	}// end get property
@@ -322,6 +324,7 @@ public class DataManager {
 			Files.delete(path);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			ErrorWindow.start("Player could not be deleted!");
 			e.printStackTrace();
 		}
 	}

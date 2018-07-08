@@ -89,12 +89,13 @@ public class CreatePlayer {
 								DataManager.changeProperty(nameField.getText(), "icon",
 										chooser.getSelectedFile().getName());
 							else
-								System.out.println(
-										"Error while saving File: An image with this name already exists. Please rename it!");
+								throw new ImageAlreadyExistsException("");
 						}
 					}
 				} catch (PlayerAlreadyExistsException exception) {
 					System.out.println(exception.getMessage());
+				} catch (ImageAlreadyExistsException e1) {
+					ErrorWindow.start(e1.getMessage());
 				} finally {
 					MainWindow.refreshPlayerComboBox();
 					frame.dispose(); // closes the window
@@ -118,14 +119,13 @@ public class CreatePlayer {
 	protected ImageIcon createImageIcon(String path, String fileName) {
 		try {
 			if (DataManager.saveImage(path, fileName)) {
-				
+
 			} else
-				//if an image is already name like "filename"
-				return null; 
+				// if an image is already name like "filename"
+				return null;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return new ImageIcon(path, fileName);
 	}
 }
-
