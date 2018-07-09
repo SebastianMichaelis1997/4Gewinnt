@@ -229,7 +229,7 @@ public class MainWindow extends JFrame {
 		buttonEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent editPlayer) {
 				try {
-					if (selectEditPlayer.getSelectedItem() == null) {
+					if (selectEditPlayer.getSelectedItem() == null|| selectEditPlayer.getSelectedItem().toString().equals("Select Player")) {
 						throw new ExceptionNoPlayerSelected();
 					}
 					EditPlayer.start(selectEditPlayer.getSelectedItem());
@@ -248,7 +248,7 @@ public class MainWindow extends JFrame {
 		buttonDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent deletePlayer) {
 				try {
-					if (selectEditPlayer.getSelectedItem() == null) {
+					if (selectEditPlayer.getSelectedItem() == null|| selectEditPlayer.getSelectedItem().toString().equals("Select Player")) {
 						throw new ExceptionNoPlayerSelected();
 					}
 					DeletePlayer.start(selectEditPlayer.getSelectedItem().toString());
