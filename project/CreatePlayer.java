@@ -1,14 +1,20 @@
 package project;
 
 import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
+
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+
 import javax.swing.event.DocumentListener;
 import javax.swing.event.DocumentEvent;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -49,14 +55,15 @@ public class CreatePlayer {
 		frame.getContentPane().add(lblUsername);
 
 		JFileChooser chooser = new JFileChooser(); // For Icon choosing
-
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(
+				"JPG & PNG Images", "jpg", "png");
+		chooser.setFileFilter(filter);
 		JButton btnDelete = new JButton("Choose Icon"); // For Icon choosing
 		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnDelete.setBounds(45, 125, 117, 29);
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				chooser.showOpenDialog(null);
-				
 				// @Simon chooser.getSelectedFile().getAbsolutePath() gibt den
 				// absoluten Pfad der ausgesuchten Datei wieder
 			}
@@ -84,13 +91,16 @@ public class CreatePlayer {
 						if (DataManager.addPlayer(nameField.getText())
 								&& (chooser.getSelectedFile().toString() != null)) {
 							// Adds standard values for players
-							// Just if a player was added successfully and an icon was selected, the icon
+							// Just if a player was added successfully and an
+							// icon was selected, the icon
 							// gets fetched
-							ImageIcon icon = createImageIcon(chooser.getSelectedFile().toString(),
-									chooser.getSelectedFile().getName());
+							ImageIcon icon = createImageIcon(chooser
+									.getSelectedFile().toString(), chooser
+									.getSelectedFile().getName());
 							if (icon != null)
-								DataManager.changeProperty(nameField.getText(), "icon",
-										chooser.getSelectedFile().getName());
+								DataManager.changeProperty(nameField.getText(),
+										"icon", chooser.getSelectedFile()
+												.getName());
 							else
 								throw new ImageAlreadyExistsException("");
 						}
