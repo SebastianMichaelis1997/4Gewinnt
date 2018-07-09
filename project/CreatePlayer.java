@@ -56,6 +56,9 @@ public class CreatePlayer {
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				chooser.showOpenDialog(null);
+				
+				// @Simon chooser.getSelectedFile().getAbsolutePath() gibt den
+				// absoluten Pfad der ausgesuchten Datei wieder
 			}
 		});
 		frame.getContentPane().add(btnDelete);
