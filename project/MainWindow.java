@@ -201,24 +201,27 @@ public class MainWindow extends JFrame {
 		// Combo box for choosing player which shall get edited
 		selectEditPlayer = new JComboBox(DataManager.getAllPlayerNames().toArray());
 		selectEditPlayer.setBounds(371, 38, 326, 21);
-		// selectEditPlayer.setEditable(true);
-		// selectEditPlayer.setSelectedItem("Select Player");
+		selectEditPlayer.setEditable(true);
+		selectEditPlayer.setSelectedItem("Select Player");
+		selectEditPlayer.setEditable(false);
 		panelInPanel3.add(selectEditPlayer);
 
 		// Show score from Selected Player
 		selectEditPlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent showPlayer) {
-				System.out.println("SelectedItem in Main Window: " + selectEditPlayer.getSelectedItem());
-				String selectedPlayer = selectEditPlayer.getSelectedItem().toString();
-				String selectedScore = DataManager.getProperty(selectedPlayer, "score");
-				// System.out.println(selectedScore);
-				textField.setText(selectedScore);
-				String selectedWins = DataManager.getProperty(selectedPlayer, "wins");
-				// System.out.println(selectedWins);
-				textField_1.setText(selectedWins);
-				String selectedLosses = DataManager.getProperty(selectedPlayer, "losses");
-				// System.out.println(selectedLosses);
-				textField_2.setText(selectedLosses);
+				if (!selectEditPlayer.getSelectedItem().toString().equals("Select Player")) {
+					System.out.println("SelectedItem in Main Window: " + selectEditPlayer.getSelectedItem());
+					String selectedPlayer = selectEditPlayer.getSelectedItem().toString();
+					String selectedScore = DataManager.getProperty(selectedPlayer, "score");
+					// System.out.println(selectedScore);
+					textField.setText(selectedScore);
+					String selectedWins = DataManager.getProperty(selectedPlayer, "wins");
+					// System.out.println(selectedWins);
+					textField_1.setText(selectedWins);
+					String selectedLosses = DataManager.getProperty(selectedPlayer, "losses");
+					// System.out.println(selectedLosses);
+					textField_2.setText(selectedLosses);
+				}
 			}
 		});
 

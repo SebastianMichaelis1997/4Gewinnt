@@ -91,7 +91,7 @@ public class CreatePlayer {
 						throw new IllegalNameException("Enter Name");
 					}
 						if (DataManager.addPlayer(nameField.getText())
-								&& (chooser.getSelectedFile().toString() != null)) {
+								&& (chooser.getSelectedFile() != null)) {
 							// Adds standard values for players
 							// Just if a player was added successfully and an
 							// icon was selected, the icon
