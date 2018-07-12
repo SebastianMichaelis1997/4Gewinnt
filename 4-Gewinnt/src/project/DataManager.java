@@ -127,7 +127,7 @@ public class DataManager {
 			String[] playerData = new String[8];
 			for (int i = 0; i < playerData.length; i++) { // reads all lines of
 															// player file
-				playerData[i] = br.readLine(); 
+				playerData[i] = br.readLine();
 			}
 			br.close();
 			return new Player(playerData);
@@ -267,7 +267,7 @@ public class DataManager {
 		try {
 			FileReader fr = new FileReader(PLAYER_DIRECTORY + File.separator + player + ".player");
 			BufferedReader br = new BufferedReader(fr);
-			String[] playerData = new String[8];
+			String[] playerData = new String[9];
 			for (int i = 0; i < playerData.length; i++) { // reads all lines of
 															// player file
 				playerData[i] = br.readLine();
@@ -290,7 +290,9 @@ public class DataManager {
 				return playerData[6];
 			} else if (attribute == "color") {
 				return playerData[7];
-			}else {
+			} else if (attribute == "color") {
+				return playerData[8];
+			} else {
 				throw new DataManagerErrorException("");
 			}
 			//return value;
