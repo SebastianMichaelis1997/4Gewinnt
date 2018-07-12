@@ -123,7 +123,14 @@ public class MainWindow extends JFrame {
 					}
 					Player player1 = DataManager.getPlayerObj(comboPlayer1.getSelectedItem().toString());
 					Player player2 = DataManager.getPlayerObj(comboPlayer2.getSelectedItem().toString());
-					GameWindow.start(player1, player2);
+
+					if (player1.getIcon() != null && player1.getIcon().equals(player2.getIcon())){
+						ErrorWindow.start("Icon conflict: Please choose different icons!");
+					} else if (player1.getColor() != null && player1.getColor().equals(player2.getColor())) {
+						ErrorWindow.start("Color conflict: Please choose different colors!");
+					} else {
+						GameWindow.start(player1, player2);
+					}
 				} catch (AWTException e1) {
 					e1.printStackTrace();
 				} catch (ExceptionPvP e2) {
