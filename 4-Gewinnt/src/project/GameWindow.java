@@ -9,6 +9,7 @@ import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -255,10 +256,26 @@ public class GameWindow {
 		field.fill();
 		switch (currentPlayer) {
 		case 1:
-			field.setBackground(firstPlayer.getColor());
+			if (firstPlayer.getIcon() != null) {
+				field.setIcon(firstPlayer.getIcon());
+			} else {
+				if (firstPlayer.getColor() != null) {
+					field.setBackground(firstPlayer.getColor());
+				} else {
+					field.setBackground(Color.RED);
+				}
+			}
 			break;
 		case 2:
-			field.setBackground(secondPlayer.getColor());
+			if (secondPlayer.getIcon() != null) {
+				field.setIcon(secondPlayer.getIcon());
+			} else {
+				if (secondPlayer.getColor() != null) {
+					field.setBackground(secondPlayer.getColor());
+				} else {
+					field.setBackground(Color.GREEN);
+				}
+			}
 			break;
 		}
 	}
