@@ -29,11 +29,10 @@ public class DataManagerTest {
 			Path path = Paths.get("profilePictures"+File.separator+"testImage.png");
 			//just for clearing to run the test for another time - otherwise the image to save would already exist and would always return false
 			try {
-				System.out.println(path); 
 				Files.delete(path);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				e.printStackTrace(); 
 			}
 		}
 	}
@@ -44,18 +43,18 @@ public class DataManagerTest {
 	}
 	
 	
-	/*@Test
+	@Test
 	public void createAndDeletPlayerShouldReturnTrue() {
 		try {
 			ArrayList players = DataManager.getAllPlayerNames();
 			assertSame(players.size(), DataManager.getAllPlayerNames().size());
-			//assertEquals("Adding a player should be successfull.", true, DataManager.addPlayer("testPlayer"));
+			assertEquals("Adding a player should be successfull.", true, DataManager.addPlayer("testPlayer","green"));
 			DataManager.deletePlayer("testPlayer");
 		} catch (PlayerAlreadyExistsException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}*/
+	}
 	
 	@Test
 	public void changeAllPropertys() {

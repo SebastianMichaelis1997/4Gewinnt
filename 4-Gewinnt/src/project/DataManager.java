@@ -21,7 +21,7 @@ public class DataManager {
 	private static final String RESOURCE_DIRECTORY = "resources"; //@Simon @Tobi das wird doch nicht mehr verwendet?
 
 	public static boolean saveImage(String path, String filename) throws IOException {
-		checkDirectory("profilePictures");
+		checkDirectory("profilePictures"); 
 		Path source = Paths.get(path);
 		File directory = new File(PLAYER_PICTURES_DIRECTORY + File.separator + filename);
 		if (directory.exists())
@@ -125,8 +125,8 @@ public class DataManager {
 			FileReader fr = new FileReader(PLAYER_DIRECTORY + File.separator + filename + ".player");
 			BufferedReader br = new BufferedReader(fr);
 			String[] playerData = new String[8];
-			for (int i = 0; i < playerData.length; i++) { // reads all lines of
-															// player file
+			for (int i = 0; i < playerData.length; i++) { 
+				// reads all lines of player file
 				playerData[i] = br.readLine();
 			}
 			br.close();
