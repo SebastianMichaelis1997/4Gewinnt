@@ -1,21 +1,19 @@
 package project;
 
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 import javax.swing.ImageIcon;
-
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-
 import javax.swing.event.DocumentListener;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 import javax.swing.event.DocumentEvent;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.IllegalCharsetNameException;
-
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -56,19 +54,16 @@ public class CreatePlayer {
 		frame.getContentPane().add(lblUsername);
 
 		JFileChooser chooser = new JFileChooser(); // For Icon choosing
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG Images", "jpg", "png");
-		chooser.setFileFilter(filter);
-		JButton btnDelete = new JButton("Choose Icon"); // For Icon choosing
-		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnDelete.setBounds(45, 125, 117, 29);
-		btnDelete.addActionListener(new ActionListener() {
+
+		JButton btnChooser = new JButton("Choose Icon"); // For Icon choosing
+		btnChooser.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnChooser.setBounds(45, 125, 117, 29);
+		btnChooser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				chooser.showOpenDialog(null);
-				// @Simon chooser.getSelectedFile().getAbsolutePath() gibt den
-				// absoluten Pfad der ausgesuchten Datei wieder
 			}
 		});
-		frame.getContentPane().add(btnDelete);
+		frame.getContentPane().add(btnChooser);
 
 		JTextField nameField = new JTextField("Enter Name");
 		nameField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -76,25 +71,54 @@ public class CreatePlayer {
 		nameField.setVisible(true);
 		nameField.setBounds(200, 22, 220, 41);
 		nameField.selectAll();
+		
+		JLabel picture = new JLabel("Picture");
+		picture.setHorizontalAlignment(SwingConstants.CENTER);
+		picture.setBounds(261, 91, 100, 100);
+		frame.getContentPane().add(picture);
 
 		chooser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent iconChoosen) {
 				currentName = nameField.getText();
 			}
 		});
+		chooser.addAncestorListener(new AncestorListener() {
+			//Listener for showing the Icon when chosen via chooser
+			@Override
+			public void ancestorRemoved(AncestorEvent arg0) {
+				// A new image has been added using the file chooser
+				// Now we want to display this image in the screen
+				if (chooser.getSelectedFile().toString() != null) {
+					picture.setText("");
+					ImageIcon icon = new ImageIcon(chooser.getSelectedFile().toString());
+					//picture is not saved jet, its just for giving the user the feedback which icon he has chosen
+					picture.setIcon(icon);	
+				}
+
+			}
+
+			@Override
+			public void ancestorMoved(AncestorEvent arg0) {
+				// do nothing
+
+			}
+
+			@Override
+			public void ancestorAdded(AncestorEvent arg0) {
+				// do nothing
+
+			}
+		});
 
 		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent save) {
 				try {
 					// File for a new player gets added to folder "players"
-					if (nameField.getText().equals("Enter Name")) {
-						throw new IllegalNameException("Enter Name");
-					}
+					if (nameField.getText() != ("Enter Name")) {
 						if (DataManager.addPlayer(nameField.getText())
-								&& (chooser.getSelectedFile() != null)) {
+								&& (chooser.getSelectedFile().toString() != null)) {
 							// Adds standard values for players
-							// Just if a player was added successfully and an
-							// icon was selected, the icon
+							// Just if a player was added successfully and an icon was selected, the icon
 							// gets fetched
 							ImageIcon icon = createImageIcon(chooser.getSelectedFile().toString(),
 									chooser.getSelectedFile().getName());
@@ -102,15 +126,13 @@ public class CreatePlayer {
 								DataManager.changeProperty(nameField.getText(), "icon",
 										chooser.getSelectedFile().getName());
 							else
-								throw new ImageAlreadyExistsException("");
+								System.out.println(
+										"Error while saving File: An image with this name already exists. Please rename it!");
 						}
+					}
 				} catch (PlayerAlreadyExistsException exception) {
 					System.out.println(exception.getMessage());
-				} catch (ImageAlreadyExistsException e1) {
-					ErrorWindow.start(e1.getMessage());
-				}catch (IllegalNameException e2) {
-					ErrorWindow.start(e2.getMessage());
-				}finally {
+				} finally {
 					MainWindow.refreshPlayerComboBox();
 					frame.dispose(); // closes the window
 				}
@@ -127,6 +149,7 @@ public class CreatePlayer {
 		});
 		frame.setVisible(true);
 		frame.getContentPane().add(btnCancel);
+
 	}
 
 	/** Returns an ImageIcon, or null if the path was invalid. */
