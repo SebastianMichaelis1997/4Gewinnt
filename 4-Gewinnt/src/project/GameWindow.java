@@ -71,8 +71,7 @@ public class GameWindow {
 
 	}
 
-	public static void start(Player player1, Player player2)
-			throws AWTException {
+	public static void start(Player player1, Player player2) throws AWTException {
 
 		currentPlayer = 1;
 		firstPlayer = player1;
@@ -170,8 +169,7 @@ public class GameWindow {
 		JLabel playerTwoVictoryCount = new JLabel("0");
 
 		console = new JTextArea();
-		scrollPane = new JScrollPane(console,
-				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+		scrollPane = new JScrollPane(console, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setPreferredSize(new Dimension(475, 300));
 		console.setEditable(false);
@@ -227,8 +225,7 @@ public class GameWindow {
 			int x_coordinate = field.getX_Coordinate();
 			int y_coordinate = field.getY_Coordinate();
 			if (field.isFilled() == false) {
-				if (isValid(x_coordinate, y_coordinate)
-						&& logicField[x_coordinate + 1][y_coordinate] != 0) {
+				if (isValid(x_coordinate, y_coordinate) && logicField[x_coordinate + 1][y_coordinate] != 0) {
 					fillField(field, x_coordinate, y_coordinate);
 					updateAfterTurn(x_coordinate, y_coordinate);
 				} else {
@@ -297,15 +294,13 @@ public class GameWindow {
 
 		int y_new = y - 1;
 		// linke reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0
-				&& logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			y_new = y_new - 1;
 		}
 		y_new = y + 1;
 		// rechte reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0
-				&& logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			y_new = y_new + 1;
 		}
@@ -322,15 +317,13 @@ public class GameWindow {
 
 		int x_new = x - 1;
 		// obere reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0
-				&& logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			x_new = x_new - 1;
 		}
 		x_new = x + 1;
 		// untere reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0
-				&& logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			x_new = x_new + 1;
 		}
@@ -347,8 +340,7 @@ public class GameWindow {
 		int y_new = y + 1;
 		int x_new = x - 1;
 		// oben rechte reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0
-				&& logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			y_new = y_new + 1;
 			x_new = x_new - 1;
@@ -356,8 +348,7 @@ public class GameWindow {
 		y_new = y - 1;
 		x_new = x + 1;
 		// unten linke reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0
-				&& logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			y_new = y_new - 1;
 			x_new = x_new + 1;
@@ -375,8 +366,7 @@ public class GameWindow {
 		int y_new = y - 1;
 		int x_new = x - 1;
 		// oben linke reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0
-				&& logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			y_new = y_new - 1;
 			x_new = x_new - 1;
@@ -384,8 +374,7 @@ public class GameWindow {
 		y_new = y + 1;
 		x_new = x + 1;
 		// unten rechte reichweite
-		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0
-				&& logicField[x_new][y_new] == value) {
+		while (isValid(x_new, y_new) && logicField[x_new][y_new] != 0 && logicField[x_new][y_new] == value) {
 			counter = counter + 1;
 			y_new = y_new + 1;
 			x_new = x_new + 1;
@@ -414,16 +403,31 @@ public class GameWindow {
 		log("----------");
 		if (currentPlayer == 1) {
 			log("Player " + firstPlayer.getName() + " has won!");
+			firstPlayer.win();
+			secondPlayer.lose();
 		}
 		if (currentPlayer == 2) {
 			log("Player " + secondPlayer.getName() + " has won!");
+			firstPlayer.lose();
+			secondPlayer.win();
 		}
 		log("----------");
+		try {
+			DataManager.changeProperty(firstPlayer.getName(), "wins", firstPlayer.getWins() + "");
+			DataManager.changeProperty(firstPlayer.getName(), "nrOfGames", firstPlayer.getNrOfGames() + "");
+			DataManager.changeProperty(firstPlayer.getName(), "losses", firstPlayer.getLosses() + "");
+			DataManager.changeProperty(firstPlayer.getName(), "score", firstPlayer.getScore() + "");
+			DataManager.changeProperty(secondPlayer.getName(), "wins", secondPlayer.getWins() + "");
+			DataManager.changeProperty(secondPlayer.getName(), "nrOfGames", secondPlayer.getNrOfGames() + "");
+			DataManager.changeProperty(secondPlayer.getName(), "losses", secondPlayer.getLosses() + "");
+			DataManager.changeProperty(secondPlayer.getName(), "score", secondPlayer.getScore() + "");
+		} catch (PlayerAlreadyExistsException e) {
+			System.out.println(e.getMessage() + " ALEX TEST");
+		}
 	}
 
 	private static boolean isValid(int x, int y) {
-		if ((x >= 0 && x < logicField.length)
-				&& (y >= 0 && y < logicField[0].length)) {
+		if ((x >= 0 && x < logicField.length) && (y >= 0 && y < logicField[0].length)) {
 			return true;
 		} else {
 			return false;
@@ -438,8 +442,7 @@ public class GameWindow {
 		Robot mouse = new Robot();
 		for (int i = 0; i < cellField.length; i++) {
 			for (int j = 0; j < cellField[i].length; j++) {
-				mouse.mouseMove(120 + cellField[i][j].getX(),
-						160 + cellField[i][j].getY());
+				mouse.mouseMove(120 + cellField[i][j].getX(), 160 + cellField[i][j].getY());
 				try {
 					Thread.sleep(1);
 				} catch (InterruptedException ex) {

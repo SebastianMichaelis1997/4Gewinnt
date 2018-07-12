@@ -28,7 +28,8 @@ public class MainWindow extends JFrame {
 		try {
 			ambient = new SoundManager("ambient", true);
 		} catch (Exception e) {
-
+			System.out.println(e.getMessage());
+			int x = 5;
 		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -210,7 +211,7 @@ public class MainWindow extends JFrame {
 		selectEditPlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent showPlayer) {
 				if (!selectEditPlayer.getSelectedItem().toString().equals("Select Player")) {
-					
+
 					String selectedPlayer = selectEditPlayer.getSelectedItem().toString();
 					String selectedScore = DataManager.getProperty(selectedPlayer, "score");
 					textField.setText(selectedScore);
@@ -226,7 +227,8 @@ public class MainWindow extends JFrame {
 		buttonEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent editPlayer) {
 				try {
-					if (selectEditPlayer.getSelectedItem() == null|| selectEditPlayer.getSelectedItem().toString().equals("Select Player")) {
+					if (selectEditPlayer.getSelectedItem() == null
+							|| selectEditPlayer.getSelectedItem().toString().equals("Select Player")) {
 						throw new ExceptionNoPlayerSelected();
 					}
 					EditPlayer.start(selectEditPlayer.getSelectedItem());
@@ -245,7 +247,8 @@ public class MainWindow extends JFrame {
 		buttonDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent deletePlayer) {
 				try {
-					if (selectEditPlayer.getSelectedItem() == null|| selectEditPlayer.getSelectedItem().toString().equals("Select Player")) {
+					if (selectEditPlayer.getSelectedItem() == null
+							|| selectEditPlayer.getSelectedItem().toString().equals("Select Player")) {
 						throw new ExceptionNoPlayerSelected();
 					}
 					DeletePlayer.start(selectEditPlayer.getSelectedItem().toString());
@@ -395,7 +398,8 @@ public class MainWindow extends JFrame {
 			selectEditPlayer.removeAllItems();
 		}
 		Object[] players = DataManager.getAllPlayerNames().toArray();
-		for (int i = 0; i < players.length; i++) {;
+		for (int i = 0; i < players.length; i++) {
+			;
 			comboPlayer1.addItem(players[i].toString());
 			comboPlayer2.addItem(players[i].toString());
 			selectEditPlayer.addItem(players[i].toString());
