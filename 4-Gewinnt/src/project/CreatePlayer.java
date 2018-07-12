@@ -14,6 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.JPanel;
+import javax.swing.JComboBox;
 
 public class CreatePlayer {
 
@@ -34,24 +36,28 @@ public class CreatePlayer {
 
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 628, 389);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
+		JComboBox colorComboBox = new JComboBox(new String[]{"red","blue","green"});
+		colorComboBox.setBounds(327, 156, 220, 35);
+		frame.getContentPane().add(colorComboBox);
+		
 		JButton btnSave = new JButton("Save");
-		btnSave.setBounds(45, 218, 117, 29);
+		btnSave.setBounds(73, 284, 117, 29);
 		frame.getContentPane().add(btnSave);
 
 		JLabel lblUsername = new JLabel("Enter Player Name");
 		lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblUsername.setBounds(10, 25, 180, 35);
+		lblUsername.setBounds(84, 25, 180, 35);
 		frame.getContentPane().add(lblUsername);
 
 		JFileChooser chooser = new JFileChooser(); // For Icon choosing
 
 		JButton btnChooser = new JButton("Choose Icon"); // For Icon choosing
-		btnChooser.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnChooser.setBounds(45, 125, 117, 29);
+		btnChooser.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnChooser.setBounds(76, 100, 154, 29);
 		btnChooser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				chooser.showOpenDialog(null);
@@ -63,12 +69,12 @@ public class CreatePlayer {
 		nameField.setHorizontalAlignment(SwingConstants.CENTER);
 		nameField.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		nameField.setVisible(true);
-		nameField.setBounds(200, 22, 220, 41);
+		nameField.setBounds(311, 22, 220, 41);
 		nameField.selectAll();
 
 		JLabel picture = new JLabel("Picture");
 		picture.setHorizontalAlignment(SwingConstants.CENTER);
-		picture.setBounds(261, 91, 100, 100);
+		picture.setBounds(97, 156, 100, 100);
 		frame.getContentPane().add(picture);
 
 		chooser.addActionListener(new ActionListener() {
@@ -115,7 +121,7 @@ public class CreatePlayer {
 							|| nameField.getText().equals("Select Player")) {
 						throw new IllegalNameException(nameField.getText());
 					}
-					if (DataManager.addPlayer(nameField.getText())
+					if (DataManager.addPlayer(nameField.getText(), colorComboBox.getSelectedItem().toString())
 							&& (chooser.getSelectedFile().toString() != null)) {
 						// Adds standard values for players
 						// Just if a player was added successfully and an
@@ -144,7 +150,7 @@ public class CreatePlayer {
 		frame.getContentPane().add(nameField);
 
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(303, 218, 117, 29);
+		btnCancel.setBounds(427, 284, 117, 29);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose(); // closes the window
@@ -152,7 +158,11 @@ public class CreatePlayer {
 		});
 		frame.setVisible(true);
 		frame.getContentPane().add(btnCancel);
-
+		
+		JLabel lblChooseColor = new JLabel("Choose Color");
+		lblChooseColor.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblChooseColor.setBounds(363, 97, 133, 35);
+		frame.getContentPane().add(lblChooseColor);
 	}
 
 	/** Returns an ImageIcon, or null if the path was invalid. */
