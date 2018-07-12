@@ -83,7 +83,6 @@ public class Player {
 		this.ties = Integer.parseInt(playerInfo[4]);
 		this.score = Integer.parseInt(playerInfo[5]);
 		if (playerInfo[6] != null || !playerInfo[6].equals("")) {
-			System.out.println(playerInfo[6]);
 			//this.icon = new ImageIcon(GameOverWindow.class.getResource("/project/" + playerInfo[6]));
 		} else {
 			// this.color = new Color(Integer.parseInt(playerInfo[7]));
