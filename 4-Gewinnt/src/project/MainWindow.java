@@ -123,6 +123,7 @@ public class MainWindow extends JFrame {
 					}
 					Player player1 = DataManager.getPlayerObj(comboPlayer1.getSelectedItem().toString());
 					Player player2 = DataManager.getPlayerObj(comboPlayer2.getSelectedItem().toString());
+
 					GameWindow.start(player1, player2);
 				} catch (AWTException e1) {
 					e1.printStackTrace();
