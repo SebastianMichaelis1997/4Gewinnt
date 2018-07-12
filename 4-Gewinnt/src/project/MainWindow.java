@@ -29,7 +29,6 @@ public class MainWindow extends JFrame {
 			ambient = new SoundManager("ambient", true);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			int x = 5;
 		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
