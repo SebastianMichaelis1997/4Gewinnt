@@ -82,23 +82,13 @@ public class Player {
 		this.losses = Integer.parseInt(playerInfo[3]);
 		this.ties = Integer.parseInt(playerInfo[4]);
 		this.score = Integer.parseInt(playerInfo[5]);
-		if (playerInfo[6].equals("null")) {
-			System.out.println(playerInfo[6]);
-			this.color = new Color(255,255,255);
+		if (playerInfo[6] != null || !playerInfo[6].equals("")) {
+			//this.icon = new ImageIcon(GameOverWindow.class.getResource("/project/" + playerInfo[6]));
 		} else {
-			this.icon = new ImageIcon(GameOverWindow.class.getResource("/project/" + playerInfo[6]));
+			// this.color = new Color(Integer.parseInt(playerInfo[7]));
+			//new Color();
 		}
-		switch (playerInfo[7]) {
-		case ("red"):
-			this.color = new Color(255, 0, 0);
-			break;
-		case ("blue"):
-			this.color = new Color(0, 0, 255);
-			break;
-		case ("green"):
-			this.color = new Color(0, 255, 0);
-			break;
-		}
+		// this.color = new Color(Integer.parseInt(playerInfo[7]));
 	}
 
 	public String getName() {
