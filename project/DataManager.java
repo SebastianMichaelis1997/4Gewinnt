@@ -18,7 +18,7 @@ import java.util.*;
 public class DataManager {
 	private static final String PLAYER_DIRECTORY = "players";
 	private static final String PLAYER_PICTURES_DIRECTORY = "profilePictures";
-	private static final String RESOURCE_DIRECTORY = "resources"; //@Simon @Tobi das wird doch nicht mehr verwendet?
+	private static final String RESOURCE_DIRECTORY = "resources";
 
 	public static boolean saveImage(String path, String filename) throws IOException {
 		checkDirectory("profilePictures");
@@ -29,30 +29,31 @@ public class DataManager {
 			// already used for an other image in file "profilePictures"
 			return false;
 		else {
-		Path destination = Paths.get(PLAYER_PICTURES_DIRECTORY + File.separator + filename);
-		FileChannel srcChannel = new FileInputStream(source.toString()).getChannel();
-		FileChannel destChannel = new FileOutputStream(destination.toString()).getChannel();
-		try {
-			srcChannel.transferTo(0, srcChannel.size(), destChannel);
-			return true;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		} finally {
-			if (srcChannel != null)
-				srcChannel.close();
-			if (destChannel != null)
-				destChannel.close();
-		}
+			Path destination = Paths.get(PLAYER_PICTURES_DIRECTORY + File.separator + filename);
+			FileChannel srcChannel = new FileInputStream(source.toString()).getChannel();
+			FileChannel destChannel = new FileOutputStream(destination.toString()).getChannel();
+			try {
+				srcChannel.transferTo(0, srcChannel.size(), destChannel);
+				return true;
+			} catch (IOException e) {
+				e.printStackTrace();
+				return false;
+			} finally {
+				if (srcChannel != null)
+					srcChannel.close();
+				if (destChannel != null)
+					destChannel.close();
+			}
 		}
 	}
 
 	public static void checkDirectory(String name) {
 		if (name.equals(PLAYER_DIRECTORY)) {
-			// Check if directory exists
+			//Check if directory exists
 			File directory = new File(PLAYER_DIRECTORY);
 			if (!directory.exists()) {
-				directory.mkdir(); // if not, create the directory
+				directory.mkdir(); 
+				//if not, create the directory
 			}
 
 		} else if (name.equals(RESOURCE_DIRECTORY)) {
@@ -61,7 +62,6 @@ public class DataManager {
 				File directory = new File(RESOURCE_DIRECTORY);
 				if (!directory.exists()) {
 					directory.mkdir(); // if not, create the directory
-
 					String resourcePath = RESOURCE_DIRECTORY + File.separator + "ReadMe.txt";
 					File file = new File(resourcePath);
 					FileWriter fw = new FileWriter(file.getAbsoluteFile());
@@ -77,7 +77,8 @@ public class DataManager {
 		} else if (name.equals(PLAYER_PICTURES_DIRECTORY)) {
 			File directory = new File(PLAYER_PICTURES_DIRECTORY);
 			if (!directory.exists()) {
-				directory.mkdir(); // if not, create the directory
+				directory.mkdir();
+				//if not, create the directory
 			}
 		}
 	}
@@ -90,31 +91,23 @@ public class DataManager {
 			if (fileEntry.isDirectory()) {
 				getAllPlayerNames(fileEntry);
 			} else {
-				players.add(fileEntry.getName().substring(0, fileEntry.getName().indexOf('.'))); // adds just the
-																									// file
-																									// name ->cuts the
-																									// ending off
+				players.add(fileEntry.getName().substring(0, fileEntry.getName().indexOf('.')));
+				// adds just the file name ->cuts the ending off
 			}
 		}
 		return players;
 	}
 
-	public static ArrayList<String> getAllPlayerNames(final File folder) { // for
-																			// recursive
-																			// method
-																			// call
-																			// ->
-																			// Ãœberladung
+	public static ArrayList<String> getAllPlayerNames(final File folder) {
+		// for recursive method call -> Überladung
 		checkDirectory(PLAYER_DIRECTORY);
 		ArrayList<String> players = new ArrayList<String>();
 		for (File fileEntry : folder.listFiles()) {
 			if (fileEntry.isDirectory()) {
 				getAllPlayerNames(fileEntry);
 			} else {
-				players.add(fileEntry.getName().substring(0, fileEntry.getName().indexOf('.'))); // adds just the
-																									// file
-																									// name ->cuts the
-																									// ending off
+				players.add(fileEntry.getName().substring(0, fileEntry.getName().indexOf('.')));
+				// adds just the file name ->cuts the ending off
 			}
 		}
 		return players;
@@ -125,10 +118,9 @@ public class DataManager {
 			FileReader fr = new FileReader(PLAYER_DIRECTORY + File.separator + filename + ".player");
 			BufferedReader br = new BufferedReader(fr);
 			String[] playerData = new String[8];
-			for (int i = 0; i < playerData.length; i++) { // reads all lines of
-															// player file
+			for (int i = 0; i < playerData.length; i++) {
+				// reads all lines of player file
 				playerData[i] = br.readLine();
-				// System.out.println(playerData[i]);
 			}
 			br.close();
 			return new Player(playerData);
@@ -143,10 +135,9 @@ public class DataManager {
 			FileReader fr = new FileReader(PLAYER_DIRECTORY + File.separator + filename + ".player");
 			BufferedReader br = new BufferedReader(fr);
 			String[] playerData = new String[8];
-			for (int i = 0; i < playerData.length; i++) { // reads all lines of
-															// player file
+			for (int i = 0; i < playerData.length; i++) {
+				// reads all lines of player file
 				playerData[i] = br.readLine();
-				// System.out.println(playerData[i]);
 			}
 			br.close();
 			return playerData;
@@ -165,15 +156,6 @@ public class DataManager {
 			if (!checkPlayerExists(name, false)) {
 				// Assume default encoding.
 				FileWriter fw = new FileWriter(file.getAbsolutePath());
-				// System.out.println(file.getAbsolutePath());
-				// System.out.println(file.getAbsoluteFile());
-				// System.out.println(file.getCanonicalPath());
-				// System.out.println(file.getCanonicalFile());
-				// System.out.println(fw.getEncoding());
-				// System.out.println(fw.equals(file.getCanonicalPath()));
-				// System.out.println(fw.hashCode());
-				// System.out.println(file.hashCode());
-
 				// Always wrap FileWriter in BufferedWriter.
 				BufferedWriter bw = new BufferedWriter(fw);
 				bw.write(name);
@@ -200,16 +182,12 @@ public class DataManager {
 		ArrayList<String> players = getAllPlayerNames();
 		if (checkCase) {
 			for (String player : players) {
-				// System.out.println("Player: "+player);
-				// System.out.println("Name: "+name);
 				if (name.equals(player)) {
 					return true;
 				}
 			}
 		} else if (!checkCase) {
 			for (String player : players) {
-				// System.out.println("Player: "+player);
-				// System.out.println("Name: "+name);
 				if (name.equalsIgnoreCase(player)) {
 					return true;
 				}
@@ -219,8 +197,10 @@ public class DataManager {
 	}
 
 	public static void changeProperty(String player, String attribute, String value)
-			throws PlayerAlreadyExistsException { // changes the addressed
-		String resourcePath = PLAYER_DIRECTORY + File.separator + player + ".player"; // attribute
+			throws PlayerAlreadyExistsException {
+		// changes the addressed
+		String resourcePath = PLAYER_DIRECTORY + File.separator + player + ".player";
+		// attribute
 		try {
 			if (checkPlayerExists(value, true) & attribute.equals("name") & !player.equals(value)) {
 				throw new PlayerAlreadyExistsException(value, "Couldn't save changes!");
@@ -261,9 +241,8 @@ public class DataManager {
 				} // end for
 				bw.close();
 				if (attribute.equals("name")) {
-					File oldfile = new File((PLAYER_DIRECTORY + File.separator + player + ".player")); // renames file
-																										// //
-																										// file
+					// rename file
+					File oldfile = new File((PLAYER_DIRECTORY + File.separator + player + ".player"));
 					File newfile = new File((PLAYER_DIRECTORY + File.separator + value + ".player"));
 					oldfile.renameTo(newfile);
 				}
@@ -282,10 +261,10 @@ public class DataManager {
 			FileReader fr = new FileReader(PLAYER_DIRECTORY + File.separator + player + ".player");
 			BufferedReader br = new BufferedReader(fr);
 			String[] playerData = new String[9];
-			for (int i = 0; i < playerData.length; i++) { // reads all lines of
-															// player file
+			for (int i = 0; i < playerData.length; i++) {
+				// reads all lines of player file
 				playerData[i] = br.readLine();
-	
+
 			}
 			br.close();
 			if (attribute == "name") {
@@ -309,10 +288,10 @@ public class DataManager {
 			} else {
 				throw new DataManagerErrorException("");
 			}
-			//return value;
+			// return value;
 		} catch (IOException e) {
 			e.printStackTrace();
-		}catch(DataManagerErrorException e1) {
+		} catch (DataManagerErrorException e1) {
 			ErrorWindow.start(e1.getMessage());
 		}
 		return null;
@@ -329,6 +308,3 @@ public class DataManager {
 		}
 	}
 }
-
-
-

@@ -209,8 +209,7 @@ public class MainWindow extends JFrame {
 		// Show score from Selected Player
 		selectEditPlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent showPlayer) {
-				if (!selectEditPlayer.getSelectedItem().toString().equals("Select Player")) {
-					System.out.println("SelectedItem in Main Window: " + selectEditPlayer.getSelectedItem());
+				if (!selectEditPlayer.getSelectedItem().toString().equals("Select Player")) { 
 					String selectedPlayer = selectEditPlayer.getSelectedItem().toString();
 					String selectedScore = DataManager.getProperty(selectedPlayer, "score");
 					// System.out.println(selectedScore);
