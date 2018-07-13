@@ -6,13 +6,15 @@ import java.io.File;
 import java.io.IOException;
 
 import org.junit.Test;
+
+import exceptions.PlayerAlreadyExistsException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import project.DataManager;
 import java.util.ArrayList;
-import project.PlayerAlreadyExistsException;
 
 public class DataManagerTest {
 

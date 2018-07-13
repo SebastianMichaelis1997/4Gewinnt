@@ -15,6 +15,9 @@ import java.nio.file.Path;
 import java.io.File;
 import java.util.*;
 
+import exceptions.DataManagerErrorException;
+import exceptions.PlayerAlreadyExistsException;
+
 public class DataManager {
 	private static final String PLAYER_DIRECTORY = "players";
 	private static final String PLAYER_PICTURES_DIRECTORY = "profilePictures";

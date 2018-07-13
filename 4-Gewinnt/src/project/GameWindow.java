@@ -21,6 +21,8 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import exceptions.PlayerAlreadyExistsException;
+
 public class GameWindow {
 
 	private static JFrame mainWindow;

@@ -1,4 +1,4 @@
-package project;
+package exceptions;
 
 public class DataManagerErrorException extends Exception {
 

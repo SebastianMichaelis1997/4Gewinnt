@@ -7,6 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
+
+import exceptions.IllegalNameException;
+import exceptions.PlayerAlreadyExistsException;
+
 import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -170,7 +174,7 @@ public class CreatePlayer {
 			if (DataManager.saveImage(path, fileName)) {
 
 			} else
-				// if an image is already name like "filename"
+				// if an image is already named like "filename"
 				return null;
 		} catch (IOException e) {
 			e.printStackTrace();
