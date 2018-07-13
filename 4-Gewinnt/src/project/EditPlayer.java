@@ -22,7 +22,7 @@ public class EditPlayer extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EditPlayer frame = new EditPlayer(player);
+					EditPlayer frame = new EditPlayer(player);	
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

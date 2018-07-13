@@ -58,13 +58,38 @@ public class DataManagerTest {
 	
 	@Test
 	public void changeAllPropertys() {
-		String[]player = DataManager.getPlayer("Player1");
-		String[]properties = { "karl", "3", "2", "1", "4", "10" }; 
-		//String[]propertyNames = { "name", "nrOfGames", "wins", "losses", "ties", "score", icon, };
-		//for (int i = 0; i < propertyNames.length; i++) {
-			
-		//}
-		
+		String filename = "download.png";
+		try {
+			DataManager.addPlayer("testPlayer2", "red");
+		} catch (PlayerAlreadyExistsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String[]player = DataManager.getPlayer("testPlayer2");
+		String[]properties = { "karl", "3", "2", "1", "4", "10", ("profilePictures"+File.separator+filename), "green" }; 
+		String[]propertyNames = { "name", "nrOfGames", "wins", "losses", "ties", "score", "icon", "color" };
+		for (int i = 0; i < propertyNames.length; i++) {
+			if(i == 0){
+			try {
+				DataManager.changeProperty("testPlayer2", propertyNames[i], properties[i]);
+			} catch (PlayerAlreadyExistsException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}}
+			else {
+				try {
+					DataManager.changeProperty("karl", propertyNames[i], properties[i]);
+				} catch (PlayerAlreadyExistsException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		player = DataManager.getPlayer("karl");
+		for (int i = 0; i < propertyNames.length; i++) {
+			assertEquals("Error while changing a propertie of player!",player[i],properties[i]);
+		}	
+		DataManager.deletePlayer("karl");
 	}
 	
 

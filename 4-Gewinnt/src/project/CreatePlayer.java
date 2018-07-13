@@ -26,7 +26,7 @@ public class CreatePlayer {
 	/**
 	 * Create the application.
 	 */
-	public CreatePlayer() {
+	public CreatePlayer() {	
 		initialize();
 	}
 
@@ -134,8 +134,7 @@ public class CreatePlayer {
 							DataManager.changeProperty(nameField.getText(),
 									"icon", chooser.getSelectedFile().getName());
 						else
-							System.out
-									.println("Error while saving File: An image with this name already exists. Please rename it!");
+							System.out.println("Error while saving File: An image with this name already exists. Please rename it!");
 					}
 				} catch (IllegalNameException e2) {
 					ErrorWindow.start(e2.getMessage());
