@@ -132,9 +132,7 @@ public class MainWindow extends JFrame {
 					} else {
 						GameWindow.start(player1, player2);
 					}
-
-					GameWindow.start(player1, player2);
-
+					
 				} catch (AWTException e1) {
 					e1.printStackTrace();
 				} catch (ExceptionPvP e2) {

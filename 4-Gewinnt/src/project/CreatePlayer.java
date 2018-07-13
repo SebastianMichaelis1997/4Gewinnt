@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
+import javax.swing.JSeparator;
 
 public class CreatePlayer {
 
@@ -36,15 +37,18 @@ public class CreatePlayer {
 
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("Create Player");
 		frame.setBounds(100, 100, 628, 389);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		JComboBox colorComboBox = new JComboBox(new String[]{"red","blue","green"});
+		colorComboBox.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		colorComboBox.setBounds(327, 156, 220, 35);
 		frame.getContentPane().add(colorComboBox);
 		
 		JButton btnSave = new JButton("Save");
+		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnSave.setBounds(73, 284, 117, 29);
 		frame.getContentPane().add(btnSave);
 
@@ -150,6 +154,7 @@ public class CreatePlayer {
 		frame.getContentPane().add(nameField);
 
 		JButton btnCancel = new JButton("Cancel");
+		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnCancel.setBounds(427, 284, 117, 29);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -163,6 +168,10 @@ public class CreatePlayer {
 		lblChooseColor.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblChooseColor.setBounds(363, 97, 133, 35);
 		frame.getContentPane().add(lblChooseColor);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(25, 78, 556, 11);
+		frame.getContentPane().add(separator);
 	}
 
 	/** Returns an ImageIcon, or null if the path was invalid. */

@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class GameWindow {
 
@@ -49,6 +50,8 @@ public class GameWindow {
 
 	private static Player firstPlayer;
 	private static Player secondPlayer;
+	private static JLabel lblFirstPlayerIcon;
+	private static JLabel lblSecondPlayerIcon;
 
 	public static void main(String[] args) throws AWTException { // not
 																	// necessary,
@@ -139,7 +142,7 @@ public class GameWindow {
 		splitPane.setDividerLocation(700);
 		splitPane.setEnabled(false);
 
-		mainWindow.add(splitPane);
+		mainWindow.getContentPane().add(splitPane);
 	}
 
 	private static void designInfoPanel() {
@@ -148,46 +151,68 @@ public class GameWindow {
 		infoTopPanel.setPreferredSize(new Dimension(475, 300));
 		infoBottomPanel = new JPanel();
 
-		GridLayout layout = new GridLayout(8, 1);
-		infoTopPanel.setLayout(layout);
-
 		JLabel playerOneLabel = new JLabel("Spieler 1:");
+		playerOneLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		playerOneLabel.setBounds(43, 46, 121, 37);
 		JTextField playerOneName = new JTextField();
-		playerOneName.setFont(new Font("Arial Bold", 14, 14));
+		playerOneName.setBounds(43, 88, 191, 37);
+		playerOneName.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		playerOneName.setBackground(firstPlayer.getColor());
 		playerOneName.setText(firstPlayer.getName());
-		playerOneName.setEditable(false);
-		JLabel playerOneVictoryLabel = new JLabel("Siege:");
+		/*JLabel playerOneVictoryLabel = new JLabel("Siege:");
+		playerOneVictoryLabel.setBounds(10, 229, 121, 37);
 		JLabel playerOneVictoryCount = new JLabel("0");
+		playerOneVictoryCount.setBounds(132, 74, 242, 37);*/
 
 		JLabel playerTwoLabel = new JLabel("Spieler 2:");
+		playerTwoLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		playerTwoLabel.setBounds(43, 165, 121, 37);
 		JTextField playerTwoName = new JTextField();
-		playerTwoName.setFont(new Font("Arial Bold", 14, 14));
+		playerTwoName.setBounds(43, 209, 191, 37);
+		playerTwoName.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		playerTwoName.setBackground(secondPlayer.getColor());
 		playerTwoName.setText(secondPlayer.getName());
 		playerTwoName.setEditable(false);
-		JLabel playerTwoVictoryLabel = new JLabel("Siege");
+		/*JLabel playerTwoVictoryLabel = new JLabel("Siege");
+		playerTwoVictoryLabel.setBounds(10, 74, 242, 37);
 		JLabel playerTwoVictoryCount = new JLabel("0");
+		playerTwoVictoryCount.setBounds(132, 229, 121, 37);*/
 
 		console = new JTextArea();
 		scrollPane = new JScrollPane(console, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setPreferredSize(new Dimension(475, 300));
 		console.setEditable(false);
+		infoTopPanel.setLayout(null);
 
 		infoTopPanel.add(playerOneLabel);
 		infoTopPanel.add(playerOneName);
-		infoTopPanel.add(playerOneVictoryLabel);
-		infoTopPanel.add(playerOneVictoryCount);
+		//infoTopPanel.add(playerOneVictoryLabel);
+		//infoTopPanel.add(playerOneVictoryCount);
 		infoTopPanel.add(playerTwoLabel);
 		infoTopPanel.add(playerTwoName);
-		infoTopPanel.add(playerTwoVictoryLabel);
-		infoTopPanel.add(playerTwoVictoryCount);
+		//infoTopPanel.add(playerTwoVictoryLabel);
+		//infoTopPanel.add(playerTwoVictoryCount);
 
 		infoBottomPanel.add(scrollPane);
 
 		splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		splitPane.setTopComponent(infoTopPanel);
+		
+		lblFirstPlayerIcon = new JLabel("Icon1");
+		lblFirstPlayerIcon.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblFirstPlayerIcon.setIcon(firstPlayer.getIcon());
+		lblFirstPlayerIcon.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFirstPlayerIcon.setBounds(341, 35, 105, 102);
+		infoTopPanel.add(lblFirstPlayerIcon);
+		
+		lblSecondPlayerIcon = new JLabel("Icon2");
+		lblSecondPlayerIcon.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblSecondPlayerIcon.setIcon(secondPlayer.getIcon());
+		lblSecondPlayerIcon.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSecondPlayerIcon.setBounds(341, 165, 105, 102);
+		infoTopPanel.add(lblSecondPlayerIcon);
+		
 		splitPane.setBottomComponent(infoBottomPanel);
 		// splitPane.setDividerLocation(1200);
 		splitPane.setEnabled(false);

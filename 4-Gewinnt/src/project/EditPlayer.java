@@ -23,6 +23,7 @@ public class EditPlayer extends JFrame {
 			public void run() {
 				try {
 					EditPlayer frame = new EditPlayer(player);
+					frame.setTitle("Edit Player");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,15 +38,16 @@ public class EditPlayer extends JFrame {
 	 * @throws MalformedURLException
 	 */
 	public EditPlayer(Object player) throws MalformedURLException {
+		setTitle("Edit Player");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 561, 406);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(null);
 		setContentPane(contentPane);
 
 		JButton btnSave = new JButton("Save");
-		btnSave.setBounds(40, 193, 150, 50);
+		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnSave.setBounds(69, 293, 150, 50);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent save) {
 				try {
@@ -64,19 +66,21 @@ public class EditPlayer extends JFrame {
 				}
 			}
 		});
+		contentPane.setLayout(null);
 		contentPane.add(btnSave);
 
 		txtChangeName = new JTextField();
+		txtChangeName.setBounds(188, 26, 168, 43);
 		txtChangeName.setHorizontalAlignment(SwingConstants.CENTER);
 		txtChangeName.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtChangeName.setText(player.toString());
-		txtChangeName.setBounds(153, 27, 168, 43);
 		contentPane.add(txtChangeName);
 		txtChangeName.setColumns(10);
 		txtChangeName.selectAll();
 
 		JButton btnClose = new JButton("Close");
-		btnClose.setBounds(286, 193, 140, 50);
+		btnClose.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnClose.setBounds(352, 293, 140, 50);
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
@@ -85,13 +89,29 @@ public class EditPlayer extends JFrame {
 		contentPane.add(btnClose);
 
 		JLabel picture = new JLabel();
+		picture.setBounds(82, 171, 100, 100);
 		picture.setHorizontalAlignment(SwingConstants.CENTER);
-		picture.setBounds(188, 80, 100, 100);
 		picture.setText("No image used!");
 		picture.setIcon(new ImageIcon(System.getProperty("user.dir")
 				+ File.separator + "profilePictures" + File.separator
 				+ DataManager.getProperty(player.toString(), "icon")));
 		picture.setVisible(true);
 		contentPane.add(picture);
+		
+		JButton btnEditIcon = new JButton("Edit Icon");
+		btnEditIcon.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnEditIcon.setBounds(59, 103, 150, 42);
+		contentPane.add(btnEditIcon);
+		
+		JLabel lblEditColor = new JLabel("Edit Color");
+		lblEditColor.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEditColor.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblEditColor.setBounds(341, 109, 140, 36);
+		contentPane.add(lblEditColor);
+		
+		//Edit C
+		JComboBox colorComboBox = new JComboBox(new String[]{"red","blue","green"});
+		colorComboBox.setBounds(310, 156, 212, 36);
+		contentPane.add(colorComboBox);
 	}
 }
