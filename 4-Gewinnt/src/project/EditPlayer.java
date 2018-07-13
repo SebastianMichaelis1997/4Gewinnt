@@ -7,6 +7,10 @@ import exceptions.PlayerAlreadyExistsException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import exceptions.IllegalNameException;
+import exceptions.PlayerAlreadyExistsException;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
