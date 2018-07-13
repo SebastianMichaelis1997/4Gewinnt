@@ -129,20 +129,29 @@ public class CreatePlayer {
 							|| nameField.getText().equals("Select Player")) {
 						throw new IllegalNameException(nameField.getText());
 					}
-					if (DataManager.addPlayer(nameField.getText(), colorComboBox.getSelectedItem().toString())
-							&& (chooser.getSelectedFile().toString() != null)) {
-						// Adds standard values for players
-						// Just if a player was added successfully and an
-						// icon was selected, the icon
-						// gets fetched
-						ImageIcon icon = createImageIcon(chooser
-								.getSelectedFile().toString(), chooser
-								.getSelectedFile().getName());
-						if (icon != null)
-							DataManager.changeProperty(nameField.getText(),
-									"icon", chooser.getSelectedFile().getName());
-						else
-							System.out.println("Error while saving File: An image with this name already exists. Please rename it!");
+					try {
+						if (DataManager.addPlayer(nameField.getText(), colorComboBox.getSelectedItem().toString())
+								&& (chooser.getSelectedFile().toString() != null)) {
+							// Adds standard values for players
+							// Just if a player was added successfully and an
+							// icon was selected, the icon
+							// gets fetched
+							ImageIcon icon = createImageIcon(chooser
+									.getSelectedFile().toString(), chooser
+									.getSelectedFile().getName());
+							if (icon != null)
+								try {
+									DataManager.changeProperty(nameField.getText(),"icon", chooser.getSelectedFile().getName());
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							else
+								System.out.println("Error while saving File: An image with this name already exists. Please rename it!");
+						}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				} catch (IllegalNameException e2) {
 					ErrorWindow.start(e2.getMessage());

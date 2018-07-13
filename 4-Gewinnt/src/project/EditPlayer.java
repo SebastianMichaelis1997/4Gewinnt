@@ -61,8 +61,13 @@ public class EditPlayer extends JFrame {
 					if (txtChangeName.getText().equals("Select Player")) {
 						throw new IllegalNameException("Select Player");
 					}
-					DataManager.changeProperty(player.toString(), "name",
-							txtChangeName.getText());
+					try {
+						DataManager.changeProperty(player.toString(), "name",
+								txtChangeName.getText());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				} catch (PlayerAlreadyExistsException e) {
 					ErrorWindow.start(e.getMessage());
 				} catch (IllegalNameException e1) {
