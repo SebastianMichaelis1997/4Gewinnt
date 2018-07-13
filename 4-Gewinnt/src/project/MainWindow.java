@@ -17,8 +17,8 @@ public class MainWindow extends JFrame {
 	private static final ButtonGroup buttonGroup = new ButtonGroup();
 	private static final ButtonGroup buttonGroup_1 = new ButtonGroup();
 	private static MainWindow mainWindow;
-	public static ActionListener readMeActionListener; // For Reusing Action
-														// Listener
+	public static ActionListener readMeActionListener; 
+	// For Reusing Action Listener
 
 	private static SoundManager ambient;
 

@@ -45,6 +45,7 @@ public class CreatePlayer {
 		frame.setBounds(100, 100, 628, 389);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 
 		JComboBox colorComboBox = new JComboBox(new String[]{"red","blue","green"});
 		colorComboBox.setFont(new Font("Tahoma", Font.PLAIN, 20));

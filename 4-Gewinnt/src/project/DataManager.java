@@ -21,7 +21,7 @@ import exceptions.PlayerAlreadyExistsException;
 public class DataManager {
 	private static final String PLAYER_DIRECTORY = "players";
 	private static final String PLAYER_PICTURES_DIRECTORY = "profilePictures";
-	private static final String RESOURCE_DIRECTORY = "resources"; //@Simon @Tobi das wird doch nicht mehr verwendet?
+	private static final String RESOURCE_DIRECTORY = "resources";
 
 	public static boolean saveImage(String path, String filename) throws IOException {
 		checkDirectory("profilePictures"); 
@@ -93,31 +93,23 @@ public class DataManager {
 			if (fileEntry.isDirectory()) {
 				getAllPlayerNames(fileEntry);
 			} else {
-				players.add(fileEntry.getName().substring(0, fileEntry.getName().indexOf('.'))); // adds just the
-																									// file
-																									// name ->cuts the
-																									// ending off
+				players.add(fileEntry.getName().substring(0, fileEntry.getName().indexOf('.'))); 
+				// adds just the file name ->cuts the ending off
 			}
 		}
 		return players;
 	}
 
-	public static ArrayList<String> getAllPlayerNames(final File folder) { // for
-																			// recursive
-																			// method
-																			// call
-																			// ->
-																			// Ãœberladung
+	public static ArrayList<String> getAllPlayerNames(final File folder) { 
+		// for recursive method call -> Überladung
 		checkDirectory(PLAYER_DIRECTORY);
 		ArrayList<String> players = new ArrayList<String>();
 		for (File fileEntry : folder.listFiles()) {
 			if (fileEntry.isDirectory()) {
 				getAllPlayerNames(fileEntry);
 			} else {
-				players.add(fileEntry.getName().substring(0, fileEntry.getName().indexOf('.'))); // adds just the
-																									// file
-																									// name ->cuts the
-																									// ending off
+				players.add(fileEntry.getName().substring(0, fileEntry.getName().indexOf('.'))); 
+				// adds just the file name ->cuts the ending off
 			}
 		}
 		return players;
@@ -145,8 +137,8 @@ public class DataManager {
 			FileReader fr = new FileReader(PLAYER_DIRECTORY + File.separator + filename + ".player");
 			BufferedReader br = new BufferedReader(fr);
 			String[] playerData = new String[8];
-			for (int i = 0; i < playerData.length; i++) { // reads all lines of
-															// player file
+			for (int i = 0; i < playerData.length; i++) { 
+				// reads all lines of player file
 				playerData[i] = br.readLine();
 			}
 			br.close();
@@ -273,10 +265,9 @@ public class DataManager {
 			FileReader fr = new FileReader(PLAYER_DIRECTORY + File.separator + player + ".player");
 			BufferedReader br = new BufferedReader(fr);
 			String[] playerData = new String[8];
-			for (int i = 0; i < playerData.length; i++) { // reads all lines of
-															// player file
+			for (int i = 0; i < playerData.length; i++) {
+				// reads all lines of player file
 				playerData[i] = br.readLine();
-	
 			}
 			br.close();
 			if (attribute == "name") {

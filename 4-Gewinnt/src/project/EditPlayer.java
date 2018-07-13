@@ -32,6 +32,7 @@ public class EditPlayer extends JFrame {
 					EditPlayer frame = new EditPlayer(player);
 					frame.setTitle("Edit Player");
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
