@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import exceptions.ExceptionNoPlayerSelected;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -124,8 +126,7 @@ public class MainWindow extends JFrame {
 					Player player1 = DataManager.getPlayerObj(comboPlayer1.getSelectedItem().toString());
 					Player player2 = DataManager.getPlayerObj(comboPlayer2.getSelectedItem().toString());
 
-
-					if (player1.getIcon() != null && player1.getIcon().equals(player2.getIcon())){
+					if (player1.getIcon() != null && player1.getIcon().equals(player2.getIcon())) {
 						ErrorWindow.start("Icon conflict: Please choose different icons!");
 					} else if (player1.getColor() != null && player1.getColor().equals(player2.getColor())) {
 						ErrorWindow.start("Color conflict: Please choose different colors!");
@@ -197,7 +198,7 @@ public class MainWindow extends JFrame {
 			}
 		});
 		btnCreate.setFont(new Font("Tahoma", Font.ITALIC, 25));
-		btnCreate.setBounds(70, 80, 125, 32);
+		btnCreate.setBounds(70, 63, 125, 32);
 		playerTabPanel.add(btnCreate);
 
 		Panel panelInPanel3 = new Panel();
@@ -246,12 +247,12 @@ public class MainWindow extends JFrame {
 			}
 		});
 		buttonEdit.setFont(new Font("Tahoma", Font.ITALIC, 25));
-		buttonEdit.setBounds(70, 220, 125, 32);
+		buttonEdit.setBounds(70, 190, 125, 32);
 		playerTabPanel.add(buttonEdit);
 
 		JButton buttonDelete = new JButton("Delete");
 		buttonDelete.setFont(new Font("Tahoma", Font.ITALIC, 25));
-		buttonDelete.setBounds(70, 375, 125, 32);
+		buttonDelete.setBounds(70, 317, 125, 32);
 		buttonDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent deletePlayer) {
 				try {
@@ -266,6 +267,16 @@ public class MainWindow extends JFrame {
 			}
 		});
 		playerTabPanel.add(buttonDelete);
+
+		JButton btnHighScore = new JButton("Highscores");
+		btnHighScore.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				HighscoreWindow.start();
+			}
+		});
+		btnHighScore.setFont(new Font("Tahoma", Font.ITALIC, 19));
+		btnHighScore.setBounds(70, 444, 125, 32);
+		playerTabPanel.add(btnHighScore);
 
 		JLabel lblPoints = new JLabel("Points:");
 		lblPoints.setHorizontalAlignment(SwingConstants.LEFT);

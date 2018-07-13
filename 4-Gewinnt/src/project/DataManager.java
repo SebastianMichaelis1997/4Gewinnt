@@ -15,13 +15,16 @@ import java.nio.file.Path;
 import java.io.File;
 import java.util.*;
 
+import exceptions.DataManagerErrorException;
+import exceptions.PlayerAlreadyExistsException;
+
 public class DataManager {
 	private static final String PLAYER_DIRECTORY = "players";
 	private static final String PLAYER_PICTURES_DIRECTORY = "profilePictures";
 	private static final String RESOURCE_DIRECTORY = "resources"; //@Simon @Tobi das wird doch nicht mehr verwendet?
 
 	public static boolean saveImage(String path, String filename) throws IOException {
-		checkDirectory("profilePictures");
+		checkDirectory("profilePictures"); 
 		Path source = Paths.get(path);
 		File directory = new File(PLAYER_PICTURES_DIRECTORY + File.separator + filename);
 		if (directory.exists())
@@ -125,8 +128,8 @@ public class DataManager {
 			FileReader fr = new FileReader(PLAYER_DIRECTORY + File.separator + filename + ".player");
 			BufferedReader br = new BufferedReader(fr);
 			String[] playerData = new String[8];
-			for (int i = 0; i < playerData.length; i++) { // reads all lines of
-															// player file
+			for (int i = 0; i < playerData.length; i++) { 
+				// reads all lines of player file
 				playerData[i] = br.readLine();
 			}
 			br.close();
@@ -267,7 +270,7 @@ public class DataManager {
 		try {
 			FileReader fr = new FileReader(PLAYER_DIRECTORY + File.separator + player + ".player");
 			BufferedReader br = new BufferedReader(fr);
-			String[] playerData = new String[9];
+			String[] playerData = new String[8];
 			for (int i = 0; i < playerData.length; i++) { // reads all lines of
 															// player file
 				playerData[i] = br.readLine();
@@ -282,7 +285,7 @@ public class DataManager {
 				return playerData[2];
 			} else if (attribute == "losses") {
 				return playerData[3];
-			} else if (attribute == "ties") {
+			} else if (attribute == "ties") { 
 				return playerData[4];
 			} else if (attribute == "score") {
 				return playerData[5];
@@ -290,8 +293,6 @@ public class DataManager {
 				return playerData[6];
 			} else if (attribute == "color") {
 				return playerData[7];
-			} else if (attribute == "color") {
-				return playerData[8];
 			} else {
 				throw new DataManagerErrorException("");
 			}

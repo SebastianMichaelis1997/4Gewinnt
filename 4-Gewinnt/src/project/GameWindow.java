@@ -22,6 +22,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import exceptions.PlayerAlreadyExistsException;
+
 public class GameWindow {
 
 	private static JFrame mainWindow;

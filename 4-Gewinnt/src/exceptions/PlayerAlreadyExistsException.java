@@ -1,4 +1,6 @@
-package project;
+package exceptions;
+
+import project.ErrorWindow;
 
 public class PlayerAlreadyExistsException extends Exception {
 

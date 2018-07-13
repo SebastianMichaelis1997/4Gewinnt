@@ -7,6 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
+
+import exceptions.IllegalNameException;
+import exceptions.PlayerAlreadyExistsException;
+
 import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -27,7 +31,7 @@ public class CreatePlayer {
 	/**
 	 * Create the application.
 	 */
-	public CreatePlayer() {
+	public CreatePlayer() {	
 		initialize();
 	}
 
@@ -138,8 +142,7 @@ public class CreatePlayer {
 							DataManager.changeProperty(nameField.getText(),
 									"icon", chooser.getSelectedFile().getName());
 						else
-							System.out
-									.println("Error while saving File: An image with this name already exists. Please rename it!");
+							System.out.println("Error while saving File: An image with this name already exists. Please rename it!");
 					}
 				} catch (IllegalNameException e2) {
 					ErrorWindow.start(e2.getMessage());
@@ -180,7 +183,7 @@ public class CreatePlayer {
 			if (DataManager.saveImage(path, fileName)) {
 
 			} else
-				// if an image is already name like "filename"
+				// if an image is already named like "filename"
 				return null;
 		} catch (IOException e) {
 			e.printStackTrace();
