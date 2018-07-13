@@ -457,48 +457,44 @@ public class GameWindow {
 		}
 		log("----------");
 		try {
-			try {
-				DataManager.changeProperty(firstPlayer.getName(), "wins", firstPlayer.getWins() + "");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			try {
-				DataManager.changeProperty(firstPlayer.getName(), "nrOfGames", firstPlayer.getNrOfGames() + "");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			try {
-				DataManager.changeProperty(firstPlayer.getName(), "losses", firstPlayer.getLosses() + "");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			try {
-				DataManager.changeProperty(firstPlayer.getName(), "score", firstPlayer.getScore() + "");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			try {
-				DataManager.changeProperty(secondPlayer.getName(), "wins", secondPlayer.getWins() + "");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			try {
-				DataManager.changeProperty(secondPlayer.getName(), "nrOfGames", secondPlayer.getNrOfGames() + "");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			try {
-				DataManager.changeProperty(secondPlayer.getName(), "losses", secondPlayer.getLosses() + "");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			try {
-				DataManager.changeProperty(secondPlayer.getName(), "score", secondPlayer.getScore() + "");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} catch (PlayerAlreadyExistsException e) {
-			System.out.println(e.getMessage() + " ALEX TEST");
+			DataManager.changeProperty(firstPlayer.getName(), "wins", firstPlayer.getWins() + "");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			DataManager.changeProperty(firstPlayer.getName(), "nrOfGames", firstPlayer.getNrOfGames() + "");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			DataManager.changeProperty(firstPlayer.getName(), "losses", firstPlayer.getLosses() + "");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			DataManager.changeProperty(firstPlayer.getName(), "score", firstPlayer.getScore() + "");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			DataManager.changeProperty(secondPlayer.getName(), "wins", secondPlayer.getWins() + "");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			DataManager.changeProperty(secondPlayer.getName(), "nrOfGames", secondPlayer.getNrOfGames() + "");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			DataManager.changeProperty(secondPlayer.getName(), "losses", secondPlayer.getLosses() + "");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			DataManager.changeProperty(secondPlayer.getName(), "score", secondPlayer.getScore() + "");
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

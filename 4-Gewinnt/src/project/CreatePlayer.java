@@ -155,8 +155,6 @@ public class CreatePlayer {
 					}
 				} catch (IllegalNameException e2) {
 					ErrorWindow.start(e2.getMessage());
-				} catch (PlayerAlreadyExistsException exception) {
-					ErrorWindow.start(exception.getMessage());
 				} finally {
 					MainWindow.refreshPlayerComboBox();
 					frame.dispose(); // closes the window
