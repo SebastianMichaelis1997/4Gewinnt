@@ -68,8 +68,6 @@ public class EditPlayer extends JFrame {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				} catch (PlayerAlreadyExistsException e) {
-					ErrorWindow.start(e.getMessage());
 				} catch (IllegalNameException e1) {
 					ErrorWindow.start(e1.getMessage());
 				} finally {

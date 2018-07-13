@@ -157,7 +157,7 @@ public class DataManager {
 		return null;
 	}
 
-	public static boolean addPlayer(String name, String color) throws PlayerAlreadyExistsException {
+	public static boolean addPlayer(String name, String color) {
 		String resourcePath = PLAYER_DIRECTORY + File.separator + name + ".player";
 		// Check if directory exists
 		checkDirectory(PLAYER_DIRECTORY);
@@ -185,6 +185,8 @@ public class DataManager {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		}catch (PlayerAlreadyExistsException ex) {
+			ErrorWindow.start(ex.getMessage());
 		}
 		return false;
 	}
