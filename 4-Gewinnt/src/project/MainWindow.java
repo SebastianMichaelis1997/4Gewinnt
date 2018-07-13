@@ -128,12 +128,14 @@ public class MainWindow extends JFrame {
 
 					if (player1.getIcon() != null && player1.getIcon().equals(player2.getIcon())) {
 						ErrorWindow.start("Icon conflict: Please choose different icons!");
-					} else if (player1.getColor() != null && player1.getColor().equals(player2.getColor())) {
-						ErrorWindow.start("Color conflict: Please choose different colors!");
-					} else {
-						GameWindow.start(player1, player2);
+						return;
 					}
-					
+					else if (player1.getIcon() == null && player2.getIcon() == null && player1.getColor() != null && player1.getColor().equals(player2.getColor())) {
+						ErrorWindow.start("Color conflict: Please choose different colors!");
+						return;
+					}
+					GameWindow.start(player1, player2);
+
 				} catch (AWTException e1) {
 					e1.printStackTrace();
 				} catch (ExceptionPvP e2) {
