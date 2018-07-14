@@ -39,36 +39,44 @@ public class DataManagerTest {
 		}
 	}
 	
-	@Test
-	public void getPlayerObjectShouldReturnPlayerObject() {
-		assertNotNull("Get Player Object should return Player Object.", DataManager.getPlayerObj("Player1"));
-	}
 	
 	
 	@Test
 	public void createAndDeletPlayerShouldReturnTrue() {
+		ArrayList players = DataManager.getAllPlayerNames();
+		assertSame(players.size(), DataManager.getAllPlayerNames().size());
 		try {
-			ArrayList players = DataManager.getAllPlayerNames();
-			assertSame(players.size(), DataManager.getAllPlayerNames().size());
 			assertEquals("Adding a player should be successfull.", true, DataManager.addPlayer("testPlayer","green"));
-			DataManager.deletePlayer("testPlayer");
-		} catch (PlayerAlreadyExistsException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		DataManager.deletePlayer("testPlayer");
+	}
+	
+	@Test
+	public void getPlayerObjectShouldReturnPlayerObject() {
+		try {
+			DataManager.addPlayer("testPlayer", "red");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertNotNull("Get Player Object should return Player Object.", DataManager.getPlayerObj("testPlayer"));
+		DataManager.deletePlayer("testPlayer");
 	}
 	
 	@Test
 	public void changeAllPropertys() {
 		String filename = "download.png";
 		try {
-			DataManager.addPlayer("testPlayer2", "red");
-		} catch (PlayerAlreadyExistsException e) {
+			DataManager.addPlayer("testPlayer3", "red");
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//a new player gets created
-		String[]player = DataManager.getPlayer("testPlayer2");
+		String[]player = DataManager.getPlayer("testPlayer3");
 		String[]properties = { "testPlayer3", "3", "2", "1", "4", "10", ("profilePictures"+File.separator+filename), "green" }; 
 		String[]propertyNames = { "name", "nrOfGames", "wins", "losses", "ties", "score", "icon", "color" };
 		for (int i = 0; i < propertyNames.length; i++) {
@@ -76,14 +84,14 @@ public class DataManagerTest {
 			if(i == 0){
 			try {
 				DataManager.changeProperty("testPlayer3", propertyNames[i], properties[i]);
-			} catch (PlayerAlreadyExistsException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}}
 			else {
 				try {
 					DataManager.changeProperty("testPlayer3", propertyNames[i], properties[i]);
-				} catch (PlayerAlreadyExistsException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
