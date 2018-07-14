@@ -21,6 +21,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.JSeparator;
+import java.awt.Color;
 
 public class CreatePlayer {
 
@@ -41,6 +42,7 @@ public class CreatePlayer {
 
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setTitle("Create Player");
 		frame.setBounds(100, 100, 628, 389);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -49,7 +51,7 @@ public class CreatePlayer {
 
 		JComboBox colorComboBox = new JComboBox(new String[]{"red","blue","green"});
 		colorComboBox.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		colorComboBox.setBounds(327, 156, 220, 35);
+		colorComboBox.setBounds(327, 185, 220, 35);
 		frame.getContentPane().add(colorComboBox);
 		
 		JButton btnSave = new JButton("Save");
@@ -78,10 +80,11 @@ public class CreatePlayer {
 		nameField.setHorizontalAlignment(SwingConstants.CENTER);
 		nameField.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		nameField.setVisible(true);
-		nameField.setBounds(311, 22, 220, 41);
+		nameField.setBounds(327, 22, 220, 41);
 		nameField.selectAll();
 
-		JLabel picture = new JLabel("Picture");
+		JLabel picture = new JLabel("");
+		picture.setBackground(new Color(64, 64, 64));
 		picture.setHorizontalAlignment(SwingConstants.CENTER);
 		picture.setBounds(97, 156, 100, 100);
 		frame.getContentPane().add(picture);
@@ -176,13 +179,20 @@ public class CreatePlayer {
 		frame.getContentPane().add(btnCancel);
 		
 		JLabel lblChooseColor = new JLabel("Choose Color");
+		lblChooseColor.setHorizontalAlignment(SwingConstants.CENTER);
 		lblChooseColor.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblChooseColor.setBounds(363, 97, 133, 35);
+		lblChooseColor.setBounds(375, 97, 133, 35);
 		frame.getContentPane().add(lblChooseColor);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(25, 78, 556, 11);
 		frame.getContentPane().add(separator);
+		
+		JLabel lblOr = new JLabel("or");
+		lblOr.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblOr.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOr.setBounds(279, 110, 45, 13);
+		frame.getContentPane().add(lblOr);
 	}
 
 	/** Returns an ImageIcon, or null if the path was invalid. */
