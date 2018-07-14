@@ -276,6 +276,7 @@ public class MainWindow extends JFrame {
 		});
 		btnHighScore.setFont(new Font("Tahoma", Font.ITALIC, 19));
 		btnHighScore.setBounds(70, 444, 125, 32);
+		btnHighScore.setVisible(true);
 		playerTabPanel.add(btnHighScore);
 
 		JLabel lblPoints = new JLabel("Points:");
