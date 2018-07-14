@@ -28,6 +28,7 @@ public class HighscoreWindow extends JFrame {
 				try {
 					frame = new HighscoreWindow();
 					frame.pack();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
