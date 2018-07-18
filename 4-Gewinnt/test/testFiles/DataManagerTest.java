@@ -20,9 +20,9 @@ public class DataManagerTest {
 
 	@Test
 	public void correctImageShouldReturnTrue() {
-		String filename = "download.png";
+		String filename = "error.jpg";
 		try {
-			assertEquals("Save Image Error: Return should be true.", true, DataManager.saveImage("profilePictures"+File.separator+filename, "testImage.png"));
+			assertEquals("Save Image Error: Return should be true.", true, DataManager.saveImage("systemPictures"+File.separator+filename, "testImage.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 
 public class ErrorWindow extends JFrame {
@@ -50,8 +51,7 @@ public class ErrorWindow extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 
 		JLabel lblNewLabel = new JLabel(errorMessage);
-		lblNewLabel.setIcon(new ImageIcon(ErrorWindow.class
-				.getResource("/project/error.jpg")));
+		lblNewLabel.setIcon(new ImageIcon("systemPictures"+ File.separator + "error.jpg"));
 		lblNewLabel.setForeground(new Color(0, 0, 0));
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		contentPane.add(lblNewLabel);

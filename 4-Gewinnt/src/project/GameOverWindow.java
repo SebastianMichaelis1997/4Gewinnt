@@ -3,6 +3,11 @@ package project;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import javax.swing.*;
 
 //import java.awt.desktop.AppHiddenListener;
@@ -62,7 +67,7 @@ public class GameOverWindow extends JFrame {
 		// Sieger Animation
 		JLabel lblAnimation = new JLabel("Animation");
 		lblAnimation.setBackground(Color.BLACK);
-		lblAnimation.setIcon(new ImageIcon(GameOverWindow.class.getResource("/project/baerchen-sieger.gif")));
+		lblAnimation.setIcon(new ImageIcon("systemPictures"+ File.separator +"baerchen-sieger.gif"));
 		lblAnimation.setBounds(55, 74, 253, 166);
 		getContentPane().add(lblAnimation);
 	}
