@@ -155,7 +155,7 @@ public class MainWindow extends JFrame {
 						throw new ExceptionNoPlayerSelected();
 					}
 					if (comboPlayer1.getSelectedItem().toString().equals(comboPlayer2.getSelectedItem().toString())
-							&& (rdbtnComputer1.isSelected() == false && rdbtnComputer2.isSelected() == false)) {
+							&& (rdbtnComputer1.isSelected() == true && rdbtnComputer2.isSelected() == false)) {
 						throw new ExceptionPvP();
 					}
 					
@@ -165,11 +165,13 @@ public class MainWindow extends JFrame {
 						if(rdbtnComputer1.isSelected()) {
 							Player player1 = new Player("EasyComputerKI", 0, 0, 0, 0, 0, null, null);
 							Player player2 = DataManager.getPlayerObj(comboPlayer2.getSelectedItem().toString());
+							GameWindow.start(player1, player2);
 						}
 						
 						else if(rdbtnComputer2.isSelected()) {
 							Player player1 = DataManager.getPlayerObj(comboPlayer1.getSelectedItem().toString());
 							Player player2 = new Player("EasyComputerKI", 0, 0, 0, 0, 0, null, null);
+							GameWindow.start(player1, player2);
 						}
 					}
 					

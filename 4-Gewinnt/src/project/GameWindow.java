@@ -464,6 +464,7 @@ public class GameWindow {
 			secondPlayer.win();
 		}
 		log("----------");
+		if(firstPlayer.getName() != "EasyComputerKI") {
 			try {
 				DataManager.changeProperty(firstPlayer.getName(), "wins", firstPlayer.getWins() + "");
 			} catch (Exception e) {
@@ -484,6 +485,8 @@ public class GameWindow {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}
+		else if(secondPlayer.getName()!="EasyComputerKI") {
 			try {
 				DataManager.changeProperty(secondPlayer.getName(), "wins", secondPlayer.getWins() + "");
 			} catch (Exception e) {
@@ -504,6 +507,7 @@ public class GameWindow {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}
 	}
 
 	private static boolean isValid(int x, int y) {
@@ -565,8 +569,10 @@ public class GameWindow {
 			System.out.println(e.getMessage());
 		}
 	}
-	public static SoundManager getAmbient() {
+	public static Object getAmbient() {
 		return ambient;			
 	}
+
+
 	
 }
