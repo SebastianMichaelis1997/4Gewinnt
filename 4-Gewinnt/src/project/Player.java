@@ -202,7 +202,7 @@ public class Player {
 	 * This method calculates the score of a player, which is used for the highscore
 	 * board.
 	 */
-	private void calculateScore() {
+	public void calculateScore() {
 		this.score = this.wins * 3 + this.losses * -1;
 	}
 }
