@@ -319,17 +319,22 @@ public class GameWindow {
 			switch (currentPlayer) {
 			case 1:
 				currentPlayer = 2;
+				if(secondPlayer.getName() == "EasyComputerKI")
+					EasyComputerAI();
+				else {
 				log("Player " + secondPlayer.getName() + "'s turn!");
 				break;
+				}
 			case 2:
 				currentPlayer = 1;
+				if(firstPlayer.getName() == "EasyComputerKI")
+					EasyComputerAI();
+				else {
 				log("Player " + firstPlayer.getName() + "'s turn!");
 				break;
+				}
 			default:
 				break;
-			}
-			if (currentPlayer == 2) {
-			EasyComputerAI();
 			}
 		}
 	}
