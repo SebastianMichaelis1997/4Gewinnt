@@ -28,7 +28,7 @@ public class MainWindow extends JFrame {
 	public static void main(String[] args) throws Exception {
 
 		try {
-			ambient = new SoundManager("ambient", true);
+			ambient = new SoundManager("07 Identity Check", true);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

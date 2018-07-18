@@ -29,7 +29,7 @@ public class SoundManager {
 	 *             If file is not found.
 	 */
 	public SoundManager(String filename, boolean ambient) throws Exception {
-		String musicFile = System.getProperty("user.dir") + "\\src\\project\\" + filename + ".wav";
+		String musicFile = System.getProperty("user.dir") + "\\resources\\" + filename + ".wav";
 
 		InputStream in = new FileInputStream(musicFile);
 		BufferedInputStream bufferedIn = new BufferedInputStream(in);
