@@ -5,6 +5,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import exceptions.ExceptionNoPlayerSelected;
+import exceptions.ExceptionPvP;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
