@@ -156,7 +156,7 @@ public class MainWindow extends JFrame {
 						throw new ExceptionNoPlayerSelected();
 					}
 					if (comboPlayer1.getSelectedItem().toString().equals(comboPlayer2.getSelectedItem().toString())
-							&& (rdbtnComputer1.isSelected() == true && rdbtnComputer2.isSelected() == false)) {
+							&& (rdbtnComputer1.isSelected() == false && rdbtnComputer2.isSelected() == false)) {
 						throw new ExceptionPvP();
 					}
 					
