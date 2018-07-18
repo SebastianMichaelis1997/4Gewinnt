@@ -547,7 +547,7 @@ public class GameWindow {
 	}
 	
 	public static void startMusic(String filename) {
-		MainWindow.getAmbient().stopMusic();
+		//MainWindow.getAmbient().stopMusic();    to-do Emma
 		try {
 			ambient = new SoundManager(filename, true);
 		} catch (Exception e) {

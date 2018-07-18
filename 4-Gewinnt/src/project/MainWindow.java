@@ -432,7 +432,7 @@ public class MainWindow extends JFrame {
 		if (GameWindow.getAmbient() == null) {
 			// do nothing
 		} else {
-			GameWindow.getAmbient().stopMusic();
+			//GameWindow.getAmbient().stopMusic();  to-do Emma
 		}
 		try {
 			ambient = new SoundManager(filename, true);
