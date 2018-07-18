@@ -17,7 +17,7 @@ public class MainWindow extends JFrame {
 	private static final ButtonGroup buttonGroup = new ButtonGroup();
 	private static final ButtonGroup buttonGroup_1 = new ButtonGroup();
 	private static MainWindow mainWindow;
-	public static ActionListener readMeActionListener; 
+	public static ActionListener readMeActionListener;
 	// For Reusing Action Listener
 
 	private static SoundManager ambient;
@@ -27,11 +27,8 @@ public class MainWindow extends JFrame {
 	 */
 	public static void main(String[] args) throws Exception {
 
-		try {
-			ambient = new SoundManager("07 Identity Check", true);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+		startMusic("07 Identity Check");
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -128,11 +125,11 @@ public class MainWindow extends JFrame {
 
 					if (player1.getIcon() != null && player1.getIcon().equals(player2.getIcon())) {
 						ErrorWindow.start("Icon conflict: Please choose different icons!");
-					}
-					else if (player1.getIcon() == null && player2.getIcon() == null && player1.getColor() != null && player1.getColor().equals(player2.getColor())) {
+					} else if (player1.getIcon() == null && player2.getIcon() == null && player1.getColor() != null
+							&& player1.getColor().equals(player2.getColor())) {
 						ErrorWindow.start("Color conflict: Please choose different colors!");
-					}
-					else {GameWindow.start(player1, player2);
+					} else {
+						GameWindow.start(player1, player2);
 					}
 				} catch (AWTException e1) {
 					e1.printStackTrace();
@@ -429,6 +426,23 @@ public class MainWindow extends JFrame {
 
 	public static void toFront2() {
 		mainWindow.toFront();
+	}
+
+	public static void startMusic(String filename) {
+		if (GameWindow.getAmbient() == null) {
+			// do nothing
+		} else {
+			GameWindow.getAmbient().stopMusic();
+		}
+		try {
+			ambient = new SoundManager(filename, true);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public static SoundManager getAmbient() {
+		return ambient;
 	}
 
 }

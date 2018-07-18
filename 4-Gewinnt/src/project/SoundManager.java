@@ -57,5 +57,13 @@ public class SoundManager {
 		value = value / 10;
 		this.volume.setValue(-24.0F + (value * 3.0F));
 	}
+	
+	public void startMusic() {
+		clip.loop(Clip.LOOP_CONTINUOUSLY);
+	}
+	
+	public void stopMusic() {
+		clip.stop();
+	}
 
 }

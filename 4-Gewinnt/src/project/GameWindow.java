@@ -54,6 +54,9 @@ public class GameWindow {
 	private static Player secondPlayer;
 	private static JLabel lblFirstPlayerIcon;
 	private static JLabel lblSecondPlayerIcon;
+	
+	private static SoundManager ambient;
+	
 
 	public static void main(String[] args) throws AWTException { 
 		// not necessary, just for test case @Simon : Nach Fertigstellung Löschen
@@ -72,6 +75,7 @@ public class GameWindow {
 
 	public static void start(Player player1, Player player2) throws AWTException {
 
+		startMusic("ambientGame");
 		currentPlayer = 1;
 		firstPlayer = player1;
 		secondPlayer = player2;
@@ -541,4 +545,17 @@ public class GameWindow {
 	public static void dispose() {
 		mainWindow.dispose();
 	}
+	
+	public static void startMusic(String filename) {
+		MainWindow.getAmbient().stopMusic();
+		try {
+			ambient = new SoundManager(filename, true);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	public static SoundManager getAmbient() {
+		return ambient;			
+	}
+	
 }
