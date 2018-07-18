@@ -85,8 +85,14 @@ public class GameWindow {
 		mainWindow.setVisible(true);
 
 		loadField();
-
+		
+		if(player1.getName()!="EasyComputerKI")
 		log("Player " + player1.getName() + "'s turn!");
+		else if(player2.getName()!="EasyComputerKI")
+			log("Player " + player2.getName() + "'s turn!");
+		else {
+			System.out.println("Error Computer vs. Computer!");
+		}
 
 	}
 
@@ -313,18 +319,23 @@ public class GameWindow {
 			switch (currentPlayer) {
 			case 1:
 				currentPlayer = 2;
+				if(secondPlayer.getName() == "EasyComputerKI")
+					EasyComputerAI();
+				else {
 				log("Player " + secondPlayer.getName() + "'s turn!");
 				break;
+				}
 			case 2:
 				currentPlayer = 1;
+				if(firstPlayer.getName() == "EasyComputerKI")
+					EasyComputerAI();
+				else {
 				log("Player " + firstPlayer.getName() + "'s turn!");
 				break;
+				}
 			default:
 				break;
 			}
-			// if (currentPlayer == 2) {
-			// computerAI();
-			// }
 		}
 	}
 

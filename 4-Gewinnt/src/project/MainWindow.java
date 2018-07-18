@@ -108,42 +108,7 @@ public class MainWindow extends JFrame {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(59, 163, 961, 2);
 		gameTabPanel.add(separator);
-
-		RoundCornerButton roundCornerButton = new RoundCornerButton("<html> <center>Start Game</center> </html>",
-				new Dimension(105, 65));
-		roundCornerButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					if (comboPlayer1.getSelectedItem() == null || comboPlayer2.getSelectedItem() == null) {
-						throw new ExceptionNoPlayerSelected();
-					}
-					if (comboPlayer1.getSelectedItem().toString().equals(comboPlayer2.getSelectedItem().toString())) {
-						throw new ExceptionPvP();
-					}
-					Player player1 = DataManager.getPlayerObj(comboPlayer1.getSelectedItem().toString());
-					Player player2 = DataManager.getPlayerObj(comboPlayer2.getSelectedItem().toString());
-
-					if (player1.getIcon() != null && player1.getIcon().equals(player2.getIcon())) {
-						ErrorWindow.start("Icon conflict: Please choose different icons!");
-					} else if (player1.getIcon() == null && player2.getIcon() == null && player1.getColor() != null
-							&& player1.getColor().equals(player2.getColor())) {
-						ErrorWindow.start("Color conflict: Please choose different colors!");
-					} else {
-						GameWindow.start(player1, player2);
-					}
-				} catch (AWTException e1) {
-					e1.printStackTrace();
-				} catch (ExceptionPvP e2) {
-					ErrorWindow.start(e2.getMessage());
-				} catch (ExceptionNoPlayerSelected e3) {
-					ErrorWindow.start(e3.getMessage());
-				}
-			}
-		});
-		roundCornerButton.setForeground(Color.WHITE);
-		roundCornerButton.setBounds(419, 347, 215, 84);
-		gameTabPanel.add(roundCornerButton);
-
+		
 		JRadioButton rdbtnHuman1 = new JRadioButton("Human");
 		buttonGroup.add(rdbtnHuman1);
 		rdbtnHuman1.setSelected(true);
@@ -177,6 +142,62 @@ public class MainWindow extends JFrame {
 		rdbtnComputer2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		rdbtnComputer2.setBounds(738, 305, 98, 21);
 		gameTabPanel.add(rdbtnComputer2);
+
+		RoundCornerButton roundCornerButton = new RoundCornerButton("<html> <center>Start Game</center> </html>",
+				new Dimension(105, 65));
+		roundCornerButton.setForeground(Color.WHITE);
+		roundCornerButton.setBounds(419, 347, 215, 84);
+		gameTabPanel.add(roundCornerButton);
+		roundCornerButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (comboPlayer1.getSelectedItem() == null || comboPlayer2.getSelectedItem() == null) {
+						throw new ExceptionNoPlayerSelected();
+					}
+					if (comboPlayer1.getSelectedItem().toString().equals(comboPlayer2.getSelectedItem().toString())
+							&& (rdbtnComputer1.isSelected() == false && rdbtnComputer2.isSelected() == false)) {
+						throw new ExceptionPvP();
+					}
+					
+					
+					if(rdbtnComputer1.isSelected() || rdbtnComputer2.isSelected()) {
+						//Einer der beiden Spieler ist ein Computer
+						if(rdbtnComputer1.isSelected()) {
+							Player player1 = new Player("EasyComputerKI", 0, 0, 0, 0, 0, null, null);
+							Player player2 = DataManager.getPlayerObj(comboPlayer2.getSelectedItem().toString());
+						}
+						
+						else if(rdbtnComputer2.isSelected()) {
+							Player player1 = DataManager.getPlayerObj(comboPlayer1.getSelectedItem().toString());
+							Player player2 = new Player("EasyComputerKI", 0, 0, 0, 0, 0, null, null);
+						}
+					}
+					
+					else {	
+						//Keiner der beiden Spieler ist ein Computer
+					Player player1 = DataManager.getPlayerObj(comboPlayer1.getSelectedItem().toString());
+					Player player2 = DataManager.getPlayerObj(comboPlayer2.getSelectedItem().toString());
+
+					if (player1.getIcon() != null && player1.getIcon().equals(player2.getIcon())) {
+						ErrorWindow.start("Icon conflict: Please choose different icons!");
+					} else if (player1.getIcon() == null && player2.getIcon() == null && player1.getColor() != null
+							&& player1.getColor().equals(player2.getColor())) {
+						ErrorWindow.start("Color conflict: Please choose different colors!");
+					} else {
+						GameWindow.start(player1, player2);
+					}
+					
+					}
+				} catch (AWTException e1) {
+					e1.printStackTrace();
+				} catch (ExceptionPvP e2) {
+					ErrorWindow.start(e2.getMessage());
+				} catch (ExceptionNoPlayerSelected e3) {
+					ErrorWindow.start(e3.getMessage());
+				}
+			}
+		});
+		
 
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 		//
