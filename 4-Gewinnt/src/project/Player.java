@@ -7,8 +7,9 @@ import javax.swing.ImageIcon;
  * This class contains all the information about players, like their stats and
  * settings.
  * 
- * @author Alexander Dreher, Enes Akgümüs, Tobias Rothley, Emma Falldorf, Simon
- *         Becht, Sebastian Michaelis
+ * @author Enes Akgümus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
+ *         Michaelis, Tobias Rothley
+ * 
  *
  */
 public class Player {
@@ -75,15 +76,25 @@ public class Player {
 		this.color = color;
 	}
 
+	/**
+	 * This constructor creates a player object with a String array, which has
+	 * ideally just been loaded via DataManager from a file.
+	 * 
+	 * @param playerInfo
+	 *            The formatted String array with values: [0] name; [1] nrOfGames;
+	 *            [2] wins; [3] losses; [4] ties; [5] score; [6] Icon file name; [7]
+	 *            Color name
+	 * 
+	 */
 	public Player(String[] playerInfo) {
 		this.name = playerInfo[0];
 		this.nrOfGames = Integer.parseInt(playerInfo[1]);
 		this.wins = Integer.parseInt(playerInfo[2]);
 		this.losses = Integer.parseInt(playerInfo[3]);
 		this.ties = Integer.parseInt(playerInfo[4]);
-		this.score = Integer.parseInt(playerInfo[5]); 
+		this.score = Integer.parseInt(playerInfo[5]);
 		if (playerInfo[6].equals("null")) {
-			this.color = new Color(255,255,255);
+			this.color = new Color(255, 255, 255);
 		} else {
 			this.icon = new ImageIcon(GameOverWindow.class.getResource("/project/" + playerInfo[6]));
 		}

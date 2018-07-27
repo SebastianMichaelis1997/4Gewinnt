@@ -1,10 +1,9 @@
-
 package project;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
+//import java.awt.Color;
 import java.awt.EventQueue;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -13,15 +12,24 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/***
+ * This class represents the highscore window, in which the players are shown
+ * their respective scores based on their played games.
+ * 
+ * @author Enes Akgümus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
+ *         Michaelis, Tobias Rothley
+ *
+ */
 public class HighscoreWindow extends JFrame {
+
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
 	private static HighscoreWindow frame;
 
 	/**
-	 * Launch the application.
+	 * This method creates a new highscore window and show it.
 	 */
-
 	public static void start() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -37,11 +45,11 @@ public class HighscoreWindow extends JFrame {
 		});
 	}
 
-	// TableHeaders: Platz Name Score Games Wins losses Ties
 	/**
-	 * Create the frame.
+	 * The constructor of this class.
 	 */
 	public HighscoreWindow() {
+		// TableHeaders: Platz Name Score Games Wins losses Ties
 		// table_1 = new JTable();
 		// getContentPane().add(table_1, BorderLayout.CENTER);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -84,6 +92,13 @@ public class HighscoreWindow extends JFrame {
 		contentPane.add(btnClose, BorderLayout.SOUTH);
 	}
 
+	/**
+	 * This simple sorting algorithm helps sorting the results of the player scores.
+	 * 
+	 * @param toSort
+	 *            The two-dimensional table with the score in the third entry.
+	 * @return The sorted highscore array, which can then be used in a table.
+	 */
 	private static Object[][] sortArray(Object[][] toSort) {
 		int marker = toSort.length - 1;
 		while (marker > 0) {
@@ -99,6 +114,17 @@ public class HighscoreWindow extends JFrame {
 		return toSort;
 	}
 
+	/**
+	 * This is an auxiliary method for the sorting algorithm.
+	 * 
+	 * @param data
+	 *            The array.
+	 * @param idx1
+	 *            The first row to be swapped.
+	 * @param idx2
+	 *            The second row to be swapped.
+	 * @return The data array with swapped columns.
+	 */
 	private static Object[][] swap(Object[][] data, int idx1, int idx2) {
 		Object[] temp = data[idx1];
 		data[idx1] = data[idx2];

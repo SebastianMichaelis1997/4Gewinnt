@@ -8,8 +8,9 @@ import javax.sound.sampled.*;
  * This class represents a single playing sound file, and can either be looped
  * or played just once.
  * 
- * @author Alexander Dreher, Enes Akgümüs, Tobias Rothley, Emma Falldorf, Simon
- *         Becht, Sebastian Michaelis
+ * @author Enes Akgümus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
+ *         Michaelis, Tobias Rothley
+ * 
  *
  */
 public class SoundManager {
@@ -57,11 +58,11 @@ public class SoundManager {
 		value = value / 10;
 		this.volume.setValue(-24.0F + (value * 3.0F));
 	}
-	
+
 	public void startMusic() {
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
-	
+
 	public void stopMusic() {
 		clip.stop();
 	}

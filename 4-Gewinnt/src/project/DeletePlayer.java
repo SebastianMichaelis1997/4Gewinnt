@@ -12,12 +12,21 @@ import java.awt.event.ActionListener;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
+/***
+ * This class represents the window, in which players can be deleted. A sort of
+ * confirmation dialogue, but custom.
+ * 
+ * @author Enes Akgümus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
+ *         Michaelis, Tobias Rothley
+ *
+ */
 public class DeletePlayer extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
+	 * This method creates a new window and shows it.
 	 */
 	public static void start(String player) {
 		EventQueue.invokeLater(new Runnable() {
@@ -33,7 +42,11 @@ public class DeletePlayer extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * This is the constructor of the class. It needs its information from a player
+	 * object.
+	 * 
+	 * @param player
+	 *            The player to be deleted.
 	 */
 	public DeletePlayer(String player) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

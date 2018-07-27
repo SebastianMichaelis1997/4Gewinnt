@@ -3,27 +3,34 @@ package project;
 import java.awt.EventQueue;
 
 import exceptions.IllegalNameException;
-import exceptions.PlayerAlreadyExistsException;
+//import exceptions.PlayerAlreadyExistsException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
-import exceptions.IllegalNameException;
-import exceptions.PlayerAlreadyExistsException;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
+//import java.net.MalformedURLException;
+//import java.net.URL;
 
+/***
+ * This class represents the window, in which players can edit their attributes
+ * to a certain degree.
+ * 
+ * @author Enes Akgümus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
+ *         Michaelis, Tobias Rothley
+ *
+ */
 public class EditPlayer extends JFrame {
+
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtChangeName;
 
 	/**
-	 * Launch the application.
+	 * This method creates a new window and shows it.
 	 */
 	public static void start(Object player) {
 		EventQueue.invokeLater(new Runnable() {
@@ -41,11 +48,10 @@ public class EditPlayer extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
-	 * 
-	 * @throws MalformedURLException
+	 * The constructor of this class.
+	 *
 	 */
-	public EditPlayer(Object player) throws MalformedURLException {
+	public EditPlayer(Object player) {
 		setTitle("Edit Player");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 561, 406);
@@ -63,8 +69,7 @@ public class EditPlayer extends JFrame {
 						throw new IllegalNameException("Select Player");
 					}
 					try {
-						DataManager.changeProperty(player.toString(), "name",
-								txtChangeName.getText());
+						DataManager.changeProperty(player.toString(), "name", txtChangeName.getText());
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -103,25 +108,24 @@ public class EditPlayer extends JFrame {
 		picture.setBounds(82, 171, 100, 100);
 		picture.setHorizontalAlignment(SwingConstants.CENTER);
 		picture.setText("No image used!");
-		picture.setIcon(new ImageIcon(System.getProperty("user.dir")
-				+ File.separator + "profilePictures" + File.separator
-				+ DataManager.getProperty(player.toString(), "icon")));
+		picture.setIcon(new ImageIcon(System.getProperty("user.dir") + File.separator + "profilePictures"
+				+ File.separator + DataManager.getProperty(player.toString(), "icon")));
 		picture.setVisible(true);
 		contentPane.add(picture);
-		
+
 		JButton btnEditIcon = new JButton("Edit Icon");
 		btnEditIcon.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnEditIcon.setBounds(59, 103, 150, 42);
 		contentPane.add(btnEditIcon);
-		
+
 		JLabel lblEditColor = new JLabel("Edit Color");
 		lblEditColor.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEditColor.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblEditColor.setBounds(341, 109, 140, 36);
 		contentPane.add(lblEditColor);
-		
-		//Edit C
-		JComboBox colorComboBox = new JComboBox(new String[]{"red","blue","green"});
+
+		// Edit C
+		JComboBox<String> colorComboBox = new JComboBox<String>(new String[] { "red", "blue", "green" });
 		colorComboBox.setBounds(310, 156, 212, 36);
 		contentPane.add(colorComboBox);
 	}

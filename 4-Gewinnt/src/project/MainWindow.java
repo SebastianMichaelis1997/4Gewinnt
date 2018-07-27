@@ -11,10 +11,20 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/***
+ * This class represents the GUI-Window, which is launched first, and also
+ * contains the package-wide main method. It starts building up the Window, and
+ * initializes logic like Sound and PlayerData.
+ * 
+ * @author Enes Akgümus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
+ *         Michaelis, Tobias Rothley
+ *
+ */
 public class MainWindow extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private static JTextField textField, textField_1, textField_2, textField_3;
-	private static JComboBox comboPlayer1, comboPlayer2, selectEditPlayer;
+	private static JComboBox<Object> comboPlayer1, comboPlayer2, selectEditPlayer;
 	private static final ButtonGroup buttonGroup = new ButtonGroup();
 	private static final ButtonGroup buttonGroup_1 = new ButtonGroup();
 	private static MainWindow mainWindow;
@@ -24,7 +34,8 @@ public class MainWindow extends JFrame {
 	private static SoundManager ambient;
 
 	/**
-	 * Launch the application.
+	 * The Core method of this package sets up the main window and the ambient
+	 * logic.
 	 */
 	public static void main(String[] args) throws Exception {
 
@@ -47,7 +58,8 @@ public class MainWindow extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * This constructor builds up the main window in 3 steps: First the game tab is
+	 * created, then the player tab, and at last the options tab.
 	 */
 	public MainWindow() {
 
@@ -88,7 +100,7 @@ public class MainWindow extends JFrame {
 
 		// create an empty combo box with items of type String
 		// creates combo box with all player names for choosing player 1
-		comboPlayer1 = new JComboBox(DataManager.getAllPlayerNames().toArray());
+		comboPlayer1 = new JComboBox<Object>(DataManager.getAllPlayerNames().toArray());
 		comboPlayer1.setBounds(213, 214, 156, 31);
 		gameTabPanel.add(comboPlayer1);
 
@@ -102,14 +114,14 @@ public class MainWindow extends JFrame {
 		gameTabPanel.add(separator_2);
 
 		// creates combo box with all player names for choosing player 2
-		comboPlayer2 = new JComboBox(DataManager.getAllPlayerNames().toArray());
+		comboPlayer2 = new JComboBox<Object>(DataManager.getAllPlayerNames().toArray());
 		comboPlayer2.setBounds(842, 214, 156, 31);
 		gameTabPanel.add(comboPlayer2);
 
 		JSeparator separator = new JSeparator();
 		separator.setBounds(59, 163, 961, 2);
 		gameTabPanel.add(separator);
-		
+
 		JRadioButton rdbtnHuman1 = new JRadioButton("Human");
 		buttonGroup.add(rdbtnHuman1);
 		rdbtnHuman1.setSelected(true);
@@ -123,11 +135,11 @@ public class MainWindow extends JFrame {
 		rdbtnComputer1.setBounds(63, 297, 98, 21);
 		gameTabPanel.add(rdbtnComputer1);
 
-		JComboBox comboComputer1 = new JComboBox();
+		JComboBox<String> comboComputer1 = new JComboBox<String>();
 		comboComputer1.setBounds(213, 295, 156, 31);
 		gameTabPanel.add(comboComputer1);
 
-		JComboBox comboComputer2 = new JComboBox();
+		JComboBox<String> comboComputer2 = new JComboBox<String>();
 		comboComputer2.setBounds(842, 303, 156, 31);
 		gameTabPanel.add(comboComputer2);
 
@@ -159,37 +171,36 @@ public class MainWindow extends JFrame {
 							&& (rdbtnComputer1.isSelected() == false && rdbtnComputer2.isSelected() == false)) {
 						throw new ExceptionPvP();
 					}
-					
-					
-					if(rdbtnComputer1.isSelected() || rdbtnComputer2.isSelected()) {
-						//Einer der beiden Spieler ist ein Computer
-						if(rdbtnComputer1.isSelected()) {
+
+					if (rdbtnComputer1.isSelected() || rdbtnComputer2.isSelected()) {
+						// Einer der beiden Spieler ist ein Computer
+						if (rdbtnComputer1.isSelected()) {
 							Player player1 = new Player("EasyComputerKI", 0, 0, 0, 0, 0, null, null);
 							Player player2 = DataManager.getPlayerObj(comboPlayer2.getSelectedItem().toString());
 							GameWindow.start(player1, player2);
 						}
-						
-						else if(rdbtnComputer2.isSelected()) {
+
+						else if (rdbtnComputer2.isSelected()) {
 							Player player1 = DataManager.getPlayerObj(comboPlayer1.getSelectedItem().toString());
 							Player player2 = new Player("EasyComputerKI", 0, 0, 0, 0, 0, null, null);
 							GameWindow.start(player1, player2);
 						}
 					}
-					
-					else {	
-						//Keiner der beiden Spieler ist ein Computer
-					Player player1 = DataManager.getPlayerObj(comboPlayer1.getSelectedItem().toString());
-					Player player2 = DataManager.getPlayerObj(comboPlayer2.getSelectedItem().toString());
 
-					if (player1.getIcon() != null && player1.getIcon().equals(player2.getIcon())) {
-						ErrorWindow.start("Icon conflict: Please choose different icons!");
-					} else if (player1.getIcon() == null && player2.getIcon() == null && player1.getColor() != null
-							&& player1.getColor().equals(player2.getColor())) {
-						ErrorWindow.start("Color conflict: Please choose different colors!");
-					} else {
-						GameWindow.start(player1, player2);
-					}
-					
+					else {
+						// Keiner der beiden Spieler ist ein Computer
+						Player player1 = DataManager.getPlayerObj(comboPlayer1.getSelectedItem().toString());
+						Player player2 = DataManager.getPlayerObj(comboPlayer2.getSelectedItem().toString());
+
+						if (player1.getIcon() != null && player1.getIcon().equals(player2.getIcon())) {
+							ErrorWindow.start("Icon conflict: Please choose different icons!");
+						} else if (player1.getIcon() == null && player2.getIcon() == null && player1.getColor() != null
+								&& player1.getColor().equals(player2.getColor())) {
+							ErrorWindow.start("Color conflict: Please choose different colors!");
+						} else {
+							GameWindow.start(player1, player2);
+						}
+
 					}
 				} catch (AWTException e1) {
 					e1.printStackTrace();
@@ -200,7 +211,6 @@ public class MainWindow extends JFrame {
 				}
 			}
 		});
-		
 
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 		//
@@ -230,7 +240,7 @@ public class MainWindow extends JFrame {
 		playerTabPanel.add(panelInPanel3);
 
 		// Combo box for choosing player which shall get edited
-		selectEditPlayer = new JComboBox(DataManager.getAllPlayerNames().toArray());
+		selectEditPlayer = new JComboBox<Object>(DataManager.getAllPlayerNames().toArray());
 		selectEditPlayer.setBounds(371, 38, 326, 21);
 		selectEditPlayer.setEditable(true);
 		selectEditPlayer.setSelectedItem("Select Player");
@@ -425,6 +435,10 @@ public class MainWindow extends JFrame {
 
 	}
 
+	/**
+	 * This method refreshes the comboBoxes on the player tab, ideally after a
+	 * change in the file system has occured.
+	 */
 	public static void refreshPlayerComboBox() {
 		comboPlayer1.removeAllItems();
 		comboPlayer2.removeAllItems();
@@ -448,15 +462,25 @@ public class MainWindow extends JFrame {
 
 	}
 
+	/**
+	 * This method simply pushes the main window in front of all other open windows.
+	 */
 	public static void toFront2() {
 		mainWindow.toFront();
 	}
 
+	/**
+	 * This method stops all running music, and starts the music from the selected
+	 * file via Soundmanager.
+	 * 
+	 * @param filename
+	 *            The name of the music-file (has to be a .wav!)
+	 */
 	public static void startMusic(String filename) {
 		if (GameWindow.getAmbient() == null) {
 			// do nothing
 		} else {
-			//GameWindow.getAmbient().stopMusic();  to-do Emma
+			// GameWindow.getAmbient().stopMusic(); to-do Emma
 		}
 		try {
 			ambient = new SoundManager(filename, true);

@@ -3,6 +3,14 @@ package project;
 import java.awt.Color;
 import javax.swing.JButton;
 
+/***
+ * This custom class extends the button class in a way, to make it usable for
+ * the game. It contains coordinate attributes within the logical game array.
+ * 
+ * @author Enes Akgümus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
+ *         Michaelis, Tobias Rothley
+ *
+ */
 public class GameCell extends JButton {
 
 	private static final long serialVersionUID = 1L;
@@ -11,6 +19,20 @@ public class GameCell extends JButton {
 	private int x_coordinate;
 	private int y_coordinate;
 
+	/**
+	 * The constructor of this class.
+	 * 
+	 * @param isFilled
+	 *            This defines, whether this is already taken, or not.
+	 * @param value
+	 *            The players value, e.g. 1 or 2.
+	 * @param color
+	 *            The background color of this button.
+	 * @param x
+	 *            The x coordinate in the array.
+	 * @param y
+	 *            The y coordinate in the array.
+	 */
 	public GameCell(boolean isFilled, int value, Color color, int x, int y) {
 		this.isFilled = isFilled;
 		this.value = value;

@@ -9,7 +9,7 @@ import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
+//import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -22,8 +22,16 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import exceptions.PlayerAlreadyExistsException;
+//import exceptions.PlayerAlreadyExistsException;
 
+/***
+ * This class represents the board of the game, with the actual field to play
+ * on, as well as secondary information and a output console.
+ * 
+ * @author Enes Akgümus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
+ *         Michaelis, Tobias Rothley
+ *
+ */
 public class GameWindow {
 
 	private static JFrame mainWindow;
@@ -54,25 +62,19 @@ public class GameWindow {
 	private static Player secondPlayer;
 	private static JLabel lblFirstPlayerIcon;
 	private static JLabel lblSecondPlayerIcon;
-	
+
 	private static SoundManager ambient;
-	
 
-	public static void main(String[] args) throws AWTException { 
-		// not necessary, just for test case @Simon : Nach Fertigstellung Löschen
-		firstPlayer = new Player("test1", null, Color.DARK_GRAY);
-		secondPlayer = new Player("test2", null, Color.BLUE);
-
-		initializeWindow();
-
-		mainWindow.setVisible(true);
-
-		loadField();
-
-		log("PLAYER RED'S TURN");
-
-	}
-
+	/**
+	 * This method initializes a new board with the given Players.
+	 * 
+	 * @param player1
+	 *            The first player.
+	 * @param player2
+	 *            The second player.
+	 * @throws AWTException
+	 *             If no mouse is detected, to load the field.
+	 */
 	public static void start(Player player1, Player player2) throws AWTException {
 
 		startMusic("ambientGame");
@@ -85,10 +87,10 @@ public class GameWindow {
 		mainWindow.setVisible(true);
 
 		loadField();
-		
-		if(player1.getName()!="EasyComputerKI")
-		log("Player " + player1.getName() + "'s turn!");
-		else if(player2.getName()!="EasyComputerKI")
+
+		if (player1.getName() != "EasyComputerKI")
+			log("Player " + player1.getName() + "'s turn!");
+		else if (player2.getName() != "EasyComputerKI")
 			log("Player " + player2.getName() + "'s turn!");
 		else {
 			System.out.println("Error Computer vs. Computer!");
@@ -96,6 +98,11 @@ public class GameWindow {
 
 	}
 
+	/**
+	 * This method creates the whole window, with the first part being the actual
+	 * game field, and the second part being the player information, and the
+	 * console.
+	 */
 	private static void initializeWindow() {
 		// reset operations
 		gameIsOver = false;
@@ -110,8 +117,6 @@ public class GameWindow {
 		mainWindow.setSize(1250, 700);
 		mainWindow.setLocation(100, 100);
 		mainWindow.setTitle("Vier Gewinnt!");
-		// mainWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		// mainWindow.setUndecorated(true);
 		mainWindow.setResizable(false);
 
 		optionsMenu = new JMenu("Optionen");
@@ -150,6 +155,9 @@ public class GameWindow {
 		mainWindow.getContentPane().add(splitPane);
 	}
 
+	/**
+	 * This method creates the right part of the frame, with the player information.
+	 */
 	private static void designInfoPanel() {
 
 		infoTopPanel = new JPanel();
@@ -164,10 +172,6 @@ public class GameWindow {
 		playerOneName.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		playerOneName.setBackground(firstPlayer.getColor());
 		playerOneName.setText(firstPlayer.getName());
-		/*JLabel playerOneVictoryLabel = new JLabel("Siege:");
-		playerOneVictoryLabel.setBounds(10, 229, 121, 37);
-		JLabel playerOneVictoryCount = new JLabel("0");
-		playerOneVictoryCount.setBounds(132, 74, 242, 37);*/
 
 		JLabel playerTwoLabel = new JLabel("Spieler 2:");
 		playerTwoLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -178,10 +182,6 @@ public class GameWindow {
 		playerTwoName.setBackground(secondPlayer.getColor());
 		playerTwoName.setText(secondPlayer.getName());
 		playerTwoName.setEditable(false);
-		/*JLabel playerTwoVictoryLabel = new JLabel("Siege");
-		playerTwoVictoryLabel.setBounds(10, 74, 242, 37);
-		JLabel playerTwoVictoryCount = new JLabel("0");
-		playerTwoVictoryCount.setBounds(132, 229, 121, 37);*/
 
 		console = new JTextArea();
 		scrollPane = new JScrollPane(console, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -192,32 +192,28 @@ public class GameWindow {
 
 		infoTopPanel.add(playerOneLabel);
 		infoTopPanel.add(playerOneName);
-		//infoTopPanel.add(playerOneVictoryLabel);
-		//infoTopPanel.add(playerOneVictoryCount);
 		infoTopPanel.add(playerTwoLabel);
 		infoTopPanel.add(playerTwoName);
-		//infoTopPanel.add(playerTwoVictoryLabel);
-		//infoTopPanel.add(playerTwoVictoryCount);
 
 		infoBottomPanel.add(scrollPane);
 
 		splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		splitPane.setTopComponent(infoTopPanel);
-		
+
 		lblFirstPlayerIcon = new JLabel("Icon1");
 		lblFirstPlayerIcon.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblFirstPlayerIcon.setIcon(firstPlayer.getIcon());
 		lblFirstPlayerIcon.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFirstPlayerIcon.setBounds(341, 35, 105, 102);
 		infoTopPanel.add(lblFirstPlayerIcon);
-		
+
 		lblSecondPlayerIcon = new JLabel("Icon2");
 		lblSecondPlayerIcon.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblSecondPlayerIcon.setIcon(secondPlayer.getIcon());
 		lblSecondPlayerIcon.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSecondPlayerIcon.setBounds(341, 165, 105, 102);
 		infoTopPanel.add(lblSecondPlayerIcon);
-		
+
 		splitPane.setBottomComponent(infoBottomPanel);
 		// splitPane.setDividerLocation(1200);
 		splitPane.setEnabled(false);
@@ -225,6 +221,9 @@ public class GameWindow {
 		infoPanel.add(splitPane);
 	}
 
+	/**
+	 * THis method creates the game field in the left side of the frame.
+	 */
 	private static void designGamePanel() {
 		GridLayout layout = new GridLayout(height, length);
 		gamePanel.setLayout(layout);
@@ -251,6 +250,12 @@ public class GameWindow {
 		}
 	}
 
+	/**
+	 * This method takes place after a click, and decides what it should do.
+	 * 
+	 * @param field
+	 *            The clicked cell.
+	 */
 	private static void evaluateClick(GameCell field) {
 		if (gameIsOver == false) {
 			int x_coordinate = field.getX_Coordinate();
@@ -268,6 +273,16 @@ public class GameWindow {
 		}
 	}
 
+	/**
+	 * This function lets tokens slide to the bottom of the board.
+	 * 
+	 * @param field
+	 *            The clicked cell to be filled.
+	 * @param x
+	 *            The x coordinate of the field.
+	 * @param y
+	 *            The y coordinate of the field.
+	 */
 	private static void gravityFunction(GameCell field, int x, int y) {
 		for (int i = x; i < logicField.length; i++) {
 			if (isValid(i, y) && logicField[i + 1][y] != 0) {
@@ -280,6 +295,18 @@ public class GameWindow {
 		}
 	}
 
+	/**
+	 * This method acts as the logical "filling" of a field, by invisibly advancing
+	 * the logic array with the players value, and also visibly filling in the color
+	 * or icon of the respective player on the board
+	 * 
+	 * @param field
+	 *            The field to be filled.
+	 * @param x
+	 *            The x coordinate of the field.
+	 * @param y
+	 *            The y coordinate of the field.
+	 */
 	private static void fillField(GameCell field, int x, int y) {
 		logicField[x][y] = currentPlayer;
 		field.setValue(currentPlayer);
@@ -310,6 +337,16 @@ public class GameWindow {
 		}
 	}
 
+	/**
+	 * This method handles the switch of a player, a fter he had his turn. It first
+	 * checks for any win condition, and then swaps to the other player. Also the
+	 * AI-logic should be called here.
+	 * 
+	 * @param x
+	 *            The x coordinate of the last filled cell.
+	 * @param y
+	 *            The y coordinate of the last filled cell.
+	 */
 	public static void updateAfterTurn(int x, int y) {
 		checkHorizontalWin(x, y);
 		checkVerticalWin(x, y);
@@ -319,19 +356,19 @@ public class GameWindow {
 			switch (currentPlayer) {
 			case 1:
 				currentPlayer = 2;
-				if(secondPlayer.getName() == "EasyComputerKI")
+				if (secondPlayer.getName() == "EasyComputerKI")
 					EasyComputerAI();
 				else {
-				log("Player " + secondPlayer.getName() + "'s turn!");
-				break;
+					log("Player " + secondPlayer.getName() + "'s turn!");
+					break;
 				}
 			case 2:
 				currentPlayer = 1;
-				if(firstPlayer.getName() == "EasyComputerKI")
+				if (firstPlayer.getName() == "EasyComputerKI")
 					EasyComputerAI();
 				else {
-				log("Player " + firstPlayer.getName() + "'s turn!");
-				break;
+					log("Player " + firstPlayer.getName() + "'s turn!");
+					break;
 				}
 			default:
 				break;
@@ -339,6 +376,15 @@ public class GameWindow {
 		}
 	}
 
+	/**
+	 * This method checks for a horizontal win, e.g. 4 or more cells have the same
+	 * value, starting from the last filled cell.
+	 * 
+	 * @param x
+	 *            The x coordinate of the last filled cell.
+	 * @param y
+	 *            The y coordinate of the last filled cell.
+	 */
 	private static void checkHorizontalWin(int x, int y) {
 		int value = logicField[x][y];
 		int counter = 1;
@@ -362,6 +408,15 @@ public class GameWindow {
 		}
 	}
 
+	/**
+	 * This method checks for a vertical win, e.g. 4 or more cells have the same
+	 * value, starting from the last filled cell.
+	 * 
+	 * @param x
+	 *            The x coordinate of the last filled cell.
+	 * @param y
+	 *            The y coordinate of the last filled cell.
+	 */
 	private static void checkVerticalWin(int x, int y) {
 		int value = logicField[x][y];
 		int counter = 1;
@@ -385,6 +440,15 @@ public class GameWindow {
 		}
 	}
 
+	/**
+	 * This method checks for a diagonally win from bottom to top, e.g. 4 or more
+	 * cells have the same value, starting from the last filled cell.
+	 * 
+	 * @param x
+	 *            The x coordinate of the last filled cell.
+	 * @param y
+	 *            The y coordinate of the last filled cell.
+	 */
 	private static void checkDiagonalRightWin(int x, int y) {
 		int value = logicField[x][y];
 		int counter = 1;
@@ -411,6 +475,15 @@ public class GameWindow {
 		}
 	}
 
+	/**
+	 * This method checks for a diagonally win from top to bottom, e.g. 4 or more
+	 * cells have the same value, starting from the last filled cell.
+	 * 
+	 * @param x
+	 *            The x coordinate of the last filled cell.
+	 * @param y
+	 *            The y coordinate of the last filled cell.
+	 */
 	private static void checkDiagonalLeftWin(int x, int y) {
 		int value = logicField[x][y];
 		int counter = 1;
@@ -437,6 +510,10 @@ public class GameWindow {
 		}
 	}
 
+	/**
+	 * This method is called after a game is over, and handles the logic for the
+	 * winning window.
+	 */
 	public static void gameOver() {
 		String winner = "";
 		if (currentPlayer == 1) {
@@ -449,6 +526,11 @@ public class GameWindow {
 		gow.setVisible(true);
 	}
 
+	/**
+	 * This method is called, after a win condition is fullfilled, and handles the
+	 * logic of printing the winner on console and window. It also updates the
+	 * player Objects, and writes them back into the files.
+	 */
 	private static void win() {
 		gameIsOver = true;
 		gameOver();
@@ -464,7 +546,7 @@ public class GameWindow {
 			secondPlayer.win();
 		}
 		log("----------");
-		if(firstPlayer.getName() != "EasyComputerKI") {
+		if (firstPlayer.getName() != "EasyComputerKI") {
 			try {
 				DataManager.changeProperty(firstPlayer.getName(), "wins", firstPlayer.getWins() + "");
 			} catch (Exception e) {
@@ -485,8 +567,7 @@ public class GameWindow {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-		else if(secondPlayer.getName()!="EasyComputerKI") {
+		} else if (secondPlayer.getName() != "EasyComputerKI") {
 			try {
 				DataManager.changeProperty(secondPlayer.getName(), "wins", secondPlayer.getWins() + "");
 			} catch (Exception e) {
@@ -510,6 +591,15 @@ public class GameWindow {
 		}
 	}
 
+	/**
+	 * This method checks, if a fields coordinates are still in range of the field.
+	 * 
+	 * @param x
+	 *            The x coordinate.
+	 * @param y
+	 *            The y coordinate.
+	 * @return True, if the coordinates are both in bounds, False otherwise.
+	 */
 	private static boolean isValid(int x, int y) {
 		if ((x >= 0 && x < logicField.length) && (y >= 0 && y < logicField[0].length)) {
 			return true;
@@ -518,10 +608,23 @@ public class GameWindow {
 		}
 	}
 
+	/**
+	 * This method prints a message on the console.
+	 * 
+	 * @param s
+	 */
 	private static void log(String s) {
 		console.append(" " + s + "\n");
 	}
 
+	/**
+	 * This funny method moves the mouse cursor over the entire field to order Java
+	 * forcibly to load the components. If omitted, the field may or may not load,
+	 * depending on Java mood today.
+	 * 
+	 * @throws AWTException
+	 *             If no mouse is found.
+	 */
 	private static void loadField() throws AWTException {
 		Robot mouse = new Robot();
 		for (int i = 0; i < cellField.length; i++) {
@@ -536,12 +639,22 @@ public class GameWindow {
 		}
 	}
 
+	/**
+	 * This method returns a random integer from 0 to the given parameter.
+	 * 
+	 * @param n
+	 *            The maximum number.
+	 * @return An integer from 0 to n.
+	 */
 	private static int randomNrFrom0Ton(int n) {
 		double rand = Math.random();
 		int rnd = (int) (rand * n);
 		return rnd;
 	}
 
+	/**
+	 * This method chooses a random cell, and simulates a click on it.
+	 */
 	private static void EasyComputerAI() {
 		int x = 0;
 		int y = randomNrFrom0Ton(6);
@@ -557,22 +670,32 @@ public class GameWindow {
 		}
 	}
 
+	/**
+	 * This metod simply disposes of the window, similar to the normal close button
+	 * action.
+	 */
 	public static void dispose() {
 		mainWindow.dispose();
 	}
-	
+
+	/**
+	 * This method stops all playing music, and starts the music from the given
+	 * file.
+	 * 
+	 * @param filename
+	 *            The name of the track (as a .wav).
+	 */
 	public static void startMusic(String filename) {
-		//MainWindow.getAmbient().stopMusic();    to-do Emma
+		// MainWindow.getAmbient().stopMusic(); to-do Emma
 		try {
 			ambient = new SoundManager(filename, true);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
+
 	public static Object getAmbient() {
-		return ambient;			
+		return ambient;
 	}
 
-
-	
 }

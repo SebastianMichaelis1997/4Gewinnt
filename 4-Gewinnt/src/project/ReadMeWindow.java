@@ -1,17 +1,29 @@
 package project;
 
 import javax.swing.*;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
+//import javax.swing.border.EtchedBorder;
+//import javax.swing.border.TitledBorder;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+/***
+ * This class represents the Window for the ReadMe information, while in-game.
+ * It is just called via constructor, and automatically set visible.
+ * 
+ * @author Enes Akgümus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
+ *         Michaelis, Tobias Rothley
+ *
+ */
 public class ReadMeWindow extends JFrame {
+	private static final long serialVersionUID = 1L;
 	public static final String README = "resources";
 
+	/**
+	 * The constructor of this class, which automatically shows the window as well.
+	 */
 	public ReadMeWindow() {
 		String text = "";
 		try {

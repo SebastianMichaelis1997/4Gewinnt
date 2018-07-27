@@ -4,22 +4,38 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+//import java.io.IOException;
+//import java.nio.file.Path;
+//import java.nio.file.Paths;
 
 import javax.swing.*;
 
 //import java.awt.desktop.AppHiddenListener;
-
+/***
+ * This class represents the pop-up, which is shown after a game is won. It
+ * contains the winners name, an animation as well as a chance for a second game
+ * with the same players.
+ * 
+ * @author Enes Akgümus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
+ *         Michaelis, Tobias Rothley
+ *
+ */
 public class GameOverWindow extends JFrame {
+
+	private static final long serialVersionUID = 1L;
 
 	// public static AppHiddenListener readMeActionListener; // For Reusing
 	// Action Listener
 	// public static MainWindow mainWindow;
 	// public static GameWindow gameWindow;
 
-	// Create the frame.
+	/**
+	 * This is the constructor of the class.
+	 * 
+	 * @param winner
+	 * @param p1
+	 * @param p2
+	 */
 	public GameOverWindow(String winner, Player p1, Player p2) {
 		getContentPane().setBackground(Color.WHITE);
 
@@ -67,7 +83,7 @@ public class GameOverWindow extends JFrame {
 		// Sieger Animation
 		JLabel lblAnimation = new JLabel("Animation");
 		lblAnimation.setBackground(Color.BLACK);
-		lblAnimation.setIcon(new ImageIcon("systemPictures"+ File.separator +"baerchen-sieger.gif"));
+		lblAnimation.setIcon(new ImageIcon("systemPictures" + File.separator + "baerchen-sieger.gif"));
 		lblAnimation.setBounds(55, 74, 253, 166);
 		getContentPane().add(lblAnimation);
 	}

@@ -9,7 +9,7 @@ import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 
 import exceptions.IllegalNameException;
-import exceptions.PlayerAlreadyExistsException;
+//import exceptions.PlayerAlreadyExistsException;
 
 import java.io.IOException;
 import javax.swing.JButton;
@@ -18,28 +18,36 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.JPanel;
+//import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.JSeparator;
 import java.awt.Color;
 
+/***
+ * This class represents the player creation window, in which the player can
+ * enter his name, a color and desired icon. The saving mechanics are handled in
+ * DataManager.
+ * 
+ * @author Enes Akgümus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
+ *         Michaelis, Tobias Rothley
+ *
+ */
 public class CreatePlayer {
 
 	private JFrame frame;
 
-	private String currentName;
+	public String currentName;
 
 	/**
-	 * Create the application.
+	 * The constructor of this class.
 	 */
-	public CreatePlayer() {	
+	public CreatePlayer() {
 		initialize();
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * This method initializes the window and its components.
 	 */
-
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.WHITE);
@@ -49,11 +57,11 @@ public class CreatePlayer {
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
 
-		JComboBox colorComboBox = new JComboBox(new String[]{"red","blue","green"});
+		JComboBox<String> colorComboBox = new JComboBox<String>(new String[] { "red", "blue", "green" });
 		colorComboBox.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		colorComboBox.setBounds(327, 185, 220, 35);
 		frame.getContentPane().add(colorComboBox);
-		
+
 		JButton btnSave = new JButton("Save");
 		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnSave.setBounds(73, 284, 117, 29);
@@ -102,8 +110,7 @@ public class CreatePlayer {
 				// Now we want to display this image in the screen
 				if (chooser.getSelectedFile().toString() != null) {
 					picture.setText("");
-					ImageIcon icon = new ImageIcon(chooser.getSelectedFile()
-							.toString());
+					ImageIcon icon = new ImageIcon(chooser.getSelectedFile().toString());
 					// picture is not saved jet, its just for giving the user
 					// the feedback which icon he has chosen
 					picture.setIcon(icon);
@@ -129,8 +136,7 @@ public class CreatePlayer {
 			public void actionPerformed(ActionEvent save) {
 				try {
 					// File for a new player gets added to folder "players"
-					if (nameField.getText().equals("Enter Name")
-							|| nameField.getText().equals("Select Player")) {
+					if (nameField.getText().equals("Enter Name") || nameField.getText().equals("Select Player")) {
 						throw new IllegalNameException(nameField.getText());
 					}
 					try {
@@ -140,18 +146,19 @@ public class CreatePlayer {
 							// Just if a player was added successfully and an
 							// icon was selected, the icon
 							// gets fetched
-							ImageIcon icon = createImageIcon(chooser
-									.getSelectedFile().toString(), chooser
-									.getSelectedFile().getName());
+							ImageIcon icon = createImageIcon(chooser.getSelectedFile().toString(),
+									chooser.getSelectedFile().getName());
 							if (icon != null)
 								try {
-									DataManager.changeProperty(nameField.getText(),"icon", chooser.getSelectedFile().getName());
+									DataManager.changeProperty(nameField.getText(), "icon",
+											chooser.getSelectedFile().getName());
 								} catch (Exception e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 							else
-								System.out.println("Error while saving File: An image with this name already exists. Please rename it!");
+								System.out.println(
+										"Error while saving File: An image with this name already exists. Please rename it!");
 						}
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
@@ -177,17 +184,17 @@ public class CreatePlayer {
 		});
 		frame.setVisible(true);
 		frame.getContentPane().add(btnCancel);
-		
+
 		JLabel lblChooseColor = new JLabel("Choose Color");
 		lblChooseColor.setHorizontalAlignment(SwingConstants.CENTER);
 		lblChooseColor.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblChooseColor.setBounds(375, 97, 133, 35);
 		frame.getContentPane().add(lblChooseColor);
-		
+
 		JSeparator separator = new JSeparator();
 		separator.setBounds(25, 78, 556, 11);
 		frame.getContentPane().add(separator);
-		
+
 		JLabel lblOr = new JLabel("or");
 		lblOr.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblOr.setHorizontalAlignment(SwingConstants.CENTER);
@@ -195,7 +202,15 @@ public class CreatePlayer {
 		frame.getContentPane().add(lblOr);
 	}
 
-	/** Returns an ImageIcon, or null if the path was invalid. */
+	/**
+	 * This auxiliary method creates an easier constructor for ImageIcon.
+	 * 
+	 * @param path
+	 *            The Path of the image-file.
+	 * @param fileName
+	 *            The name under which it should be saved.
+	 * @return An ImageIcon object, with the desired image.
+	 */
 	protected ImageIcon createImageIcon(String path, String fileName) {
 		try {
 			if (DataManager.saveImage(path, fileName)) {
