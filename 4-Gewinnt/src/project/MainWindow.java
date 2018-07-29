@@ -173,7 +173,7 @@ public class MainWindow extends JFrame {
 					}
 
 					if (rdbtnComputer1.isSelected() || rdbtnComputer2.isSelected()) {
-						// Einer der beiden Spieler ist ein Computer
+						// One of the two players is a computer
 						if (rdbtnComputer1.isSelected()) {
 							Player player1 = new Player("EasyComputerKI", 0, 0, 0, 0, 0, null, null);
 							Player player2 = DataManager.getPlayerObj(comboPlayer2.getSelectedItem().toString());
@@ -188,7 +188,7 @@ public class MainWindow extends JFrame {
 					}
 
 					else {
-						// Keiner der beiden Spieler ist ein Computer
+						// Both players are humans
 						Player player1 = DataManager.getPlayerObj(comboPlayer1.getSelectedItem().toString());
 						Player player2 = DataManager.getPlayerObj(comboPlayer2.getSelectedItem().toString());
 
