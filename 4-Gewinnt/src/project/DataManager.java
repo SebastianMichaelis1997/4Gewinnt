@@ -53,9 +53,6 @@ public class DataManager {
 			return false;
 		else {
 			Path destination = Paths.get(PLAYER_PICTURES_DIRECTORY + File.separator + filename);
-			// FileChannel srcChannel = new FileInputStream(source.toString()).getChannel();
-			// FileChannel destChannel = new
-			// FileOutputStream(destination.toString()).getChannel();
 			try (FileChannel srcChannel = new FileInputStream(source.toString()).getChannel();
 					FileChannel destChannel = new FileOutputStream(destination.toString()).getChannel();) {
 				srcChannel.transferTo(0, srcChannel.size(), destChannel);
@@ -63,13 +60,23 @@ public class DataManager {
 			} catch (IOException e) {
 				e.printStackTrace();
 				return false;
-			} finally {
-				// if (srcChannel != null)
-				// srcChannel.close();
-				// if (destChannel != null)
-				// destChannel.close();
 			}
 		}
+	}
+
+	/**
+	 * This method deletes a player image in the profilePictures folder.
+	 * 
+	 * @param filename
+	 *            Name, under which it was saved,
+	 * @return True, if successful, false otherwise.
+	 * @throws IOException
+	 *             If the file could not be read, or could not be saved.
+	 */
+	public static void deleteImage(String filename) throws IOException {
+		checkDirectory("profilePictures");
+		Path path = Paths.get(PLAYER_PICTURES_DIRECTORY + File.separator + filename);
+		Files.delete(path);
 	}
 
 	/**
@@ -412,6 +419,12 @@ public class DataManager {
 	 *            The name of the file to be deleted.
 	 */
 	public static void deletePlayer(String playerName) {
+		try {
+			DataManager.deleteImage(DataManager.getProperty(playerName, "icon"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		Path path = Paths.get(PLAYER_DIRECTORY + File.separator + playerName + ".player");
 		try {
 			Files.delete(path);
