@@ -169,7 +169,12 @@ public class EditPlayer extends JFrame {
 				try {
 					try {
 						//At first, the old picture gets deleted
+						try {
 						DataManager.deleteImage(DataManager.getProperty(player.toString(), "icon"));
+						}
+						catch (Exception e) {
+							// Player had no picture
+						}						
 						//and the new icon gets saved...
 						DataManager.saveImage(chooser.getSelectedFile().toString(), chooser.getSelectedFile().getName());
 					} catch (IOException e) {

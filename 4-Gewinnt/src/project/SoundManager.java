@@ -1,7 +1,7 @@
 package project;
 
 import java.io.*;
-import java.io.BufferedInputStream;
+
 import javax.sound.sampled.*;
 
 /**
@@ -30,7 +30,7 @@ public class SoundManager {
 	 *             If file is not found.
 	 */
 	public SoundManager(String filename, boolean ambient) throws Exception {
-		String musicFile = System.getProperty("user.dir") + "\\resources\\" + filename + ".wav";
+		String musicFile = System.getProperty("user.dir") + File.separator + "resources" + File.separator + filename + ".wav";
 
 		InputStream in = new FileInputStream(musicFile);
 		BufferedInputStream bufferedIn = new BufferedInputStream(in);
