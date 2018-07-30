@@ -108,7 +108,7 @@ public class DataManager {
 					FileWriter fw = new FileWriter(file.getAbsoluteFile());
 					// Always wrap FileWriter in BufferedWriter.
 					BufferedWriter bw = new BufferedWriter(fw);
-					bw.write(ReadMe.README);
+					bw.write(resourcePath);
 					bw.close();
 					fw.close();
 				}

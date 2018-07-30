@@ -14,6 +14,14 @@ Das Ziel dieses Spiels ist es, vier Steine in einer zusammenhängenden Reihe anz
 Beim Erreichen dieses Ziels erhält der Spieler einen Punkt. Sollte keiner der Spieler nach dem Legen seiner 21 Steine gewonnen haben,
 endet das Spiel mit einem Unentschieden.
 
+Wenn auf dem Main Window bist hast du oben in der Leiste Tabs mit denen du in die Spieler einstellungen kommst und auf die Spiel Einstellungen.
+Im Fenster Player hast du die möglichkeit die Spieler anzulegen, zu bearbeiten und zu löschen.
+Im Fenster Optionen hast du die gelegenheit dieses ReadMe hier zu lesen, aber das sollte dir klar sein wenn du gerade dabei bist dies hier zu lesen.
+Zusätzlich kannst du noch einstellungen am Sound übernehmen.
+Wenn du oben wieder auf den Tab 'Game' klickst dann hast du die Optionen die Spieler auszuwählen, entweder gegen den Computer oder gegen einen anderen Spieler.
+Mit dem Tab 'Optionen' kannst du ein neues Spiel starten oder es beenden.
+Mit dem Tab 'Hilfe' kanns du dir hilfe holen
+
 INSTALLATION GUIDE 
 
 It is recommended to use WIN7/WIN8.1/WIN1/macOSHighsierra V.10.13.5 or the latest version ///// /////
