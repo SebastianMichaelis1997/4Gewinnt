@@ -28,7 +28,7 @@ import java.awt.Color;
  * enter his name, a color and desired icon. The saving mechanics are handled in
  * DataManager.
  * 
- * @author Enes Akgümus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
+ * @author Enes AkgÃ¼mus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
  *         Michaelis, Tobias Rothley
  *
  */
@@ -141,7 +141,7 @@ public class CreatePlayer {
 					}
 					try {
 						if (DataManager.addPlayer(nameField.getText(), colorComboBox.getSelectedItem().toString())
-								&& (chooser.getSelectedFile().toString() != null)) {
+								&& (chooser.getSelectedFile() != null)) {
 							// Adds standard values for players
 							// Just if a player was added successfully and an
 							// icon was selected, the icon
