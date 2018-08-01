@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -103,6 +104,8 @@ public class EditPlayer extends JFrame {
 		btnEditIcon.setBounds(59, 103, 150, 42);
 		btnEditIcon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent editAction) {
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG,PNG & GIF Images", "jpg", "gif", "png");
+				chooser.setFileFilter(filter);
 				chooser.showOpenDialog(null);
 			}
 		});
@@ -114,7 +117,7 @@ public class EditPlayer extends JFrame {
 				// Now we want to display this image in the screen
 				if (chooser.getSelectedFile().toString() != null) {
 					picture.setText("");
-					icon = new ImageIcon(chooser.getSelectedFile().toString());
+					icon = DataManager.resizeIcon(new ImageIcon(chooser.getSelectedFile().toString()),99,92);
 					// picture is not saved jet, its just for giving the user
 					// the feedback which icon he has chosen
 					picture.setIcon(icon);

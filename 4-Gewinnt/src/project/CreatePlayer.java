@@ -84,7 +84,7 @@ public class CreatePlayer {
 		btnChooser.setBounds(76, 100, 154, 29);
 		btnChooser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg", "gif", "png");
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG, PNG & GIF Images", "jpg", "gif", "png");
 				chooser.setFileFilter(filter);
 				chooser.showOpenDialog(null);
 			}

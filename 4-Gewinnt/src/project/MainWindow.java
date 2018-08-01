@@ -9,6 +9,7 @@ import exceptions.ExceptionPvP;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.border.EmptyBorder;
 
@@ -24,7 +25,7 @@ import javax.swing.border.EmptyBorder;
 public class MainWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private static JTextField textField, textField_1, textField_2, textField_3;
+	private static JTextField textFieldPoints, textFieldWins, textFieldLosses, textField_3;
 	private static JComboBox<Object> comboPlayer1, comboPlayer2, selectEditPlayer;
 	private static final ButtonGroup buttonGroup = new ButtonGroup();
 	private static final ButtonGroup buttonGroup_1 = new ButtonGroup();
@@ -165,8 +166,14 @@ public class MainWindow extends JFrame {
 		RoundCornerButton roundCornerButton = new RoundCornerButton("<html> <center>Start Game</center> </html>",
 				new Dimension(105, 65));
 		roundCornerButton.setForeground(Color.BLACK);
-		roundCornerButton.setBounds(419, 347, 215, 84);
+		roundCornerButton.setBounds(439, 369, 200, 84);
 		gameTabPanel.add(roundCornerButton);
+		
+		JLabel lblLogo = new JLabel("");
+		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLogo.setIcon(DataManager.resizeIcon(new ImageIcon("systemPictures" + File.separator + "4gewinntpersonalisiert.jpg"), 200, 80));
+		lblLogo.setBounds(852, 23, 200, 80);
+		gameTabPanel.add(lblLogo);
 		roundCornerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -273,7 +280,7 @@ public class MainWindow extends JFrame {
 			}
 		});
 		btnCreate.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnCreate.setBounds(70, 63, 144, 32);
+		btnCreate.setBounds(70, 74, 144, 41);
 		playerTabPanel.add(btnCreate);
 
 		Panel panelInPanel3 = new Panel();
@@ -298,12 +305,12 @@ public class MainWindow extends JFrame {
 			}
 		});
 		buttonEdit.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		buttonEdit.setBounds(70, 190, 144, 32);
+		buttonEdit.setBounds(70, 189, 144, 41);
 		playerTabPanel.add(buttonEdit);
 
 		JButton buttonDelete = new JButton("Delete");
 		buttonDelete.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		buttonDelete.setBounds(70, 317, 144, 32);
+		buttonDelete.setBounds(70, 304, 144, 41);
 		buttonDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent deletePlayer) {
 				try {
@@ -326,9 +333,21 @@ public class MainWindow extends JFrame {
 			}
 		});
 		btnHighScore.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnHighScore.setBounds(70, 444, 144, 32);
+		btnHighScore.setBounds(70, 419, 144, 41);
 		btnHighScore.setVisible(true);
 		playerTabPanel.add(btnHighScore);
+				
+						JSeparator separator_3 = new JSeparator();
+						separator_3.setBounds(55, 187, 621, 2);
+						panelInPanel3.add(separator_3);
+		
+				JSeparator separator_4 = new JSeparator();
+				separator_4.setBounds(55, 261, 621, 1);
+				panelInPanel3.add(separator_4);
+		
+		JSeparator separator_6 = new JSeparator();
+		separator_6.setBounds(55, 340, 621, 2);
+		panelInPanel3.add(separator_6);
 
 		JLabel lblPoints = new JLabel("Points:");
 		lblPoints.setHorizontalAlignment(SwingConstants.LEFT);
@@ -336,61 +355,49 @@ public class MainWindow extends JFrame {
 		lblPoints.setBounds(55, 146, 101, 30);
 		panelInPanel3.add(lblPoints);
 
-		JLabel label_3 = new JLabel("Wins:");
-		label_3.setHorizontalAlignment(SwingConstants.LEFT);
-		label_3.setFont(new Font("Tahoma", Font.ITALIC, 20));
-		label_3.setBounds(55, 220, 101, 30);
-		panelInPanel3.add(label_3);
+		JLabel labelWins = new JLabel("Wins:");
+		labelWins.setHorizontalAlignment(SwingConstants.LEFT);
+		labelWins.setFont(new Font("Tahoma", Font.ITALIC, 20));
+		labelWins.setBounds(55, 220, 101, 30);
+		panelInPanel3.add(labelWins);
 
-		JLabel label_4 = new JLabel("Losses:");
-		label_4.setHorizontalAlignment(SwingConstants.LEFT);
-		label_4.setFont(new Font("Tahoma", Font.ITALIC, 20));
-		label_4.setBounds(55, 299, 101, 30);
-		panelInPanel3.add(label_4);
+		JLabel labelLosses = new JLabel("Losses:");
+		labelLosses.setHorizontalAlignment(SwingConstants.LEFT);
+		labelLosses.setFont(new Font("Tahoma", Font.ITALIC, 20));
+		labelLosses.setBounds(55, 299, 101, 30);
+		panelInPanel3.add(labelLosses);
 
-		JSeparator separator_3 = new JSeparator();
-		separator_3.setBounds(55, 187, 634, 2);
-		panelInPanel3.add(separator_3);
+		textFieldPoints = new JTextField();
+		textFieldPoints.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldPoints.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		textFieldPoints.setText("");
+		textFieldPoints.setBounds(371, 146, 96, 29);
+		textFieldPoints.setColumns(10);
+		textFieldPoints.setEditable(false);
+		panelInPanel3.add(textFieldPoints);
 
-		JSeparator separator_4 = new JSeparator();
-		separator_4.setBounds(55, 260, 634, 2);
-		panelInPanel3.add(separator_4);
+		textFieldWins = new JTextField();
+		textFieldWins.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldWins.setText("");
+		textFieldWins.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		textFieldWins.setColumns(10);
+		textFieldWins.setBounds(371, 220, 96, 29);
+		textFieldWins.setEditable(false);
+		panelInPanel3.add(textFieldWins);
 
-		textField = new JTextField();
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField.setText("");
-		textField.setBounds(371, 156, 96, 19);
-		textField.setColumns(10);
-		textField.setEditable(false);
-		panelInPanel3.add(textField);
-
-		textField_1 = new JTextField();
-		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_1.setText("");
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_1.setColumns(10);
-		textField_1.setBounds(371, 230, 96, 19);
-		textField_1.setEditable(false);
-		panelInPanel3.add(textField_1);
-
-		textField_2 = new JTextField();
-		textField_2.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_2.setText("");
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_2.setColumns(10);
-		textField_2.setBounds(371, 309, 96, 19);
-		textField_2.setEditable(false);
-		panelInPanel3.add(textField_2);
+		textFieldLosses = new JTextField();
+		textFieldLosses.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldLosses.setText("");
+		textFieldLosses.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		textFieldLosses.setColumns(10);
+		textFieldLosses.setBounds(371, 298, 96, 30);
+		textFieldLosses.setEditable(false);
+		panelInPanel3.add(textFieldLosses);
 
 		JLabel lblSelectPlayer = new JLabel("Select Player:");
 		lblSelectPlayer.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblSelectPlayer.setBounds(55, 29, 156, 30);
 		panelInPanel3.add(lblSelectPlayer);
-		
-		JSeparator separator_6 = new JSeparator();
-		separator_6.setBounds(55, 340, 634, 2);
-		panelInPanel3.add(separator_6);
 		
 				// Combo box for choosing player which shall get edited
 				selectEditPlayer = new JComboBox<Object>(DataManager.getAllPlayerNames().toArray());
@@ -399,7 +406,7 @@ public class MainWindow extends JFrame {
 				selectEditPlayer.setFocusable(false);
 				selectEditPlayer.setEditable(true);
 				selectEditPlayer.setFont(new Font("Tahoma", Font.PLAIN, 20));
-				selectEditPlayer.setBounds(371, 29, 326, 30);
+				selectEditPlayer.setBounds(356, 30, 320, 30);
 				selectEditPlayer.setSelectedItem("Select Player");
 				panelInPanel3.add(selectEditPlayer);
 				
@@ -410,11 +417,11 @@ public class MainWindow extends JFrame {
 				
 									String selectedPlayer = selectEditPlayer.getSelectedItem().toString();
 									String selectedScore = DataManager.getProperty(selectedPlayer, "score");
-									textField.setText(selectedScore);
+									textFieldPoints.setText(selectedScore);
 									String selectedWins = DataManager.getProperty(selectedPlayer, "wins");
-									textField_1.setText(selectedWins);
+									textFieldWins.setText(selectedWins);
 									String selectedLosses = DataManager.getProperty(selectedPlayer, "losses");
-									textField_2.setText(selectedLosses);
+									textFieldLosses.setText(selectedLosses);
 								}
 							}
 						});
