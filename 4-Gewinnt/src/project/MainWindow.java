@@ -9,6 +9,7 @@ import exceptions.ExceptionPvP;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.border.EmptyBorder;
 
@@ -165,13 +166,13 @@ public class MainWindow extends JFrame {
 		RoundCornerButton roundCornerButton = new RoundCornerButton("<html> <center>Start Game</center> </html>",
 				new Dimension(105, 65));
 		roundCornerButton.setForeground(Color.BLACK);
-		roundCornerButton.setBounds(419, 347, 215, 84);
+		roundCornerButton.setBounds(439, 369, 200, 84);
 		gameTabPanel.add(roundCornerButton);
 		
 		JLabel lblLogo = new JLabel("");
 		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLogo.setIcon(DataManager.resizeIcon(new ImageIcon("C:\\Users\\emma\\git\\4Gewinnt\\4-Gewinnt\\systemPictures\\4GewinntLogo.jpg"), 200, 80));
-		lblLogo.setBounds(796, 16, 258, 95);
+		lblLogo.setIcon(DataManager.resizeIcon(new ImageIcon("systemPictures" + File.separator + "4gewinntpersonalisiert.jpg"), 200, 80));
+		lblLogo.setBounds(852, 23, 200, 80);
 		gameTabPanel.add(lblLogo);
 		roundCornerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
