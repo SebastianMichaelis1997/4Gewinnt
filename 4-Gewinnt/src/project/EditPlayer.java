@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -103,6 +104,8 @@ public class EditPlayer extends JFrame {
 		btnEditIcon.setBounds(59, 103, 150, 42);
 		btnEditIcon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent editAction) {
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG,PNG & GIF Images", "jpg", "gif", "png");
+				chooser.setFileFilter(filter);
 				chooser.showOpenDialog(null);
 			}
 		});
