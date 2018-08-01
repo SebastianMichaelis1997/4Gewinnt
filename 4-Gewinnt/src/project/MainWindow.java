@@ -218,7 +218,10 @@ public class MainWindow extends JFrame {
 							if (comboComputer2.getSelectedItem().toString().equals("Schwer")) {
 								player2 = new Player("HardComputerKI", 0, 0, 0, 0, 0, null, Color.GRAY);
 							}
+							if(player1.getIcon()!= null) {
+							System.out.println(player1.getIcon().toString());
 							player1.setIcon(DataManager.resizeIcon(player1.getIcon(), 99, 92));
+							}
 							GameWindow.start(player1, player2);
 						}
 					}

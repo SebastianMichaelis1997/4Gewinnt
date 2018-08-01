@@ -92,7 +92,7 @@ public class Player {
 		this.wins = Integer.parseInt(playerInfo[2]);
 		this.losses = Integer.parseInt(playerInfo[3]);
 		this.ties = Integer.parseInt(playerInfo[4]);
-		this.score = Integer.parseInt(playerInfo[5]);
+		this.score = Integer.parseInt(playerInfo[5]); 
 		if (playerInfo[6].equals("null")) {
 			this.color = new Color(255, 255, 255);
 		} else {
