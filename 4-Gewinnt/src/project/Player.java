@@ -1,6 +1,8 @@
 package project;
 
 import java.awt.Color;
+import java.io.File;
+
 import javax.swing.ImageIcon;
 
 /**
@@ -96,7 +98,7 @@ public class Player {
 		if (playerInfo[6].equals("null")) {
 			this.color = new Color(255, 255, 255);
 		} else {
-			this.icon = new ImageIcon(GameOverWindow.class.getResource("/project/" + playerInfo[6]));
+			this.icon = new ImageIcon("profilePictures" + File.separator + playerInfo[6]);
 		}
 		switch (playerInfo[7]) {
 		case ("red"):

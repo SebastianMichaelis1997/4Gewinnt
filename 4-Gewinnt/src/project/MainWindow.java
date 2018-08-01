@@ -119,7 +119,7 @@ public class MainWindow extends JFrame {
 		comboPlayer2 = new JComboBox<Object>(DataManager.getAllPlayerNames().toArray());
 		comboPlayer2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		comboPlayer2.setBounds(842, 214, 156, 31);
-		gameTabPanel.add(comboPlayer2);
+		gameTabPanel.add(comboPlayer2); 
 
 		JSeparator separator = new JSeparator();
 		separator.setBounds(59, 163, 961, 2);
@@ -183,7 +183,6 @@ public class MainWindow extends JFrame {
 							&& (rdbtnComputer1.isSelected() == false && rdbtnComputer2.isSelected() == false)) {
 						throw new ExceptionPvP();
 					}
-
 					if (rdbtnComputer1.isSelected() || rdbtnComputer2.isSelected()) {
 						// Both players are computers
 						if (rdbtnComputer1.isSelected() && rdbtnComputer2.isSelected()) {
@@ -213,7 +212,9 @@ public class MainWindow extends JFrame {
 								player1 = new Player("HardComputerKI", 0, 0, 0, 0, 0, null, Color.BLACK);
 							}
 							Player player2 = DataManager.getPlayerObj(comboPlayer2.getSelectedItem().toString());
+							if(player2.getIcon()!= null) {
 							player2.setIcon(DataManager.resizeIcon(player2.getIcon(), 99, 92));
+							}
 							GameWindow.start(player1, player2);
 						} else if (rdbtnComputer2.isSelected()) {
 							Player player2 = null;
@@ -225,7 +226,6 @@ public class MainWindow extends JFrame {
 								player2 = new Player("HardComputerKI", 0, 0, 0, 0, 0, null, Color.GRAY);
 							}
 							if(player1.getIcon()!= null) {
-							System.out.println(player1.getIcon().toString());
 							player1.setIcon(DataManager.resizeIcon(player1.getIcon(), 99, 92));
 							}
 							GameWindow.start(player1, player2);
@@ -236,15 +236,18 @@ public class MainWindow extends JFrame {
 						// Both players are humans
 						Player player1 = DataManager.getPlayerObj(comboPlayer1.getSelectedItem().toString());
 						Player player2 = DataManager.getPlayerObj(comboPlayer2.getSelectedItem().toString());
-
 						if (player1.getIcon() != null && player1.getIcon().equals(player2.getIcon())) {
 							ErrorWindow.start("Icon conflict: Please choose different icons!");
 						} else if (player1.getIcon() == null && player2.getIcon() == null && player1.getColor() != null
 								&& player1.getColor().equals(player2.getColor())) {
 							ErrorWindow.start("Color conflict: Please choose different colors!");
 						} else {
+							if(player1.getIcon()!= null) {
 							player1.setIcon(DataManager.resizeIcon(player1.getIcon(), 99, 92));
+							}
+							if(player2.getIcon()!= null) {
 							player2.setIcon(DataManager.resizeIcon(player2.getIcon(), 99, 92));
+							}
 							GameWindow.start(player1, player2);
 						}
 
