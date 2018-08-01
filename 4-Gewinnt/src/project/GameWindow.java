@@ -129,7 +129,12 @@ public class GameWindow {
 		optionsMenu.add(closeMenuItem);
 
 		helpMenu = new JMenu("Hilfe");
-		helpMenuItem = new JMenuItem("Hilfe");
+		helpMenuItem = new JMenuItem("Read Me!");
+		helpMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new ReadMeWindow();
+			}
+		});
 		helpMenu.add(helpMenuItem);
 
 		mainMenuBar = new JMenuBar();
