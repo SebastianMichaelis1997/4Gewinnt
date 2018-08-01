@@ -119,9 +119,8 @@ public class CreatePlayer {
 					picture.setText("");
 					try {
 
-						BufferedImage image = ImageIO.read(chooser.getSelectedFile());
-						ImageIcon icon = DataManager.resizeImage(image, 99, 92);
-						//ImageIcon icon = new ImageIcon(chooser.getSelectedFile().toString());
+						ImageIcon icon = new ImageIcon(chooser.getSelectedFile().toString());
+						icon = DataManager.resizeIcon(icon, 99, 92);
 
 						// picture is not saved jet, its just for giving the user
 						// the feedback which icon he has chosen

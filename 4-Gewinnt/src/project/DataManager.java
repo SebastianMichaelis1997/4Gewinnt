@@ -437,6 +437,12 @@ public class DataManager {
 		}
 	}
 	
+	public static ImageIcon resizeIcon(ImageIcon icon, int width, int height){
+		java.awt.Image image = icon.getImage(); // transform it
+		java.awt.Image newimg = image.getScaledInstance(99, 92,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way 
+		return new ImageIcon(newimg);  // transform it back
+	}
+	
 	
 	// This method resizes the BufferedImage to specified width and height.
 		// Returns an ImageIcon object.
