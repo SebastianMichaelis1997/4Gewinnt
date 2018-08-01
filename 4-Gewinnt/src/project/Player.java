@@ -149,6 +149,10 @@ public class Player {
 	public ImageIcon getIcon() {
 		return icon;
 	}
+	
+	public void setIcon(ImageIcon icon) {
+		this.icon = icon;
+	}
 
 	/**
 	 * This method replaces the current icon with a new one.

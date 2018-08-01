@@ -207,6 +207,7 @@ public class MainWindow extends JFrame {
 								player1 = new Player("HardComputerKI", 0, 0, 0, 0, 0, null, Color.BLACK);
 							}
 							Player player2 = DataManager.getPlayerObj(comboPlayer2.getSelectedItem().toString());
+							player2.setIcon(DataManager.resizeIcon(player2.getIcon(), 99, 92));
 							GameWindow.start(player1, player2);
 						} else if (rdbtnComputer2.isSelected()) {
 							Player player2 = null;
@@ -217,6 +218,7 @@ public class MainWindow extends JFrame {
 							if (comboComputer2.getSelectedItem().toString().equals("Schwer")) {
 								player2 = new Player("HardComputerKI", 0, 0, 0, 0, 0, null, Color.GRAY);
 							}
+							player1.setIcon(DataManager.resizeIcon(player1.getIcon(), 99, 92));
 							GameWindow.start(player1, player2);
 						}
 					}
@@ -232,6 +234,8 @@ public class MainWindow extends JFrame {
 								&& player1.getColor().equals(player2.getColor())) {
 							ErrorWindow.start("Color conflict: Please choose different colors!");
 						} else {
+							player1.setIcon(DataManager.resizeIcon(player1.getIcon(), 99, 92));
+							player2.setIcon(DataManager.resizeIcon(player2.getIcon(), 99, 92));
 							GameWindow.start(player1, player2);
 						}
 
