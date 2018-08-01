@@ -423,7 +423,6 @@ public class DataManager {
 			DataManager.deleteImage(DataManager.getProperty(playerName, "icon"));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		}
 		Path path = Paths.get(PLAYER_DIRECTORY + File.separator + playerName + ".player");
 		try {
@@ -431,7 +430,6 @@ public class DataManager {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			ErrorWindow.start("Player could not be deleted!");
-			e.printStackTrace();
 		}
 	}
 }
