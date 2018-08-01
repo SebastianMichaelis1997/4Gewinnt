@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.border.EmptyBorder;
+import javax.swing.UIManger;
 
 /***
  * This class represents the GUI-Window, which is launched first, and also
@@ -48,6 +49,7 @@ public class MainWindow extends JFrame {
 				try {
 					// MainWindowOwn frame = new MainWindowOwn();
 					// frame.setVisible(true);
+					UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelCLassName());
 					mainWindow = new MainWindow();
 					mainWindow.setVisible(true);
 					mainWindow.setResizable(false);
