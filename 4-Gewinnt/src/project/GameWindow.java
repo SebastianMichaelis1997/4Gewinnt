@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.UIManager;
 
 //import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -28,7 +29,7 @@ import javax.swing.SwingConstants;
  * This class represents the board of the game, with the actual field to play
  * on, as well as secondary information and a output console.
  * 
- * @author Enes Akg�mus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
+ * @author Enes Akgümus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
  *         Michaelis, Tobias Rothley
  *
  */
@@ -109,6 +110,12 @@ public class GameWindow {
 				logicField[i][j] = 0;
 				setStones = 0;
 			}
+		}
+		try { // setzen des Look-And-Feel
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+			// die Oberfläche wird mit dem neuen LAF angezeigt
+		}catch (Exception e){
+			
 		}
 		mainWindow = new JFrame();
 		mainWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
