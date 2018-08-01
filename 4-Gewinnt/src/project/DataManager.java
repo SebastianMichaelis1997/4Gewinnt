@@ -1,5 +1,7 @@
 package project;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 //import java.io.FileNotFoundException;
@@ -14,6 +16,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.io.File;
 import java.util.*;
+
+import javax.swing.ImageIcon;
 
 import exceptions.DataManagerErrorException;
 import exceptions.PlayerAlreadyExistsException;
@@ -434,4 +438,24 @@ public class DataManager {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	// This method resizes the BufferedImage to specified width and height.
+		// Returns an ImageIcon object.
+		public static ImageIcon resizeImage(BufferedImage image, int width, int height) {
+
+			// image - BufferedImage object of your file selected
+			// width - Width of your JLabel
+			// height - Height of your JLabel
+
+			// Creating a temporary Image of your desired size.
+			BufferedImage tempImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+			Graphics2D g = tempImg.createGraphics();
+
+			g.drawImage(image, 0, 0, width, height, null); // Draw the selected image on the tempImage from co-ordinates (0,
+															// 0) to (width, height) of the tempImage.
+			g.dispose(); // Clear resources.
+
+			return new ImageIcon(tempImg);
+		}
 }

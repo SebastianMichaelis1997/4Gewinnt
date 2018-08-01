@@ -1,12 +1,17 @@
 package project;
 
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.Graphics2D;
+
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import exceptions.IllegalNameException;
 //import exceptions.PlayerAlreadyExistsException;
@@ -28,8 +33,8 @@ import java.awt.Color;
  * enter his name, a color and desired icon. The saving mechanics are handled in
  * DataManager.
  * 
- * @author Enes Akgümus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
- *         Michaelis, Tobias Rothley
+ * @author Enes Akgümus, Simon Becht, Alexander Dreher, Emma Falldorf,
+ *         Sebastian Michaelis, Tobias Rothley
  *
  */
 public class CreatePlayer {
@@ -79,6 +84,8 @@ public class CreatePlayer {
 		btnChooser.setBounds(76, 100, 154, 29);
 		btnChooser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg", "gif", "png");
+				chooser.setFileFilter(filter);
 				chooser.showOpenDialog(null);
 			}
 		});
@@ -110,10 +117,18 @@ public class CreatePlayer {
 				// Now we want to display this image in the screen
 				if (chooser.getSelectedFile().toString() != null) {
 					picture.setText("");
-					ImageIcon icon = new ImageIcon(chooser.getSelectedFile().toString());
-					// picture is not saved jet, its just for giving the user
-					// the feedback which icon he has chosen
-					picture.setIcon(icon);
+					try {
+
+						BufferedImage image = ImageIO.read(chooser.getSelectedFile());
+						ImageIcon icon = DataManager.resizeImage(image, 99, 92);
+						//ImageIcon icon = new ImageIcon(chooser.getSelectedFile().toString());
+
+						// picture is not saved jet, its just for giving the user
+						// the feedback which icon he has chosen
+						picture.setIcon(icon);
+					} catch (Exception e) {
+						System.out.println("IOException!");
+					}
 				}
 
 			}
@@ -223,4 +238,5 @@ public class CreatePlayer {
 		}
 		return new ImageIcon(path, fileName);
 	}
+
 }
