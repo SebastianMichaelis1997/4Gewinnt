@@ -146,7 +146,7 @@ public class EditPlayer extends JFrame {
 		// Edit C
 		JComboBox<String> colorComboBox = new JComboBox<String>();
 		colorComboBox.setEditable(true);
-		colorComboBox.setSelectedItem("Select Player");
+		colorComboBox.setSelectedItem("Select Color");
 		colorComboBox.setEditable(false);
 		colorComboBox.addItem("red");
 		colorComboBox.addItem("blue");
