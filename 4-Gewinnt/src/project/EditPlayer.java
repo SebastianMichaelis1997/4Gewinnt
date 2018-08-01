@@ -23,7 +23,7 @@ import java.io.IOException;
  * This class represents the window, in which players can edit their attributes
  * to a certain degree.
  * 
- * @author Enes Akgümus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
+ * @author Enes Akgï¿½mus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
  *         Michaelis, Tobias Rothley
  *
  */
@@ -145,7 +145,7 @@ public class EditPlayer extends JFrame {
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnSave.setBounds(69, 293, 150, 50);
+		btnSave.setBounds(59, 293, 150, 50);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent save) {
 				//If player name was changed, this gets saved

@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
  * contains the package-wide main method. It starts building up the Window, and
  * initializes logic like Sound and PlayerData.
  * 
- * @author Enes Akgümus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
+ * @author Enes Akgï¿½mus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
  *         Michaelis, Tobias Rothley
  *
  */
@@ -161,7 +161,7 @@ public class MainWindow extends JFrame {
 
 		RoundCornerButton roundCornerButton = new RoundCornerButton("<html> <center>Start Game</center> </html>",
 				new Dimension(105, 65));
-		roundCornerButton.setForeground(Color.WHITE);
+		roundCornerButton.setForeground(Color.BLACK);
 		roundCornerButton.setBounds(419, 347, 215, 84);
 		gameTabPanel.add(roundCornerButton);
 		roundCornerButton.addActionListener(new ActionListener() {
