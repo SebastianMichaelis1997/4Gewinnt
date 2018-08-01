@@ -114,7 +114,7 @@ public class EditPlayer extends JFrame {
 				// Now we want to display this image in the screen
 				if (chooser.getSelectedFile().toString() != null) {
 					picture.setText("");
-					icon = new ImageIcon(chooser.getSelectedFile().toString());
+					icon = DataManager.resizeIcon(new ImageIcon(chooser.getSelectedFile().toString()),99,92);
 					// picture is not saved jet, its just for giving the user
 					// the feedback which icon he has chosen
 					picture.setIcon(icon);
