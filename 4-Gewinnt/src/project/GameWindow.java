@@ -52,6 +52,8 @@ public class GameWindow {
 	private static int currentPlayer = 1;
 	private static int height = 7;
 	private static int length = 7;
+	private static int maximumStones = (height - 1) * length;
+	private static int setStones = 0;
 
 	public static boolean gameIsOver = false;
 
@@ -305,6 +307,7 @@ public class GameWindow {
 		logicField[x][y] = currentPlayer;
 		field.setValue(currentPlayer);
 		field.fill();
+		setStones++;
 		switch (currentPlayer) {
 		case 1:
 			if (firstPlayer.getIcon() != null) {
@@ -347,6 +350,9 @@ public class GameWindow {
 		} catch (InterruptedException e) {
 
 		}
+		if (setStones == maximumStones) {
+			draw();
+		}
 		checkHorizontalWin(x, y);
 		checkVerticalWin(x, y);
 		checkDiagonalRightWin(x, y);
@@ -382,6 +388,17 @@ public class GameWindow {
 			}
 		}
 
+	}
+
+	/**
+	 * This methods ties the game and finishes it.
+	 */
+	private static void draw() {
+		gameIsOver = true;
+		log("----------");
+		log("Unentschieden!");
+		log("----------");
+		updatePlayersDraw();
 	}
 
 	/**
@@ -554,6 +571,13 @@ public class GameWindow {
 			secondPlayer.win();
 		}
 		log("----------");
+		updatePlayersWin();
+	}
+
+	/**
+	 * This method updates the player files in case of a win.
+	 */
+	private static void updatePlayersWin() {
 		if (firstPlayer.getName() != "EasyComputerKI" && firstPlayer.getName() != "HardComputerKI") {
 			try {
 				DataManager.changeProperty(firstPlayer.getName(), "wins", firstPlayer.getWins() + "");
@@ -593,6 +617,37 @@ public class GameWindow {
 			}
 			try {
 				DataManager.changeProperty(secondPlayer.getName(), "score", secondPlayer.getScore() + "");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * This method updates the player file in case of a tie.
+	 */
+	private static void updatePlayersDraw() {
+		firstPlayer.tie();
+		secondPlayer.tie();
+		if (firstPlayer.getName() != "EasyComputerKI" && firstPlayer.getName() != "HardComputerKI") {
+			try {
+				DataManager.changeProperty(firstPlayer.getName(), "nrOfGames", firstPlayer.getNrOfGames() + "");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				DataManager.changeProperty(firstPlayer.getName(), "ties", firstPlayer.getTies() + "");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (secondPlayer.getName() != "EasyComputerKI" && secondPlayer.getName() != "HardComputerKI") {
+			try {
+				DataManager.changeProperty(secondPlayer.getName(), "nrOfGames", secondPlayer.getNrOfGames() + "");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				DataManager.changeProperty(secondPlayer.getName(), "ties", secondPlayer.getTies() + "");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

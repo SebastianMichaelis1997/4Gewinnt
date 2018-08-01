@@ -10,6 +10,7 @@ import exceptions.ExceptionPvP;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.EmptyBorder;
 
 /***
  * This class represents the GUI-Window, which is launched first, and also
@@ -101,6 +102,7 @@ public class MainWindow extends JFrame {
 		// create an empty combo box with items of type String
 		// creates combo box with all player names for choosing player 1
 		comboPlayer1 = new JComboBox<Object>(DataManager.getAllPlayerNames().toArray());
+		comboPlayer1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		comboPlayer1.setBounds(213, 214, 156, 31);
 		gameTabPanel.add(comboPlayer1);
 
@@ -115,6 +117,7 @@ public class MainWindow extends JFrame {
 
 		// creates combo box with all player names for choosing player 2
 		comboPlayer2 = new JComboBox<Object>(DataManager.getAllPlayerNames().toArray());
+		comboPlayer2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		comboPlayer2.setBounds(842, 214, 156, 31);
 		gameTabPanel.add(comboPlayer2);
 
@@ -126,7 +129,7 @@ public class MainWindow extends JFrame {
 		buttonGroup.add(rdbtnHuman1);
 		rdbtnHuman1.setSelected(true);
 		rdbtnHuman1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		rdbtnHuman1.setBounds(63, 214, 98, 21);
+		rdbtnHuman1.setBounds(59, 217, 98, 21);
 		gameTabPanel.add(rdbtnHuman1);
 
 		JRadioButton rdbtnComputer1 = new JRadioButton("Computer");
@@ -270,31 +273,6 @@ public class MainWindow extends JFrame {
 		panelInPanel3.setLayout(null);
 		playerTabPanel.add(panelInPanel3);
 
-		// Combo box for choosing player which shall get edited
-		selectEditPlayer = new JComboBox<Object>(DataManager.getAllPlayerNames().toArray());
-		selectEditPlayer.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		selectEditPlayer.setBounds(371, 29, 326, 30);
-		selectEditPlayer.setEditable(true);
-		selectEditPlayer.setSelectedItem("Select Player");
-		selectEditPlayer.setEditable(false);
-		panelInPanel3.add(selectEditPlayer);
-
-		// Show score from Selected Player
-		selectEditPlayer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent showPlayer) {
-				if (!selectEditPlayer.getSelectedItem().toString().equals("Select Player")) {
-
-					String selectedPlayer = selectEditPlayer.getSelectedItem().toString();
-					String selectedScore = DataManager.getProperty(selectedPlayer, "score");
-					textField.setText(selectedScore);
-					String selectedWins = DataManager.getProperty(selectedPlayer, "wins");
-					textField_1.setText(selectedWins);
-					String selectedLosses = DataManager.getProperty(selectedPlayer, "losses");
-					textField_2.setText(selectedLosses);
-				}
-			}
-		});
-
 		JButton buttonEdit = new JButton("Edit");
 		buttonEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent editPlayer) {
@@ -403,6 +381,33 @@ public class MainWindow extends JFrame {
 		JSeparator separator_6 = new JSeparator();
 		separator_6.setBounds(55, 340, 634, 2);
 		panelInPanel3.add(separator_6);
+		
+				// Combo box for choosing player which shall get edited
+				selectEditPlayer = new JComboBox<Object>(DataManager.getAllPlayerNames().toArray());
+				selectEditPlayer.setBorder(new EmptyBorder(0, 0, 0, 0));
+				selectEditPlayer.setFocusTraversalKeysEnabled(false);
+				selectEditPlayer.setFocusable(false);
+				selectEditPlayer.setEditable(true);
+				selectEditPlayer.setFont(new Font("Tahoma", Font.PLAIN, 20));
+				selectEditPlayer.setBounds(371, 29, 326, 30);
+				selectEditPlayer.setSelectedItem("Select Player");
+				panelInPanel3.add(selectEditPlayer);
+				
+						// Show score from Selected Player
+						selectEditPlayer.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent showPlayer) {
+								if (!selectEditPlayer.getSelectedItem().toString().equals("Select Player")) {
+				
+									String selectedPlayer = selectEditPlayer.getSelectedItem().toString();
+									String selectedScore = DataManager.getProperty(selectedPlayer, "score");
+									textField.setText(selectedScore);
+									String selectedWins = DataManager.getProperty(selectedPlayer, "wins");
+									textField_1.setText(selectedWins);
+									String selectedLosses = DataManager.getProperty(selectedPlayer, "losses");
+									textField_2.setText(selectedLosses);
+								}
+							}
+						});
 
 		// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 		//
@@ -528,5 +533,4 @@ public class MainWindow extends JFrame {
 	public static SoundManager getAmbient() {
 		return ambient;
 	}
-
 }
