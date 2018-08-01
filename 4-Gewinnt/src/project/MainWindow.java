@@ -135,11 +135,11 @@ public class MainWindow extends JFrame {
 		rdbtnComputer1.setBounds(63, 297, 98, 21);
 		gameTabPanel.add(rdbtnComputer1);
 
-		JComboBox<String> comboComputer1 = new JComboBox<String>();
+		JComboBox<String> comboComputer1 = new JComboBox<String>(new String[] { "Einfach", "Schwer" });
 		comboComputer1.setBounds(213, 295, 156, 31);
 		gameTabPanel.add(comboComputer1);
 
-		JComboBox<String> comboComputer2 = new JComboBox<String>();
+		JComboBox<String> comboComputer2 = new JComboBox<String>(new String[] { "Einfach", "Schwer" });
 		comboComputer2.setBounds(842, 303, 156, 31);
 		gameTabPanel.add(comboComputer2);
 
@@ -173,16 +173,44 @@ public class MainWindow extends JFrame {
 					}
 
 					if (rdbtnComputer1.isSelected() || rdbtnComputer2.isSelected()) {
-						// One of the two players is a computer
-						if (rdbtnComputer1.isSelected()) {
-							Player player1 = new Player("EasyComputerKI", 0, 0, 0, 0, 0, null, null);
-							Player player2 = DataManager.getPlayerObj(comboPlayer2.getSelectedItem().toString());
+						// Both players are computers
+						if (rdbtnComputer1.isSelected() && rdbtnComputer2.isSelected()) {
+							Player player1 = null;
+							if (comboComputer1.getSelectedItem().toString().equals("Einfach")) {
+								player1 = new Player("EasyComputerKI", 0, 0, 0, 0, 0, null, Color.BLACK);
+							}
+							if (comboComputer1.getSelectedItem().toString().equals("Schwer")) {
+								player1 = new Player("HardComputerKI", 0, 0, 0, 0, 0, null, Color.BLACK);
+							}
+							Player player2 = null;
+							if (comboComputer2.getSelectedItem().toString().equals("Einfach")) {
+								player2 = new Player("EasyComputerKI", 0, 0, 0, 0, 0, null, Color.GRAY);
+							}
+							if (comboComputer2.getSelectedItem().toString().equals("Schwer")) {
+								player2 = new Player("HardComputerKI", 0, 0, 0, 0, 0, null, Color.GRAY);
+							}
 							GameWindow.start(player1, player2);
 						}
-
-						else if (rdbtnComputer2.isSelected()) {
+						// One of the two players is a computer
+						else if (rdbtnComputer1.isSelected()) {
+							Player player1 = null;
+							if (comboComputer1.getSelectedItem().toString().equals("Einfach")) {
+								player1 = new Player("EasyComputerKI", 0, 0, 0, 0, 0, null, Color.BLACK);
+							}
+							if (comboComputer1.getSelectedItem().toString().equals("Schwer")) {
+								player1 = new Player("HardComputerKI", 0, 0, 0, 0, 0, null, Color.BLACK);
+							}
+							Player player2 = DataManager.getPlayerObj(comboPlayer2.getSelectedItem().toString());
+							GameWindow.start(player1, player2);
+						} else if (rdbtnComputer2.isSelected()) {
+							Player player2 = null;
 							Player player1 = DataManager.getPlayerObj(comboPlayer1.getSelectedItem().toString());
-							Player player2 = new Player("EasyComputerKI", 0, 0, 0, 0, 0, null, null);
+							if (comboComputer2.getSelectedItem().toString().equals("Einfach")) {
+								player2 = new Player("EasyComputerKI", 0, 0, 0, 0, 0, null, Color.GRAY);
+							}
+							if (comboComputer2.getSelectedItem().toString().equals("Schwer")) {
+								player2 = new Player("HardComputerKI", 0, 0, 0, 0, 0, null, Color.GRAY);
+							}
 							GameWindow.start(player1, player2);
 						}
 					}
