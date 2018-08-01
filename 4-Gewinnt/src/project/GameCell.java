@@ -7,7 +7,7 @@ import javax.swing.JButton;
  * This custom class extends the button class in a way, to make it usable for
  * the game. It contains coordinate attributes within the logical game array.
  * 
- * @author Enes Akgümus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
+ * @author Enes AkgÃ¼mus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
  *         Michaelis, Tobias Rothley
  *
  */
@@ -39,6 +39,7 @@ public class GameCell extends JButton {
 		this.setBackground(color);
 		this.x_coordinate = x;
 		this.y_coordinate = y;
+		this.setOpaque(true);
 	}
 
 	/*
