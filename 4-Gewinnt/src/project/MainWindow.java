@@ -41,7 +41,7 @@ public class MainWindow extends JFrame {
 	 */
 	public static void main(String[] args) throws Exception {
 
-		startMusic("07 Identity Check");
+		startMusic("ambientHome");
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -525,6 +525,7 @@ public class MainWindow extends JFrame {
 	 */
 	public static void toFront2() {
 		mainWindow.toFront();
+		startMusic("ambientHome");
 	}
 
 	/**
@@ -538,7 +539,7 @@ public class MainWindow extends JFrame {
 		if (GameWindow.getAmbient() == null) {
 			// do nothing
 		} else {
-			// GameWindow.getAmbient().stopMusic(); to-do Emma
+			GameWindow.getAmbient().stopMusic();
 		}
 		try {
 			ambient = new SoundManager(filename, true);

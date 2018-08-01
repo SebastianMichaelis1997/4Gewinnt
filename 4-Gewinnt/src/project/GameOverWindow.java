@@ -72,6 +72,7 @@ public class GameOverWindow extends JFrame {
 			public void actionPerformed(ActionEvent backToGame) {
 				try {
 					GameWindow.dispose();
+					GameWindow.getAmbient().stopMusic();
 					GameWindow.start(p1, p2);
 					dispose();
 				} catch (AWTException e1) {

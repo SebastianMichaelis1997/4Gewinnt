@@ -77,6 +77,7 @@ public class GameWindow {
 	 *            The second player.
 	 * @throws AWTException
 	 *             If no mouse is detected, to load the field.
+	 * @wbp.parser.entryPoint
 	 */
 	public static void start(Player player1, Player player2) throws AWTException {
 
@@ -123,6 +124,7 @@ public class GameWindow {
 		closeMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				mainWindow.dispose();
+				MainWindow.toFront2();
 			}
 		});
 		optionsMenu.add(newGameMenuItem);
@@ -1022,7 +1024,7 @@ public class GameWindow {
 	 *            The name of the track (as a .wav).
 	 */
 	public static void startMusic(String filename) {
-		// MainWindow.getAmbient().stopMusic(); to-do Emma
+		MainWindow.getAmbient().stopMusic();
 		try {
 			ambient = new SoundManager(filename, true);
 		} catch (Exception e) {
@@ -1030,7 +1032,7 @@ public class GameWindow {
 		}
 	}
 
-	public static Object getAmbient() {
+	public static SoundManager getAmbient() {
 		return ambient;
 	}
 
