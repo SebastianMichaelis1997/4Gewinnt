@@ -20,7 +20,7 @@ import javax.swing.SwingConstants;
  * This class represents a custom designed button, and is used for the fancy
  * "Start Game" Button in the main window.
  * 
- * @author Enes Akgümus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
+ * @author Enes Akgï¿½mus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
  *         Michaelis, Tobias Rothley
  *
  */
@@ -58,7 +58,7 @@ public class RoundCornerButton extends JButton {
 		super.updateUI();
 		setContentAreaFilled(false);
 		setFocusPainted(false);
-		setBackground(Color.BLACK);
+		setBackground(Color.WHITE);
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class RoundCornerButton extends JButton {
 		int buttonHeight = getHeight() - 1;
 		Shape shape = new RoundRectangle2D.Float(0, 0, buttonWidth, buttonHeight, ARC_WIDTH, ARC_HEIGHT);
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g2.setColor(Color.BLACK);
+		g2.setColor(Color.WHITE);
 		g2.fill(shape);
 		g2.dispose();
 		super.paintComponent(g);
@@ -92,10 +92,10 @@ public class RoundCornerButton extends JButton {
 		lb.lineTo(rectangle.x + rectangle.width, rectangle.y + rectangle.height);
 		lb.lineTo(rectangle.x + 5, rectangle.y + rectangle.height);
 		lb.closePath();
-		g2.setColor(Color.BLACK);
+		g2.setColor(Color.WHITE);
 		g2.setClip(lb);
 		g2.draw(border);
-		g2.setColor(Color.DARK_GRAY);
+		g2.setColor(Color.WHITE);
 		Area area = new Area(rectangle);
 		area.subtract(new Area(lb));
 		g2.setClip(area);
@@ -110,7 +110,7 @@ public class RoundCornerButton extends JButton {
 		lb3.lineTo(ractangle3.x, (ractangle3.y + ractangle3.height));
 		lb3.closePath();
 		g2.setStroke(new BasicStroke(3f));
-		g2.setColor(Color.BLACK);
+		g2.setColor(Color.WHITE);
 		g2.setClip(lb3);
 		g2.draw(border3);
 
