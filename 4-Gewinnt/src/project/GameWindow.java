@@ -58,6 +58,7 @@ public class GameWindow {
 	public static boolean gameIsOver = false;
 
 	private static int[][] logicField = new int[height][length];
+	private static int[][] simulatedField = new int[height][length];
 	private static GameCell[][] cellField = new GameCell[height][length];
 
 	private static Player firstPlayer;
@@ -106,6 +107,7 @@ public class GameWindow {
 			for (int j = 0; j < cellField[i].length; j++) {
 				cellField[i][j] = null;
 				logicField[i][j] = 0;
+				setStones = 0;
 			}
 		}
 		mainWindow = new JFrame();
@@ -306,6 +308,7 @@ public class GameWindow {
 	private static void fillField(GameCell field, int x, int y) {
 		logicField[x][y] = currentPlayer;
 		field.setValue(currentPlayer);
+		log("Filled " + x + " " + y);
 		field.fill();
 		setStones++;
 		switch (currentPlayer) {
@@ -746,11 +749,49 @@ public class GameWindow {
 	}
 
 	/**
-	 * This method chooses a nearly optimal cell, and simulates a click on it.
+	 * This method chooses a nearly optimal cell with calculating outputs for one
+	 * turn into the future, and simulates a click on it.
 	 */
 	private static void HardComputerAI() {
 		int x = 0;
-		int y = randomNrFrom0Ton(6);
+		int y = 0;
+		int rating;
+		// Check the optimal turn for winning
+		for (int i = 0; i < length; i++) {
+			refreshSimulatedField();
+			int height = simulateClick(i, currentPlayer);
+			rating = rateField(height, i);
+			if (rating >= 4) {
+				evaluateClick(cellField[x][i]);
+				return;
+			}
+		}
+		// Check the optimal turn for blocking
+		int enemy = 0;
+		if (currentPlayer == 1) {
+			enemy = 2;
+		} else {
+			enemy = 1;
+		}
+		for (int i = 0; i < length; i++) {
+			refreshSimulatedField();
+			int height = simulateClick(i, enemy);
+			rating = rateField(height, i);
+			if (rating >= 4) {
+				evaluateClick(cellField[x][i]);
+				return;
+			}
+
+		}
+		// Choose the longest streak, and build at it
+		int[] ratings = new int[7];
+		for (int i = 0; i < length; i++) {
+			refreshSimulatedField();
+			int height = simulateClick(i, currentPlayer);
+			ratings[i] = rateField(height, i);
+		}
+		y = getMaxIndex(ratings);
+
 		try {
 			Thread.sleep(1);
 		} catch (InterruptedException e) {
@@ -760,7 +801,213 @@ public class GameWindow {
 	}
 
 	/**
-	 * This metod simply disposes of the window, similar to the normal close button
+	 * This method prepares the simulated logic-array for the next simulated click.
+	 */
+	private static void refreshSimulatedField() {
+		for (int i = 0; i < length; i++) {
+			for (int j = 0; j < height; j++) {
+				simulatedField[i][j] = logicField[i][j];
+			}
+		}
+	}
+
+	/**
+	 * This auxiliary method works exactly like evaluate, but only for the simulated
+	 * field.
+	 * 
+	 * @param column
+	 *            The column, on which top most part is simulated.
+	 * @param playerValue
+	 *            The players value, e.g. 1 for player 1, 2 for player 2.
+	 * @return The height of the affected cell after gravity function.
+	 */
+	private static int simulateClick(int column, int playerValue) {
+		for (int i = height - 1; i >= 0; i--) {
+			if (simulatedField[i][column] == 0) {
+				simulatedField[i][column] = playerValue;
+				return i;
+			}
+		}
+		return 0;
+	}
+
+	/**
+	 * This method calculates the rating of a future field, depending on where the
+	 * next stone is set. The rating shows, how many stones there will be in a row.
+	 * 
+	 * @param x
+	 *            The x coordinate of the cell.
+	 * @param y
+	 *            The y coordinate of the cell.
+	 * @return The maximum possible rating, which can be achieved from this turn.
+	 */
+	private static int rateField(int x, int y) {
+		int[] ratings = new int[4];
+		ratings[0] = rateHorizontally(x, y);
+		ratings[1] = rateVertically(x, y);
+		ratings[2] = rateDiagonalRight(x, y);
+		ratings[3] = rateDiagonalLeft(x, y);
+		return getMax(ratings);
+	}
+
+	/**
+	 * This auxiliary method calculates the rating horizontally.
+	 * 
+	 * @param x
+	 *            The x coordinate of the newly set cell.
+	 * @param y
+	 *            The y coordinate of the newly set cell.
+	 * @return The longest possible horizontal streak.
+	 */
+	private static int rateHorizontally(int x, int y) {
+		int value = simulatedField[x][y];
+		int counter = 1;
+		int x_new = x;
+
+		int y_new = y - 1;
+		// linke reichweite
+		while (isValid(x_new, y_new) && simulatedField[x_new][y_new] != 0 && simulatedField[x_new][y_new] == value) {
+			counter = counter + 1;
+			y_new = y_new - 1;
+		}
+		y_new = y + 1;
+		// rechte reichweite
+		while (isValid(x_new, y_new) && simulatedField[x_new][y_new] != 0 && simulatedField[x_new][y_new] == value) {
+			counter = counter + 1;
+			y_new = y_new + 1;
+		}
+		return counter;
+	}
+
+	/**
+	 * This auxiliary method calculates the rating vertically.
+	 * 
+	 * @param x
+	 *            The x coordinate of the newly set cell.
+	 * @param y
+	 *            The y coordinate of the newly set cell.
+	 * @return The longest possible vertical streak.
+	 */
+	private static int rateVertically(int x, int y) {
+		int value = simulatedField[x][y];
+		int counter = 1;
+		int y_new = y;
+
+		int x_new = x - 1;
+		// obere reichweite
+		while (isValid(x_new, y_new) && simulatedField[x_new][y_new] != 0 && simulatedField[x_new][y_new] == value) {
+			counter = counter + 1;
+			x_new = x_new - 1;
+		}
+		x_new = x + 1;
+		// untere reichweite
+		while (isValid(x_new, y_new) && simulatedField[x_new][y_new] != 0 && simulatedField[x_new][y_new] == value) {
+			counter = counter + 1;
+			x_new = x_new + 1;
+		}
+		return counter;
+	}
+
+	/**
+	 * This auxiliary method calculates the rating diagonally, from bottom right to left right.
+	 * 
+	 * @param x
+	 *            The x coordinate of the newly set cell.
+	 * @param y
+	 *            The y coordinate of the newly set cell.
+	 * @return The longest possible diagonal streak.
+	 */
+	private static int rateDiagonalRight(int x, int y) {
+		int value = simulatedField[x][y];
+		int counter = 1;
+
+		int y_new = y + 1;
+		int x_new = x - 1;
+		// oben rechte reichweite
+		while (isValid(x_new, y_new) && simulatedField[x_new][y_new] != 0 && simulatedField[x_new][y_new] == value) {
+			counter = counter + 1;
+			y_new = y_new + 1;
+			x_new = x_new - 1;
+		}
+		y_new = y - 1;
+		x_new = x + 1;
+		// unten linke reichweite
+		while (isValid(x_new, y_new) && simulatedField[x_new][y_new] != 0 && simulatedField[x_new][y_new] == value) {
+			counter = counter + 1;
+			y_new = y_new - 1;
+			x_new = x_new + 1;
+		}
+		return counter;
+	}
+
+	/**
+	 * This auxiliary method calculates the rating diagonally, from bottom left to top right.
+	 * 
+	 * @param x
+	 *            The x coordinate of the newly set cell.
+	 * @param y
+	 *            The y coordinate of the newly set cell.
+	 * @return The longest possible diagonal streak.
+	 */
+	private static int rateDiagonalLeft(int x, int y) {
+		int value = simulatedField[x][y];
+		int counter = 1;
+
+		int y_new = y - 1;
+		int x_new = x - 1;
+		// oben linke reichweite
+		while (isValid(x_new, y_new) && simulatedField[x_new][y_new] != 0 && simulatedField[x_new][y_new] == value) {
+			counter = counter + 1;
+			y_new = y_new - 1;
+			x_new = x_new - 1;
+		}
+		y_new = y + 1;
+		x_new = x + 1;
+		// unten rechte reichweite
+		while (isValid(x_new, y_new) && simulatedField[x_new][y_new] != 0 && simulatedField[x_new][y_new] == value) {
+			counter = counter + 1;
+			y_new = y_new + 1;
+			x_new = x_new + 1;
+		}
+		return counter;
+	}
+
+	/**
+	 * This auxiliary method finds the largest value in an array.
+	 * 
+	 * @param values
+	 *            The array to be searched.
+	 * @return The largest value.
+	 */
+	private static int getMax(int[] values) {
+		int index = 0;
+		for (int i = 0; i < values.length; i++) {
+			if (values[index] < values[i]) {
+				index = i;
+			}
+		}
+		return values[index];
+	}
+
+	/**
+	 * This auxiliary method finds the index of the largest value in the array.
+	 * 
+	 * @param values
+	 *            The array to be searched.
+	 * @return The index of the largest value.
+	 */
+	private static int getMaxIndex(int[] values) {
+		int index = 0;
+		for (int i = 0; i < values.length; i++) {
+			if (values[index] < values[i]) {
+				index = i;
+			}
+		}
+		return index;
+	}
+
+	/**
+	 * This method simply disposes of the window, similar to the normal close button
 	 * action.
 	 */
 	public static void dispose() {
