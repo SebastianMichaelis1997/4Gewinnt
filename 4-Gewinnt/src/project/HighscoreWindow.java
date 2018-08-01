@@ -50,8 +50,8 @@ public class HighscoreWindow extends JFrame {
 	 */
 	public HighscoreWindow() {
 		// TableHeaders: Platz Name Score Games Wins losses Ties
-		// table_1 = new JTable();
-		// getContentPane().add(table_1, BorderLayout.CENTER);
+		JTable table_1 = new JTable();
+		getContentPane().add(table_1, BorderLayout.CENTER);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
