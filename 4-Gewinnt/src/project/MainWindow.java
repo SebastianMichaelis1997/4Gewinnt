@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.border.EmptyBorder;
-import javax.swing.UIManger;
+import javax.swing.UIManager;
 
 /***
  * This class represents the GUI-Window, which is launched first, and also
@@ -47,9 +47,7 @@ public class MainWindow extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					// MainWindowOwn frame = new MainWindowOwn();
-					// frame.setVisible(true);
-					UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelCLassName());
+					UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 					mainWindow = new MainWindow();
 					mainWindow.setVisible(true);
 					mainWindow.setResizable(false);
@@ -91,12 +89,6 @@ public class MainWindow extends JFrame {
 				"Game                                                                                          ",
 				gameTabPanel);
 
-		JLabel label_1 = new JLabel("Select Players:");
-		label_1.setForeground(Color.DARK_GRAY);
-		label_1.setFont(new Font("Tahoma", Font.ITALIC, 20));
-		label_1.setBounds(445, 39, 145, 31);
-		gameTabPanel.add(label_1);
-
 		JLabel label_2 = new JLabel("Player Number One:");
 		label_2.setFont(new Font("Tahoma", Font.ITALIC, 16));
 		label_2.setBounds(59, 134, 156, 31);
@@ -111,7 +103,7 @@ public class MainWindow extends JFrame {
 
 		JLabel label = new JLabel("Player Number Two:");
 		label.setFont(new Font("Tahoma", Font.ITALIC, 16));
-		label.setBounds(688, 135, 156, 29);
+		label.setBounds(714, 135, 156, 29);
 		gameTabPanel.add(label);
 
 		JSeparator separator_2 = new JSeparator();
@@ -121,7 +113,7 @@ public class MainWindow extends JFrame {
 		// creates combo box with all player names for choosing player 2
 		comboPlayer2 = new JComboBox<Object>(DataManager.getAllPlayerNames().toArray());
 		comboPlayer2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		comboPlayer2.setBounds(842, 214, 156, 31);
+		comboPlayer2.setBounds(864, 214, 156, 31);
 		gameTabPanel.add(comboPlayer2); 
 
 		JSeparator separator = new JSeparator();
@@ -149,20 +141,20 @@ public class MainWindow extends JFrame {
 
 		JComboBox<Object> comboComputer2 = new JComboBox<Object>(diff);
 		comboComputer2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		comboComputer2.setBounds(842, 294, 156, 31);
+		comboComputer2.setBounds(864, 292, 156, 31);
 		gameTabPanel.add(comboComputer2);
 
 		JRadioButton rdbtnHuman2 = new JRadioButton("Human");
 		buttonGroup_1.add(rdbtnHuman2);
 		rdbtnHuman2.setSelected(true);
 		rdbtnHuman2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		rdbtnHuman2.setBounds(688, 217, 98, 21);
+		rdbtnHuman2.setBounds(709, 219, 98, 21);
 		gameTabPanel.add(rdbtnHuman2);
 
 		JRadioButton rdbtnComputer2 = new JRadioButton("Computer");
 		buttonGroup_1.add(rdbtnComputer2);
 		rdbtnComputer2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		rdbtnComputer2.setBounds(688, 297, 98, 21);
+		rdbtnComputer2.setBounds(709, 297, 98, 21);
 		gameTabPanel.add(rdbtnComputer2);
 
 		RoundCornerButton roundCornerButton = new RoundCornerButton("<html> <center>Start Game</center> </html>",
@@ -174,7 +166,7 @@ public class MainWindow extends JFrame {
 		JLabel lblLogo = new JLabel("");
 		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogo.setIcon(DataManager.resizeIcon(new ImageIcon("systemPictures" + File.separator + "4gewinntpersonalisiert.jpg"), 200, 80));
-		lblLogo.setBounds(852, 23, 200, 80);
+		lblLogo.setBounds(417, 25, 242, 92);
 		gameTabPanel.add(lblLogo);
 		roundCornerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -8,6 +8,9 @@ import java.awt.GridLayout;
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.UIManager;
 
 //import javax.swing.ImageIcon;
@@ -119,7 +122,15 @@ public class GameWindow {
 			
 		}
 		mainWindow = new JFrame();
-		mainWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		mainWindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		mainWindow.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent event) {
+				mainWindow.dispose();
+				MainWindow.toFront2();
+			}
+		});
+		
 		mainWindow.setSize(1250, 700);
 		mainWindow.setLocation(100, 100);
 		mainWindow.setTitle("Vier Gewinnt!");
@@ -212,14 +223,14 @@ public class GameWindow {
 		splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		splitPane.setTopComponent(infoTopPanel);
 
-		lblFirstPlayerIcon = new JLabel("Icon1");
+		lblFirstPlayerIcon = new JLabel("");
 		lblFirstPlayerIcon.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblFirstPlayerIcon.setIcon(firstPlayer.getIcon());
 		lblFirstPlayerIcon.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFirstPlayerIcon.setBounds(341, 35, 105, 102);
 		infoTopPanel.add(lblFirstPlayerIcon);
 
-		lblSecondPlayerIcon = new JLabel("Icon2");
+		lblSecondPlayerIcon = new JLabel("");
 		lblSecondPlayerIcon.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblSecondPlayerIcon.setIcon(secondPlayer.getIcon());
 		lblSecondPlayerIcon.setHorizontalAlignment(SwingConstants.CENTER);

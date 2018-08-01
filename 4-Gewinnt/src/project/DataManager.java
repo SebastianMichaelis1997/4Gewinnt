@@ -191,7 +191,7 @@ public class DataManager {
 			return new Player(playerData);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		} 
 		return null;
 	}
 
