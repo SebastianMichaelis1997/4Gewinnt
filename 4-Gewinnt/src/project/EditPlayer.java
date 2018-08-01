@@ -23,8 +23,8 @@ import java.io.IOException;
  * This class represents the window, in which players can edit their attributes
  * to a certain degree.
  * 
- * @author Enes Akg�mus, Simon Becht, Alexander Dreher, Emma Falldorf, Sebastian
- *         Michaelis, Tobias Rothley
+ * @author Enes Akg�mus, Simon Becht, Alexander Dreher, Emma Falldorf,
+ *         Sebastian Michaelis, Tobias Rothley
  *
  */
 public class EditPlayer extends JFrame {
@@ -32,6 +32,7 @@ public class EditPlayer extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtChangeName;
+	private ImageIcon icon;
 
 	/**
 	 * This method creates a new window and shows it.
@@ -64,7 +65,6 @@ public class EditPlayer extends JFrame {
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
 
-
 		txtChangeName = new JTextField();
 		txtChangeName.setBounds(188, 26, 168, 43);
 		txtChangeName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -86,11 +86,15 @@ public class EditPlayer extends JFrame {
 		JLabel picture = new JLabel();
 		picture.setBounds(82, 171, 100, 100);
 		picture.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		picture.setIcon(DataManager.resizeIcon(new ImageIcon(System.getProperty("user.dir") + File.separator + "profilePictures"
-				+ File.separator + DataManager.getProperty(player.toString(), "icon")), 99,92));
+
+		picture.setIcon(
+				DataManager
+						.resizeIcon(
+								new ImageIcon(System.getProperty("user.dir") + File.separator + "profilePictures"
+										+ File.separator + DataManager.getProperty(player.toString(), "icon")),
+								99, 92));
 		picture.setVisible(true);
-		//the icon of the player gets shown
+		// the icon of the player gets shown
 		contentPane.add(picture);
 
 		JFileChooser chooser = new JFileChooser(); // For Icon choosing
@@ -110,7 +114,7 @@ public class EditPlayer extends JFrame {
 				// Now we want to display this image in the screen
 				if (chooser.getSelectedFile().toString() != null) {
 					picture.setText("");
-					ImageIcon icon = new ImageIcon(chooser.getSelectedFile().toString());
+					icon = new ImageIcon(chooser.getSelectedFile().toString());
 					// picture is not saved jet, its just for giving the user
 					// the feedback which icon he has chosen
 					picture.setIcon(icon);
@@ -140,16 +144,22 @@ public class EditPlayer extends JFrame {
 		contentPane.add(lblEditColor);
 
 		// Edit C
-		JComboBox<String> colorComboBox = new JComboBox<String>(new String[] { "red", "blue", "green" });
+		JComboBox<String> colorComboBox = new JComboBox<String>();
+		colorComboBox.setEditable(true);
+		colorComboBox.setSelectedItem("Select Color");
+		colorComboBox.setEditable(false);
+		colorComboBox.addItem("red");
+		colorComboBox.addItem("blue");
+		colorComboBox.addItem("green");
 		colorComboBox.setBounds(310, 156, 212, 36);
 		contentPane.add(colorComboBox);
-		
+
 		JButton btnSave = new JButton("Save");
 		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnSave.setBounds(59, 293, 150, 50);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent save) {
-				//If player name was changed, this gets saved
+				// If player name was changed, this gets saved
 				try {
 					if (txtChangeName.getText().equals("Select Player")) {
 						throw new IllegalNameException("Select Player");
@@ -166,27 +176,41 @@ public class EditPlayer extends JFrame {
 					MainWindow.refreshPlayerComboBox();
 					dispose();
 				}
-				//If player icon was changed, this gets saved
-				try {
+				// If player icon was changed, this gets saved
+				if (icon != null) {
 					try {
-						//At first, the old picture gets deleted
 						try {
-						DataManager.deleteImage(DataManager.getProperty(player.toString(), "icon"));
+							// At first, the old picture gets deleted
+							try {
+								DataManager.deleteImage(DataManager.getProperty(player.toString(), "icon"));
+							} catch (Exception e) {
+								// Player had no picture
+							}
+							// and the new icon gets saved...
+							DataManager.saveImage(chooser.getSelectedFile().toString(),
+									chooser.getSelectedFile().getName());
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
-						catch (Exception e) {
-							// Player had no picture
-						}						
-						//and the new icon gets saved...
-						DataManager.saveImage(chooser.getSelectedFile().toString(), chooser.getSelectedFile().getName());
-					} catch (IOException e) {
+						// ..and the old icon-name in the player properties gets overwritten by the new
+						// one
+						DataManager.changeProperty(txtChangeName.getText(), "icon",
+								chooser.getSelectedFile().getName());
+					} catch (PlayerAlreadyExistsException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					//..and the old icon-name in the player properties gets overwritten by the new one
-					DataManager.changeProperty(txtChangeName.getText(), "icon", chooser.getSelectedFile().getName());
-				} catch (PlayerAlreadyExistsException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				}
+				// If player color was changed, this gets saved
+				if (colorComboBox.getSelectedItem() != "Edit Color") {
+					try {
+						DataManager.changeProperty(txtChangeName.getText(), "color",
+								colorComboBox.getSelectedItem().toString());
+					} catch (PlayerAlreadyExistsException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		});
