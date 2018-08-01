@@ -88,13 +88,7 @@ public class GameWindow {
 
 		loadField();
 
-		if (player1.getName() != "EasyComputerKI")
-			log("Player " + player1.getName() + "'s turn!");
-		else if (player2.getName() != "EasyComputerKI")
-			log("Player " + player2.getName() + "'s turn!");
-		else {
-			System.out.println("Error Computer vs. Computer!");
-		}
+		initComputers();
 
 	}
 
@@ -348,6 +342,11 @@ public class GameWindow {
 	 *            The y coordinate of the last filled cell.
 	 */
 	public static void updateAfterTurn(int x, int y) {
+		try {
+			Thread.sleep(1);
+		} catch (InterruptedException e) {
+
+		}
 		checkHorizontalWin(x, y);
 		checkVerticalWin(x, y);
 		checkDiagonalRightWin(x, y);
@@ -356,17 +355,25 @@ public class GameWindow {
 			switch (currentPlayer) {
 			case 1:
 				currentPlayer = 2;
-				if (secondPlayer.getName() == "EasyComputerKI")
+				if (secondPlayer.getName().equals("EasyComputerKI")) {
 					EasyComputerAI();
-				else {
+					log("EasyComputerKI's turn!");
+				} else if (secondPlayer.getName().equals("HardComputerKI")) {
+					HardComputerAI();
+					log("HardComputerKI's turn!");
+				} else {
 					log("Player " + secondPlayer.getName() + "'s turn!");
 					break;
 				}
 			case 2:
 				currentPlayer = 1;
-				if (firstPlayer.getName() == "EasyComputerKI")
+				if (firstPlayer.getName().equals("EasyComputerKI")) {
 					EasyComputerAI();
-				else {
+					log("EasyComputerKI's turn!");
+				} else if (firstPlayer.getName().equals("HardComputerKI")) {
+					HardComputerAI();
+					log("HardComputerKI's turn!");
+				} else {
 					log("Player " + firstPlayer.getName() + "'s turn!");
 					break;
 				}
@@ -374,6 +381,7 @@ public class GameWindow {
 				break;
 			}
 		}
+
 	}
 
 	/**
@@ -546,7 +554,7 @@ public class GameWindow {
 			secondPlayer.win();
 		}
 		log("----------");
-		if (firstPlayer.getName() != "EasyComputerKI") {
+		if (firstPlayer.getName() != "EasyComputerKI" && firstPlayer.getName() != "HardComputerKI") {
 			try {
 				DataManager.changeProperty(firstPlayer.getName(), "wins", firstPlayer.getWins() + "");
 			} catch (Exception e) {
@@ -567,7 +575,7 @@ public class GameWindow {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if (secondPlayer.getName() != "EasyComputerKI") {
+		} else if (secondPlayer.getName() != "EasyComputerKI" && secondPlayer.getName() != "HardComputerKI") {
 			try {
 				DataManager.changeProperty(secondPlayer.getName(), "wins", secondPlayer.getWins() + "");
 			} catch (Exception e) {
@@ -653,21 +661,47 @@ public class GameWindow {
 	}
 
 	/**
+	 * This method initializes the first turn, if player one is a computer.
+	 */
+	private static void initComputers() {
+		if (firstPlayer.getName().equals("EasyComputerKI")) {
+			EasyComputerAI();
+		}
+		if (firstPlayer.getName().equals("HardComputerKI")) {
+			HardComputerAI();
+		}
+	}
+
+	/**
 	 * This method chooses a random cell, and simulates a click on it.
 	 */
 	private static void EasyComputerAI() {
 		int x = 0;
 		int y = randomNrFrom0Ton(6);
 		try {
-			Thread.sleep(500);
-		} catch (InterruptedException ex) {
-			Thread.currentThread().interrupt();
+			Thread.sleep(1);
+		} catch (InterruptedException e) {
+
 		}
 		if (cellField[x][y].isFilled() == false) {
 			evaluateClick(cellField[x][y]);
 		} else {
 			EasyComputerAI();
 		}
+	}
+
+	/**
+	 * This method chooses a nearly optimal cell, and simulates a click on it.
+	 */
+	private static void HardComputerAI() {
+		int x = 0;
+		int y = randomNrFrom0Ton(6);
+		try {
+			Thread.sleep(1);
+		} catch (InterruptedException e) {
+
+		}
+		evaluateClick(cellField[x][y]);
 	}
 
 	/**
