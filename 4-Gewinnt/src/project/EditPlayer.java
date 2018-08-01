@@ -86,8 +86,9 @@ public class EditPlayer extends JFrame {
 		JLabel picture = new JLabel();
 		picture.setBounds(82, 171, 100, 100);
 		picture.setHorizontalAlignment(SwingConstants.CENTER);
-		picture.setIcon(new ImageIcon(System.getProperty("user.dir") + File.separator + "profilePictures"
-				+ File.separator + DataManager.getProperty(player.toString(), "icon")));
+		
+		picture.setIcon(DataManager.resizeIcon(new ImageIcon(System.getProperty("user.dir") + File.separator + "profilePictures"
+				+ File.separator + DataManager.getProperty(player.toString(), "icon")), 99,92));
 		picture.setVisible(true);
 		//the icon of the player gets shown
 		contentPane.add(picture);
