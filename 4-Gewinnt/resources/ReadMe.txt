@@ -35,3 +35,11 @@ Hier kann die Lautstärke der Musik eingestellt sowie das ReadMe eingesehen werde
 
 Kontakt-E-Mail: sew-enes@hotmail.com
 Git-Repository: https://github.com/SebastianMichaelis1997/4Gewinnt
+
+Quellen Audio-Dateien(18.07.2018):
+
+ambienteHome: The Sims 3, Identity Check, Steve Jablonsky, 2009
+https://downloads.khinsider.com/game-soundtracks/album/the-sims-3
+
+ambienteGame: Una mattina, ludovico Einaudi, 2004
+http://digitalk7.com/mus/Jazz,%20Fusion%20etc/Ludovico%20Einaudi/2004%20%E2%80%A2%20Una%20mattina/
